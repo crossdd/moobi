@@ -2,27 +2,22 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export const PinContainer = ({
   title,
   children,
-  id,
   className,
   containerClassName,
 }: {
   title: string
   children: React.ReactNode;
-  id: string;
   className?: string;
   containerClassName?: string;
 }) => {
   const [transform, setTransform] = useState(
     "translate(-50%,-50%) rotateX(0deg)"
   );
-
-  const router = useRouter()
 
   const onMouseEnter = () => {
     setTransform("translate(-50%,-50%) rotateX(20deg) scale(0.8)");
@@ -34,12 +29,11 @@ export const PinContainer = ({
   return (
     <div
       className={cn(
-        "relative group/pin z-50  cursor-pointer",
+        "relative group/pin z-50 cursor-pointer",
         containerClassName
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={() => router.push(`/projects/${id}`)}
     >
       <div
         style={{

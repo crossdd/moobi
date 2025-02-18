@@ -3,7 +3,7 @@ import { Award, Baby, Bug, Rocket } from "lucide-react";
 export const navItems = [
   { name: "About", link: "#about" },
   { name: "Projects", link: "#projects" },
-  { name: "Testimonials", link: "#testimonials" },
+  { name: "Stack", link: "#stack" },
   { name: "Contact", link: "#contact" },
 ];
 
@@ -124,15 +124,15 @@ export const testimonials = [
 ];
 
 export const skills = {
-  frontend: ["HTML", "Javascript", "React", "Next.js"],
-  backend: ["Node.js", "Mongo DB", "PostgreSQL", "GraphQL"],
-  tools: ["Vite", "Tailwindcss", "Typescript", "Prisma"],
+  frontend: ["HTML & CSS", "Javascript", "React", "Next.js"],
+  backend: ["Node.js", "PostgreSQL", "GraphQL", "Appwrite"],
+  tools: ["Tailwindcss", "Drizzle", "Typescript", "Prisma"],
 };
 
 export const experiences = [
   {
     year: "12/03/2023",
-    title: "First baby steps",
+    title: "The Beginning",
     content:
       "The journey of a thousand miles began. Wrote my first ever HTML code.",
     color: "#3b82f6",
@@ -140,25 +140,25 @@ export const experiences = [
   },
   {
     year: "May 18, 2023 - May 21, 2023",
-    title: "Next Mark Zuckerberg",
+    title: "Coding Freak",
     content:
-      "Ahh!! The times when I all cared about was just coding. Just started learning Javascript. Stayed up for 49 hours straight",
+      "Ahh!! The times when I all cared about was just writing code. Stayed up for 3 days, learning and building projects.",
     color: "#22c55e",
     icon: Award,
   },
   {
     year: "Jan 12, 2024",
-    title: "Debugging Lord",
+    title: "Bug Attack",
     content:
-      "Can't believe I shit my pants for over a day coz I forgot to add .json(). I didn't spot it though; my friend did.",
+      "The day I encountered my first monstrous bug. It was a nightmare.",
     color: "#5d3a1a",
     icon: Bug,
   },
   {
     year: new Date().toDateString(),
-    title: "Now vs then",
+    title: "What Now?",
     content:
-      "Looking back, a lot has changed and I'm really proud of my progress. I plan to keep on learning, doing what I love (coding) and reach greater heights.",
+      "Nothing has changed. Late nights, bug attacks, and the joy of building something new. The journey continues...",
     color: "#ec4899",
     icon: Rocket,
   },

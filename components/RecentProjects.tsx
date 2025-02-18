@@ -1,7 +1,7 @@
 import { projects } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import { FaLocationArrow } from "react-icons/fa6";
+import { FaGithub, FaLocationArrow } from "react-icons/fa6";
 import AnimatedText from "./AnimatedText";
 import { PinContainer } from "./ui/3d-pin";
 
@@ -12,19 +12,19 @@ const RecentProjects = () => {
         title={
           <>
             A small selection of{" "}
-            <span className="text-violet-500 font-exo">Recent Projects</span>
+            <span className="text-special">Recent Projects</span>
           </>
         }
       />
 
       <div className="flex flex-wrap items-center justify-center gap-x-24 gap-y-8">
-        {projects.map(({ id, title, des, thumbnail, technologies, liveUrl }) => (
+        {projects.map(({ id, title, des, thumbnail, technologies, liveUrl, githubUrl }) => (
           <div
             key={id}
             className="sm:h-[41rem] h-[32rem] lg:min-h-[32.5rem] flex items-center justify-center sm:w-[570px] w-[80vw]"
           >
-            <PinContainer title={title} id={id}>
-              <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] sm:h-[40vh] h-[30vh] overflow-hidden mb-10">
+            <PinContainer title={title}>
+              <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] h-[30vh] overflow-hidden mb-10">
                 <div className="relative h-full w-full overflow-hidden lg:rounded-3xl bg-[#13162d]">
                   <Image
                     src="/images/bg.png"
@@ -42,10 +42,10 @@ const RecentProjects = () => {
                   className="z-10 absolute bottom-0 w-full h-full rounded-2xl object-cover"
                 />
               </div>
-              <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-black-100">
+              <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-black-100 dark:text-white">
                 {title}
               </h1>
-              <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2 text-black-100">
+              <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2 text-black-100 dark:text-gray-100">
                 {des}
               </p>
 
@@ -70,16 +70,33 @@ const RecentProjects = () => {
                   ))}
                 </div>
 
-                <Link
-                  href={liveUrl}
-                  target="_blank"
-                  className="flex justify-center items-center"
-                >
-                  <span className="flex lg:text-xl md:text-xs text-sm text-black-100">
-                    Live Site
-                  </span>
-                  <FaLocationArrow className="ms-2" color="#000319" />
-                </Link>
+                <div className="flex items-center gap-4">
+                  {githubUrl && (
+                    <Link
+                      href={githubUrl}
+                      target="_blank"
+                      className="flex justify-center items-center"
+                    >
+                      <span className="flex lg:text-xl md:text-xs text-sm text-black-100 dark:text-purple">
+                        View Code
+                      </span>
+                      <FaGithub className="ms-2 fill-[#000319] dark:fill-purple" />
+                    </Link>
+                  )}
+
+                  {liveUrl && (
+                    <Link
+                      href={liveUrl}
+                      target="_blank"
+                      className="flex justify-center items-center"
+                    >
+                      <span className="flex lg:text-xl md:text-xs text-sm text-black-100 dark:text-purple">
+                        Live Site
+                      </span>
+                      <FaLocationArrow className="ms-2 fill-[#000319] dark:fill-purple" />
+                    </Link>
+                  )}
+                </div>
               </div>
             </PinContainer>
           </div>

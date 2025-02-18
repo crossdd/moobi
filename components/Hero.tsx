@@ -1,17 +1,29 @@
 import Image from "next/image";
 import { AuroraBackground } from "./ui/aurora-background";
+import { StarsBackground } from "./ui/StarsBackground";
+import Link from "next/link";
+import MagicButton from "./MagicButton";
+import { MdExplore } from "react-icons/md";
 
 const Hero = () => {
   return (
     <AuroraBackground showRadialGradient={true} className="overflow-hidden gap-12 lg:gap-0">
-      <div className="flex flex-col gap-2 leading-loose tracking-wider text-center lg:text-left z-50 lg:w-1/2 lg:px-12">
+      <div className="flex flex-col md:items-center lg:items-start gap-2 leading-loose tracking-wider text-center lg:text-left z-50 lg:w-1/2 lg:ms-12">
         <p className="text-base">
           Hello there 👋
         </p>
 
         <h1 className="heading font-bold">I&apos;m Epiphanus Onyeso</h1>
 
-        <h2 className="test-2xl font-medium">Full Stack Developer. Turning ideas into interactive, scalable and beautiful web solutions, one code at a time.</h2>
+        <h2 className="text-2xl font-medium max-w-md">Full Stack Developer. Turning ideas into interactive, scalable and beautiful web solutions, one code at a time.</h2>
+
+        <Link href="#projects" className="hidden lg:block w-60">
+          <MagicButton
+            title="Explore My Work"
+            icon={<MdExplore />}
+            position="right"
+          />
+        </Link>
       </div>
 
       <div className="flex items-center justify-center lg:w-1/2 z-50">
@@ -25,6 +37,8 @@ const Hero = () => {
           />
         </div>
       </div>
+
+      <StarsBackground />
     </AuroraBackground>
   );
 };

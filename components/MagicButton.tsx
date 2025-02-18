@@ -22,7 +22,7 @@ const MagicButton = ({
   return (
     <Button
       className={cn(
-        "relative h-12 w-full rounded-lg p-[1px] md:w-60 mt-10 inline-flex overflow-hidden",
+        "relative h-12 w-full rounded-lg p-[1px] mt-10 inline-flex overflow-hidden",
         otherClasses
       )}
       onClick={handleClick}
@@ -34,7 +34,7 @@ const MagicButton = ({
       />
 
       <span
-        className={` inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2`}
+        className={`inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg px-7 text-sm font-medium backdrop-blur-3xl gap-2 text-white bg-slate-950 dark:bg-purple dark:text-black`}
       >
         {position === "left" && icon}
         {title}

@@ -9,14 +9,14 @@ const Footer = () => {
         title={
           <>
             Ready to take your digital presence to the{" "}
-            <span className="text-violet-500 font-exo">next level?</span>
+            <span className="text-special">next level?</span>
           </>
         }
         subtitle="Reach out now let's discuss how I can help you achieve your
             goals"
-        otherClasses="w-full md:max-w-[60vw] flex-center mx-auto"
+        otherClasses="w-full md:max-w-[70vw] lg:max-w-[60vw] flex-center mx-auto"
       >
-        <a href="mailto:onyesoepiphanus@gmail.com">
+        <a href="mailto:epiphanusonyeso05@gmail.com" className="w-52">
           <MagicButton
             title="Let's talk"
             icon={<MdEmail />}

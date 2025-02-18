@@ -29,7 +29,7 @@ const ExperienceCard = (
 
     return (
         <div
-            className="w-full h-auto flex flex-col justify-between lg:w-[350px] lg:h-[350px] rounded-[25px] lg:absolute lg:top-[calc(50%-175px)] lg:left-[calc(50%-175px)] transition-transform duration-500 ease-in-out px-9 py-5 lg:py-9 shadow-lg"
+            className="w-full h-[250px] flex flex-col justify-between lg:w-[350px] lg:h-[350px] rounded-[25px] lg:absolute lg:top-[calc(50%-175px)] lg:left-[calc(50%-175px)] transition-transform duration-500 ease-in-out px-9 py-5 lg:py-9 shadow-lg"
             style={{
                 backgroundColor: card.color,
                 transform: `

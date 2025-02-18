@@ -2,7 +2,7 @@
 
 import { experiences } from "@/constants";
 import { useEffect, useRef, useState } from "react";
-import { MdExplore } from "react-icons/md";
+import { MdHandshake } from "react-icons/md";
 import MagicButton from "./MagicButton";
 import Link from "next/link";
 import ExperienceCard from "./ExperienceCard";
@@ -30,24 +30,25 @@ const About = () => {
     <section
       id="about"
       ref={stackAreaRef}
-      className="w-screen relative h-[180vh] lg:h-[300vh] flex flex-col lg:flex-row"
+      className="w-screen relative h-[180vh] md:h-[130vh] lg:h-[300vh] flex flex-col lg:flex-row"
     >
-      <div className="h-screen lg:basis-1/2 lg:sticky lg:top-0 lg:left-0 flex lg:justify-center flex-col px-4 lg:px-12">
-        <h2 className="heading leading-tight font-poppins text-left">About Me</h2>
-        <div className="max-w-2xl font-poppins text-[17px] lg:text-xl mt-8 text-left leading-relaxed">
-          From a curious student to a seasoned developer, my journey in the world of web development has been filled
-          with continuous learning and exciting challenges. Each step has shaped my skills and perspective.
+      <div className="h-screen lg:basis-1/2 lg:sticky lg:top-0 lg:left-0 flex items-center lg:justify-center flex-col px-4 lg:px-12">
+        <h2 className="heading leading-tight font-poppins text-left md:text-center lg:text-left">About Me</h2>
+        <div className="max-w-3xl text-[17px] md:text-xl mt-8 text-left leading-relaxed tracking-wide">
+          I&apos;m a full-stack developer specializing in React, Next.js, and Tailwind CSS for sleek, high-performance frontend. On the backend, I work with GraphQL, Prisma, and PostgresSQL, ensuring scalable and secure applications
 
           <br />
 
           <p className="mt-3">
-            As a full-stack developer, I&apos;ve honed a diverse set of skills that allow me to build complete, scalable web
-            applications. From crafting intuitive user interfaces to designing robust backend systems, I bring a
-            comprehensive approach to every project.
+            I&apos;ve honed a diverse set of skills that allow me to build complete, scalable web applications. I strive to stay up-to-date with modern technologies to create efficient and elegant solutions for businesses and individuals.
           </p>
 
-          <Link href="#projects">
-            <MagicButton title="Explore My Work" icon={<MdExplore />} position="right" />
+          <Link href="mailto:epiphanusonyeso05@gmail.com">
+            <MagicButton
+              title="Let's connect"
+              icon={<MdHandshake />}
+              position="right"
+            />
           </Link>
         </div>
       </div>
