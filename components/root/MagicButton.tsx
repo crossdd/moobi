@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const MagicButton = ({
   title,

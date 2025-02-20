@@ -1,4 +1,5 @@
 import { Award, Baby, Bug, Rocket } from "lucide-react";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa6";
 
 export const navItems = [
   { name: "About", link: "#about" },
@@ -12,7 +13,7 @@ export const projects = [
     id: "zentry",
     title: "Zentry - Gaming Website",
     des: "Delve into the world of gaming with insane animations and excellent graphics - The Exp is unreal",
-    thumbnail: ["/images/zentry.png"],
+    thumbnail: "/images/zentry.png",
     technologies: [
       {
         title: "React",
@@ -38,7 +39,7 @@ export const projects = [
     id: "pixel-care",
     title: "Pixel Care",
     des: "A Comprehensive Health Management System designed to streamline hospital operations ensuring top-tier care and operational excellence",
-    thumbnail: ["/images/pixelcare.png"],
+    thumbnail: "/images/pixelcare.png",
     technologies: [
       {
         title: "Nextjs",
@@ -64,7 +65,7 @@ export const projects = [
     id: "brainwave",
     title: "Brainwave",
     des: "Learning how to use GSAP to create nice animations and transitions. Totally worth it...",
-    thumbnail: ["/images/brainwave.png"],
+    thumbnail: "/images/brainwave.png",
     technologies: [
       {
         title: "React",
@@ -90,7 +91,7 @@ export const projects = [
     id: "gericht",
     title: "Gericht",
     des: "Minimalistic website for a restaurant: responsive and neatly designed",
-    thumbnail: ["/images/gericht.png"],
+    thumbnail: "/images/gericht.png",
     technologies: [
       {
         title: "React",
@@ -161,5 +162,23 @@ export const experiences = [
       "Nothing has changed. Late nights, bug attacks, and the joy of building something new. The journey continues...",
     color: "#ec4899",
     icon: Rocket,
+  },
+];
+
+export const socialMediaPlatforms = [
+  {
+    title: "LinkedIn",
+    icon: FaLinkedin,
+    href: "https://www.linkedin.com/in/onyeso-epiphanus-8651b1284",
+  },
+  {
+    title: "Twitter",
+    icon: FaTwitter,
+    href: "https://x.com/CopTrippie87871",
+  },
+  {
+    title: "GitHub",
+    icon: FaGithub,
+    href: "https://github.com/lucidfort",
   },
 ];

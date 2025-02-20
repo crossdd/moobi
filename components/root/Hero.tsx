@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { AuroraBackground } from "./ui/aurora-background";
-import { StarsBackground } from "./ui/StarsBackground";
+import { AuroraBackground } from "../ui/aurora-background";
+import { StarsBackground } from "../ui/StarsBackground";
 import Link from "next/link";
 import MagicButton from "./MagicButton";
 import { MdExplore } from "react-icons/md";
 
 const Hero = () => {
   return (
-    <AuroraBackground showRadialGradient={true} className="overflow-hidden gap-12 lg:gap-0">
+    <AuroraBackground showRadialGradient={true}>
       <div className="flex flex-col md:items-center lg:items-start gap-2 leading-loose tracking-wider text-center lg:text-left z-50 lg:w-1/2 lg:ms-12">
         <p className="text-base">
           Hello there 👋

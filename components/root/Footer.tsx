@@ -1,5 +1,5 @@
 import { MdEmail } from "react-icons/md";
-import AnimatedText from "./AnimatedText";
+import AnimatedText from "../AnimatedText";
 import MagicButton from "./MagicButton";
 
 const Footer = () => {

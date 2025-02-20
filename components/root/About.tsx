@@ -1,10 +1,10 @@
 "use client"
 
-import { experiences } from "@/constants";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { experiences } from "@/constants";
 import { MdHandshake } from "react-icons/md";
 import MagicButton from "./MagicButton";
-import Link from "next/link";
 import ExperienceCard from "./ExperienceCard";
 
 const About = () => {
@@ -30,10 +30,10 @@ const About = () => {
     <section
       id="about"
       ref={stackAreaRef}
-      className="w-screen relative h-[180vh] md:h-[130vh] lg:h-[300vh] flex flex-col lg:flex-row"
+      className="w-full relative h-[240vh] xs:h-[190vh] sm:h-[220vh] md:h-[300vh] flex flex-col md:flex-row gap-8"
     >
-      <div className="h-screen lg:basis-1/2 lg:sticky lg:top-0 lg:left-0 flex items-center lg:justify-center flex-col px-4 lg:px-12">
-        <h2 className="heading leading-tight font-poppins text-left md:text-center lg:text-left">About Me</h2>
+      <div className="h-screen md:basis-2/3 lg:basis-1/2 md:sticky md:top-0 md:left-0 flex items-center md:justify-center flex-col px-4 md:px-12">
+        <h2 className="heading leading-tight font-poppins">About Me</h2>
         <div className="max-w-3xl text-[17px] md:text-xl mt-8 text-left leading-relaxed tracking-wide">
           I&apos;m a full-stack developer specializing in React, Next.js, and Tailwind CSS for sleek, high-performance frontend. On the backend, I work with GraphQL, Prisma, and PostgresSQL, ensuring scalable and secure applications
 
@@ -53,7 +53,9 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative lg:h-screen lg:basis-1/2 flex flex-col gap-4 p-4 lg:p-0 lg:sticky lg:top-0">
+      <div className="relative md:h-screen md:basis-1/3 flex flex-col gap-4 p-4 md:p-0 md:sticky md:top-0">
+        <h2 className="heading leading-tight font-poppins mb-8 md:hidden text-center">My journey</h2>
+
         {experiences.map((card, index) => (
           <ExperienceCard
             key={index}
@@ -63,6 +65,7 @@ const About = () => {
           />
         ))}
       </div>
+
     </section>
   );
 };

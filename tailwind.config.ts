@@ -13,6 +13,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "420px",
+      },
       animation: {
         aurora: "aurora 60s linear infinite",
       },
