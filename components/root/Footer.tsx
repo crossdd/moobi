@@ -1,5 +1,5 @@
 import { MdEmail } from "react-icons/md";
-import AnimatedText from "../AnimatedText";
+import AnimatedText from "./AnimatedText";
 import MagicButton from "./MagicButton";
 
 const Footer = () => {
@@ -27,7 +27,7 @@ const Footer = () => {
         </a>
       </AnimatedText>
 
-      <div className="mt-16 text-sm text-center md:text-base">
+      <div className="mt-16 text-sm text-center md:text-base text-neutral-700">
         Copyright &copy; 2024 Epiphanus
       </div>
     </footer>

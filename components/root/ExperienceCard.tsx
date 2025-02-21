@@ -5,7 +5,7 @@ type Card = {
     year: string;
     title: string;
     content: string;
-    color: string;
+    backgroundColor: string;
     icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
 }
 const ExperienceCard = (
@@ -23,15 +23,15 @@ const ExperienceCard = (
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            setIsDesktop(window.innerWidth >= 1023)
+            setIsDesktop(window.innerWidth >= 768)
         }
     }, [])
 
     return (
         <div
-            className="w-full h-[250px] flex flex-col justify-between md:w-[290px] md:h-[290px] lg:w-[350px] lg:h-[350px] rounded-[25px] md:absolute md:top-[calc(50%-175px)] md:left-[calc(50%-175px)] transition-transform duration-500 ease-in-out px-9 py-5 md:py-9 shadow-lg"
+            className="flex flex-col justify-between w-[350px] h-[350px] rounded-[25px] absolute top-[calc(50%-175px)] left-[calc(50%-175px)] transition-transform duration-500 ease-in-out px-9 py-9 shadow-lg"
             style={{
-                backgroundColor: card.color,
+                background: card.backgroundColor,
                 transform: `
                 ${awayCards[index] ? "translateY(-120vh) rotate(-48deg)" : "translateY(0)"}
                 ${isDesktop ? `rotate(${-10 * index}deg)` : "rotate(0deg)"}

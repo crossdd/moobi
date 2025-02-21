@@ -2,7 +2,7 @@ import { projects } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { FaGithub, FaLocationArrow } from "react-icons/fa6";
-import AnimatedText from "../AnimatedText";
+import AnimatedText from "./AnimatedText";
 import { PinContainer } from "../ui/3d-pin";
 
 const RecentProjects = () => {
@@ -23,9 +23,9 @@ const RecentProjects = () => {
           <PinContainer
             key={id}
             title={title}
-            containerClassName="flex-center w-[80vw] h-[32rem] sm:w-[570px] sm:h-[30rem] md:h-[32rem] lg:h-[32.5rem]"
+            containerClassName="flex-center w-[80vw] xxs:h-[27rem] sm:w-[570px] sm:h-[30rem] md:h-[38rem] lg:h-[34.5rem]"
           >
-            <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] h-[30vh] md:h-[35vh] overflow-hidden mb-10">
+            <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] h-[20vh] md:h-[26vh] lg:h-[32vh] overflow-hidden mb-10">
               <div className="relative h-full w-full overflow-hidden lg:rounded-3xl bg-[#13162d]">
                 <Image
                   src="/images/bg.png"
@@ -43,10 +43,10 @@ const RecentProjects = () => {
                 className="z-10 absolute bottom-0 w-full h-full rounded-2xl object-cover"
               />
             </div>
-            <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-black-100 dark:text-white">
+            <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-black-100 ">
               {title}
             </h1>
-            <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2 text-black-100 dark:text-gray-100">
+            <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2 text-black-100 ">
               {des}
             </p>
 
@@ -76,12 +76,13 @@ const RecentProjects = () => {
                   <Link
                     href={githubUrl}
                     target="_blank"
-                    className="flex justify-center items-center"
+                    className="flex justify-center items-center border border-[#000319] sm:border-0 rounded-lg p-1"
                   >
-                    <span className="flex lg:text-xl md:text-xs text-sm text-black-100 dark:text-purple">
+                    <span className="hidden lg:text-xl md:text-xs text-sm text-black-100 sm:flex">
                       View Code
                     </span>
-                    <FaGithub className="ms-2 fill-[#000319] dark:fill-purple" />
+                    <FaGithub
+                      fill="#000319" className="sm:ms-2" />
                   </Link>
                 )}
 
@@ -91,10 +92,11 @@ const RecentProjects = () => {
                     target="_blank"
                     className="flex justify-center items-center"
                   >
-                    <span className="flex lg:text-xl md:text-xs text-sm text-black-100 dark:text-purple">
+                    <span className="flex lg:text-xl md:text-xs text-sm text-black-100">
                       Live Site
                     </span>
-                    <FaLocationArrow className="ms-2 fill-[#000319] dark:fill-purple" />
+                    <FaLocationArrow
+                      fill="#000319" className="ms-2" />
                   </Link>
                 )}
               </div>

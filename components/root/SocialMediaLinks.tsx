@@ -5,7 +5,7 @@ const SocialLinks = () => {
 
     return (
         <div
-            className="flex flex-col gap-4 rounded-2xl fixed right-2 z-50 top-[75%] -translate-y-[75%] md:top-1/2 md:-translate-y-1/2"
+            className="flex flex-col gap-4 rounded-2xl fixed right-1 md:right-2 z-50 top-1/2 -translate-y-1/2"
         >
             {socialMediaPlatforms.map((item) => (
                 <Link
@@ -16,7 +16,7 @@ const SocialLinks = () => {
                     <div
                         className="flex items-center justify-center w-6 h-6"
                     >
-                        <item.icon className="h-full w-full text-black-100" />
+                        <item.icon fill="#000319" className="h-full w-full" />
                     </div>
                 </Link>
             ))}

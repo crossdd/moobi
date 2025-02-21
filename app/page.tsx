@@ -1,17 +1,16 @@
 import {
-  Navbar,
-  Hero,
   About,
-  Skills,
-  RecentProjects,
   Footer,
-  SocialLinks,
-  AutoThemeSwitcher,
-} from "@/components/root"
+  Hero,
+  Navbar,
+  RecentProjects,
+  Skills,
+  SocialLinks
+} from "@/components/root";
 
 export default function Home() {
   return (
-    <main className="w-full overflow-x-clip min-h-screen bg-white dark:bg-black-100">
+    <main className="w-full overflow-x-clip min-h-screen bg-white">
       <Navbar />
       <Hero />
       <About />
@@ -20,7 +19,6 @@ export default function Home() {
       <Footer />
 
       <SocialLinks />
-      <AutoThemeSwitcher />
     </main>
   );
 }

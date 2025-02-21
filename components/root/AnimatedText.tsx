@@ -30,7 +30,7 @@ const AnimatedText = ({
       )}
     >
       <h1 className="heading text-center">{title}</h1>
-      <h2 className="text-base md:text-xl text-neutral-700 dark:text-neutral-300">
+      <h2 className="text-base md:text-xl text-neutral-700">
         {subtitle}
       </h2>
 

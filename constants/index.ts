@@ -136,7 +136,7 @@ export const experiences = [
     title: "The Beginning",
     content:
       "The journey of a thousand miles began. Wrote my first ever HTML code.",
-    color: "#3b82f6",
+    backgroundColor: "#3b82f6",
     icon: Baby,
   },
   {
@@ -144,7 +144,7 @@ export const experiences = [
     title: "Coding Freak",
     content:
       "Ahh!! The times when I all cared about was just writing code. Stayed up for 3 days, learning and building projects.",
-    color: "#22c55e",
+    backgroundColor: "#22c55e",
     icon: Award,
   },
   {
@@ -152,7 +152,7 @@ export const experiences = [
     title: "Bug Attack",
     content:
       "The day I encountered my first monstrous bug. It was a nightmare.",
-    color: "#5d3a1a",
+    backgroundColor: "#5d3a1a",
     icon: Bug,
   },
   {
@@ -160,7 +160,7 @@ export const experiences = [
     title: "What Now?",
     content:
       "Nothing has changed. Late nights, bug attacks, and the joy of building something new. The journey continues...",
-    color: "#ec4899",
+    backgroundColor: "#ec4899",
     icon: Rocket,
   },
 ];
