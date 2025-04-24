@@ -97,10 +97,32 @@ body {
 
 @layer utilities {
   .heading {
-    @apply text-gray-900 font-bold text-4xl md:text-6xl font-serif;
+    @apply text-gray-300 font-bold text-4xl md:text-6xl font-serif;
   }
 
   .text-special {
     @apply text-violet-500;
+  }
+}
+
+.nickname_svg path {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 0.5;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: loadingAnimation 4s ease-in-out infinite;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  80% {
+    fill: transparent;
+  }
+  100% {
+    fill: #fff;
+    stroke-dashoffset: 0;
   }
 }

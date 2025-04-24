@@ -38,7 +38,10 @@ const Skills = () => {
   const currentSkills = skillToShow === 'frontend' ? skills.frontend : skillToShow === 'backend' ? skills.backend : skills.tools
 
   return (
-    <section id="stack" className="flex-center flex-col lg:flex-row-reverse gap-16 md:gap-20 lg:gap-0 h-[40rem] md:h-[50rem] lg:h-screen w-full mt-10 lg:mt-0 overflow-hidden">
+    <section
+      id="skills"
+      className="flex-center flex-col lg:flex-row-reverse gap-16 md:gap-20 lg:gap-0 h-[40rem] md:h-[50rem] lg:h-screen w-full my-12 overflow-hidden"
+    >
       <div className="flex-center relative flex-col gap-7 w-full lg:basis-[45%] lg:h-full">
         <h2 className="heading capitalize">My tech stack</h2>
 
@@ -98,8 +101,8 @@ const StackButton = (
     aria-label="Toggle stack"
     onClick={() => handleToggle(skill)}
     disabled={isTransitioning || skillToShow === skill}
-    className={cn("capitalize p-3 w-24 h-12 text-base shadow-sm shadow-black-100 text-gray-950 disabled:opacity-80", {
-      "shadow-inner": skillToShow === skill
+    className={cn("capitalize p-3 w-24 h-12 text-base shadow-sm shadow-violet-300 text-gray-100 disabled:opacity-80 ", {
+      "shadow-inner bg-[#000010]": skillToShow === skill
     })}
   >
     {skill}

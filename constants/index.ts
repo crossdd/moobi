@@ -3,8 +3,8 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa6";
 
 export const navItems = [
   { name: "About", link: "#about" },
+  { name: "Skills", link: "#skills" },
   { name: "Projects", link: "#projects" },
-  { name: "Stack", link: "#stack" },
   { name: "Contact", link: "#contact" },
 ];
 

@@ -7,3 +7,4 @@ import Skills from "./Skills";
 import SocialLinks from "./SocialMediaLinks";
 
 export { About, Footer, Hero, Navbar, RecentProjects, Skills, SocialLinks };
+

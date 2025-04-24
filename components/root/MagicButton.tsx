@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { Button } from "../ui/button";
@@ -35,7 +33,7 @@ const MagicButton = ({
       />
 
       <span
-        className={`inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg px-7 text-sm font-medium backdrop-blur-3xl gap-2 text-white bg-slate-950`}
+        className={`inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg px-7 text-sm backdrop-blur-3xl gap-2 text-gray-200 bg-violet-500/20 hover:bg-rose-500/20 transition-colors duration-300 ease-in-out`}
       >
         {position === "left" && icon}
         {title}

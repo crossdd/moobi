@@ -1,13 +1,13 @@
 import { projects } from "@/constants";
-import Image from "next/image";
-import Link from "next/link";
-import { FaGithub, FaLocationArrow } from "react-icons/fa6";
 import AnimatedText from "./AnimatedText";
-import { PinContainer } from "../ui/3d-pin";
+import ProjectCard from "./ProjectCard";
 
 const RecentProjects = () => {
   return (
-    <section id="projects" className="py-12 mt-10 w-full overflow-hidden">
+    <section
+      id="projects"
+      className="py-12 my-10 w-full overflow-hidden"
+    >
       <AnimatedText
         title={
           <>
@@ -18,90 +18,12 @@ const RecentProjects = () => {
         otherClasses="sm:max-w-[70vw] lg:max-w-[60vw] mx-auto"
       />
 
-      <div className="flex-center flex-wrap gap-x-24 lg:gap-y-6">
-        {projects.map(({ id, title, des, thumbnail, technologies, liveUrl, githubUrl }) => (
-          <PinContainer
-            key={id}
-            title={title}
-            containerClassName="flex-center w-[80vw] xxs:h-[27rem] sm:w-[570px] sm:h-[30rem] md:h-[38rem] lg:h-[34.5rem]"
-          >
-            <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] h-[20vh] md:h-[26vh] lg:h-[32vh] overflow-hidden mb-10">
-              <div className="relative h-full w-full overflow-hidden lg:rounded-3xl bg-[#13162d]">
-                <Image
-                  src="/images/bg.png"
-                  alt="bg-img"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <Image
-                src={thumbnail}
-                alt={title}
-                width={400}
-                height={400}
-                loading="lazy"
-                className="z-10 absolute bottom-0 w-full h-full rounded-2xl object-cover"
-              />
-            </div>
-            <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-black-100 ">
-              {title}
-            </h1>
-            <p className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2 text-black-100 ">
-              {des}
-            </p>
-
-            <div className="flex items-center justify-between mt-7 mb-3">
-              <div className="flex items-center">
-                {technologies.map((tech, index) => (
-                  <div
-                    key={tech.title}
-                    className="border border-white/[0.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                    style={{
-                      transform: `translateX(-${5 * index * 2}px)`,
-                    }}
-                  >
-                    <Image
-                      src={tech.icon}
-                      alt={tech.title}
-                      width={50}
-                      height={50}
-                      className="p-2"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-4">
-                {githubUrl && (
-                  <Link
-                    href={githubUrl}
-                    target="_blank"
-                    className="flex justify-center items-center border border-[#000319] sm:border-0 rounded-lg p-1"
-                  >
-                    <span className="hidden lg:text-xl md:text-xs text-sm text-black-100 sm:flex">
-                      View Code
-                    </span>
-                    <FaGithub
-                      fill="#000319" className="sm:ms-2" />
-                  </Link>
-                )}
-
-                {liveUrl && (
-                  <Link
-                    href={liveUrl}
-                    target="_blank"
-                    className="flex justify-center items-center"
-                  >
-                    <span className="flex lg:text-xl md:text-xs text-sm text-black-100">
-                      Live Site
-                    </span>
-                    <FaLocationArrow
-                      fill="#000319" className="ms-2" />
-                  </Link>
-                )}
-              </div>
-            </div>
-          </PinContainer>
+      <div className="flex-center flex-wrap w-full gap-x-24 gap-y-12">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+          />
         ))}
       </div>
     </section>

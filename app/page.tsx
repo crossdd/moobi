@@ -10,8 +10,9 @@ import {
 
 export default function Home() {
   return (
-    <main className="w-full overflow-x-clip min-h-screen bg-white">
+    <main className="w-full overflow-x-hidden min-h-screen bg-black">
       <Navbar />
+
       <Hero />
       <About />
       <Skills />
