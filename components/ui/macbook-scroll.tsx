@@ -1,3 +1,4 @@
+import { typewriterText } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -23,8 +24,7 @@ import {
   TbVolume3,
   TbWorld,
 } from "react-icons/tb";
-import { TextGenerateEffect } from "./text-generate";
-import Nickname from "../root/Nickname";
+import { TypewriterEffect } from "./typewriter-effect";
 
 export const MacbookScroll = ({
   title,
@@ -34,7 +34,7 @@ export const MacbookScroll = ({
   badge: ReactNode;
 }) => {
   return (
-    <div className="flex max-h-[100vh] flex-shrink-0 scale-[0.7] transform flex-col items-center justify-start gap-8 [perspective:800px] md:scale-100">
+    <div className="flex max-h-[100vh] flex-shrink-0 xxs:scale-[0.6] scale-[0.7] transform flex-col items-center justify-start gap-8 [perspective:800px] md:scale-90 xl:scale-100">
       <h1 className="relative max-w-3xl text-center text-4xl font-bold tracking-wide text-neutral-800 dark:text-white md:text-6xl">
         {title}
       </h1>
@@ -89,7 +89,7 @@ const Lid = () => {
         }}
         className="absolute inset-0 flex flex-col gap-4 justify-start h-full w-[32rem] p-2"
       >
-        <TextGenerateEffect words="Ready to make a change? You're just an 'Enter' away from one" />
+        <TypewriterEffect words={typewriterText} />
 
         <div className="flex items-end justify-end">
           <TbArrowBigDownLinesFilled fill="#8b5cf6" size={42} className="animate-bounce" />

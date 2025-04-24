@@ -182,3 +182,18 @@ export const socialMediaPlatforms = [
     href: "https://github.com/lucidfort",
   },
 ];
+
+export const typewriterText = [
+  { text: "Ready" },
+  { text: "to" },
+  { text: "make" },
+  { text: "a" },
+  { text: "change?" },
+  { text: "You're" },
+  { text: "just" },
+  { text: "an" },
+  { text: "'Enter'" },
+  { text: "away" },
+  { text: "from" },
+  { text: "one." },
+]

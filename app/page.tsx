@@ -5,8 +5,9 @@ import {
   Navbar,
   RecentProjects,
   Skills,
-  SocialLinks
+  // SocialLinks
 } from "@/components/root";
+import { FloatingNav } from "@/components/ui/floating-navbar";
 
 export default function Home() {
   return (
@@ -19,7 +20,9 @@ export default function Home() {
       <RecentProjects />
       <Footer />
 
-      <SocialLinks />
+      <div className="h-[10rem]">
+        <FloatingNav />
+      </div>
     </main>
   );
 }

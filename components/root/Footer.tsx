@@ -6,12 +6,13 @@ import MagicButton from "./MagicButton";
 
 const Footer = () => {
   return (
-    <footer id="contact" className="flex-center gap-4 flex-col w-full px-3 py-6">
+    <footer id="contact" className="flex-center gap-4 h-[10rem] flex-col w-full px-3 py-6">
+      <div id="contact" />
       <MaskContainer revealText={
         <AnimatedText
           title={
             <>
-              Ready to take your digital presence to the{" "}
+              Ready to take your digital presence to the{" "} <br />
               <span className="text-special">next level?</span>
             </>
           }
@@ -25,7 +26,7 @@ const Footer = () => {
             Leaving Already??
           </h2>
           <p className="text-lg max-w-[600px]">
-            Well then, remember this: &apos;&apos;You are <em className="font-serif text-violet-500">unique</em> and that&apos;s what makes you <em className="font-serif text-violet-500">special</em>.&apos;&apos;
+            Well then, remember this: &apos;&apos;You are <em className="font-serif text-violet-500">unique</em> and that&apos;s what makes you <em className="font-serif text-violet-500">special</em>.&apos;&apos; Keep shining
           </p>
         </div>
       </MaskContainer>

@@ -40,10 +40,10 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="flex-center flex-col lg:flex-row-reverse gap-16 md:gap-20 lg:gap-0 h-[40rem] md:h-[50rem] lg:h-screen w-full my-12 overflow-hidden"
+      className="flex-center flex-col lg:flex-row-reverse xxs:gap-28 sm:gap-16 md:gap-20 lg:gap-0 xxs:h-[42rem] h-[40rem] md:h-[50rem] lg:h-screen w-full my-12 overflow-hidden"
     >
       <div className="flex-center relative flex-col gap-7 w-full lg:basis-[45%] lg:h-full">
-        <h2 className="heading capitalize">My tech stack</h2>
+        <h2 className="heading capitalize">My <span className="text-special">tech</span> stack</h2>
 
         <div className="flex gap-4">
           {Object.keys(skills).map((skill) => (
@@ -154,7 +154,7 @@ const SkillRings = ({
         {...otherProps}
       >
         <div
-          className={cn("flex items-center justify-center bg-purple w-48 h-48 text-center text-xl font-semibold tracking-wide rounded-full dark:text-black-100", {
+          className={cn("flex items-center justify-center bg-violet-500 w-48 h-48 text-center text-[21px] tracking-wider font-semibold rounded-full text-black-100", {
             "opacity-0 transition-opacity delay-200 ease-in-out": isCollapsed,
           })}
           style={{

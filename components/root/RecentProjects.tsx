@@ -5,20 +5,21 @@ import ProjectCard from "./ProjectCard";
 const RecentProjects = () => {
   return (
     <section
-      id="projects"
-      className="py-12 my-10 w-full overflow-hidden"
+      className="flex flex-col xxs:gap-10 xxs:my-28 w-full overflow-hidden"
     >
       <AnimatedText
         title={
           <>
-            A small selection of{" "}
+            A small selection of{" "} <br />
             <span className="text-special">Recent Projects</span>
           </>
         }
         otherClasses="sm:max-w-[70vw] lg:max-w-[60vw] mx-auto"
       />
 
-      <div className="flex-center flex-wrap w-full gap-x-24 gap-y-12">
+      <div
+        id="projects"
+        className="flex-center flex-wrap w-full gap-x-24 gap-y-12">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
