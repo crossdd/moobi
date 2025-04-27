@@ -27,8 +27,8 @@ const Hero = () => {
         <h3 className="font-semibold text-xl text-center">Your Unique Developer</h3>
       </div>
 
-      <div className="relative w-72 h-72 rounded-full flex items-start justify-start lg:items-start lg:justify-start shadow-lg shadow-violet-500">
-        <Image src="/images/profile.jpg" alt="profile-picture" width={300} height={500} className="w-full h-full rounded-full object-cover hover:scale-110 transition-all duration-700 ease-in-out" />
+      <div className="relative xxs:w-72 xxs:h-72 xsx:w-52 xsx:h-52 md:w-96 md:h-96 rounded-full flex items-start justify-start lg:items-start lg:justify-start">
+        <Image src="/images/profile.jpg" alt="profile-picture" width={300} height={500} className="w-full h-full rounded-full object-cover hover:scale-105 transition-all duration-700 ease-in-out" />
       </div>
     </section>
   );

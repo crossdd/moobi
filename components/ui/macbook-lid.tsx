@@ -92,7 +92,6 @@ const Lid = ({
                         onKeyDown={handleKeyDown}
                         onSelect={handleTextareaSelect}
                         disabled={isSuccess}
-                        autoFocus
                         placeholder={placeholder}
                         className="w-full h-full bg-transparent text-white font-mono text-lg resize-none outline-none border-none focus:ring-0 placeholder-white/50"
                         style={{ caretColor: "#8b5cf6" }}

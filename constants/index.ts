@@ -127,7 +127,7 @@ export const testimonials = [
 export const skills = {
   frontend: ["HTML & CSS", "Javascript", "React", "Next.js"],
   backend: ["Node.js", "PostgreSQL", "GraphQL", "Appwrite"],
-  tools: ["Tailwindcss", "Drizzle", "Typescript", "Prisma"],
+  tools: ["Tailwindcss", "Vite", "Typescript", "Prisma"],
   mobile: ["React Native", "Expo"]
 };
 
@@ -175,7 +175,7 @@ export const socialMediaPlatforms = [
   {
     title: "Twitter",
     icon: FaTwitter,
-    href: "https://x.com/CopTrippie87871",
+    href: "https://x.com/1am_uniq",
   },
   {
     title: "GitHub",

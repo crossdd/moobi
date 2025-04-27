@@ -121,7 +121,7 @@ export const MacbookScroll = ({
   }, [cursorPosition])
 
   return (
-    <div className="flex max-h-[100vh] flex-shrink-0 xxs:scale-[0.6] scale-[0.7] transform flex-col items-center justify-start gap-8 [perspective:800px] md:scale-90 xl:scale-100">
+    <div className="flex flex-shrink-0 xsx:scale-[0.6] scale-[0.7] transform flex-col items-center justify-start gap-8 [perspective:800px] md:scale-90 xl:scale-100">
       <h1 className="relative max-w-3xl text-center text-4xl font-bold tracking-wide text-neutral-800 dark:text-white md:text-6xl">
         {title}
       </h1>

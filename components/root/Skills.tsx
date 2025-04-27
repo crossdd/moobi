@@ -40,12 +40,12 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="flex-center flex-col lg:flex-row-reverse xxs:gap-28 sm:gap-16 md:gap-20 lg:gap-0 xxs:h-[42rem] h-[40rem] md:h-[50rem] lg:h-screen w-full my-12 overflow-hidden"
+      className="flex-center flex-col lg:flex-row-reverse xsx:gap-20 xxs:gap-16 md:gap-28 lg:gap-0 xsx:h-[45rem] xxs:h-[42rem] h-[40rem] md:h-[52rem] lg:h-screen w-full my-12 overflow-hidden"
     >
       <div className="flex-center relative flex-col gap-7 w-full lg:basis-[45%] lg:h-full">
         <h2 className="heading capitalize">My <span className="text-special">tech</span> stack</h2>
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {Object.keys(skills).map((skill) => (
             <StackButton
               key={skill}
@@ -58,7 +58,7 @@ const Skills = () => {
         </div>
       </div>
 
-      <div className="flex-center flex-col h-auto mx-auto scale-75 md:scale-100 w-full lg:basis-[55%]">
+      <div className="flex-center flex-col h-auto mx-auto scale-75 md:scale-100 w-full lg:basis-[55%] xsx:scale-[0.7]">
         <div className="flex-center h-[23rem] w-[23rem] md:h-[30rem] md:w-[30rem] rounded-full ">
           <div className="relative bg-[#12153E] w-72 h-72 flex items-center justify-center rounded-full">
             <h2 className="relative z-10 flex-center capitalize w-60 h-60 rounded-full text-center text-white font-exo text-xl lg:text-xl">

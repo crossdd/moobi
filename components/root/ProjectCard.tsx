@@ -22,7 +22,7 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   return (
     <div className=
-      "flex-center w-[80vw] sm:w-[470px] lg:w-[400px] xl:w-[570px]  xxs:h-[27.5rem] sm:h-[24rem] md:h-[25rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50 "
+      "flex-center w-[80vw] sm:w-[470px] lg:w-[400px] xl:w-[570px]  xxs:h-[27.5rem] sm:h-[24rem] md:h-[32rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50 "
     >
       <div
         className="relative flex flex-col gap-6 w-full p-3 rounded-2xl border border-white/[0.1] group-hover/pin:border-violet-500/[0.8] group-hover/pin:shadow-lg group-hover/pin:shadow-violet-300 transition duration-700 overflow-hidden"

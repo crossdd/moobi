@@ -5,7 +5,7 @@ import ProjectCard from "./ProjectCard";
 const RecentProjects = () => {
   return (
     <section
-      className="flex flex-col xxs:gap-10 xxs:my-28 xs:my-0 lg:my-10 w-full overflow-hidden"
+      className="flex flex-col xxs:gap-10 xxs:my-12 md:my-28 lg:my-10 w-full overflow-hidden"
     >
       <AnimatedText
         title={
