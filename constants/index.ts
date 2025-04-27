@@ -33,7 +33,7 @@ export const projects = [
       },
     ],
     liveUrl: "https://zentryawwwards.vercel.app/",
-    githubUrl: "https://github.com/lucidfort/zentry",
+    githubUrl: "https://github.com/IamUniq/zentry",
   },
   {
     id: "pixel-care",
@@ -59,7 +59,7 @@ export const projects = [
       },
     ],
     liveUrl: "https://pixel-care.vercel.app",
-    githubUrl: "https://github.com/lucidfort/pixel-care",
+    githubUrl: "https://github.com/IamUniq/pixel-care",
   },
   {
     id: "brainwave",
@@ -85,7 +85,7 @@ export const projects = [
       },
     ],
     liveUrl: "https://pixel-brainwave.vercel.app",
-    githubUrl: "https://github.com/lucidfort/pixel-brainwave",
+    githubUrl: "https://github.com/IamUniq/pixel-brainwave",
   },
   {
     id: "gericht",
@@ -103,7 +103,7 @@ export const projects = [
       },
     ],
     liveUrl: "https://gericht-restaurant-rust.vercel.app/",
-    githubUrl: "https://github.com/lucidfort/gericht-restaurant",
+    githubUrl: "https://github.com/IamUniq/gericht-restaurant",
   },
 ];
 
@@ -180,7 +180,7 @@ export const socialMediaPlatforms = [
   {
     title: "GitHub",
     icon: FaGithub,
-    href: "https://github.com/lucidfort",
+    href: "https://github.com/IamUniq",
   },
 ];
 

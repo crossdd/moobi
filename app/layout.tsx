@@ -25,21 +25,21 @@ export const metadata: Metadata = {
     "freelance web developer",
   ],
 
-  // openGraph: {
-  //   title: "Epiphanus Onyeso",
-  //   description:
-  //     "Fullstack developer based in Nigeria. I specialize in building web applications using Next.js, React, Typescript, GraphQL and PostgreSQL. I am available for collaborations.",
-  //   url: "https://epiphanusonyeso.vercel.app",
-  //   siteName: "Epiphanus Onyeso",
-  //   images: [
-  //     {
-  //       url: "/og-image.png",
-  //       width: 1200,
-  //       height: 630,
-  //       alt: "Epiphanus Onyeso",
-  //     },
-  //   ],
-  // },
+  openGraph: {
+    title: "Epiphanus Onyeso",
+    description:
+      "Fullstack developer based in Nigeria. I specialize in building web applications using Next.js, React, Typescript, GraphQL and PostgreSQL.",
+    url: "https://epiphanusonyeso.vercel.app",
+    siteName: "Epiphanus Onyeso",
+    images: [
+      {
+        url: "/images/profile.jpg",
+        width: 400,
+        height: 350,
+        alt: "Epiphanus Onyeso",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
