@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-// import { SpeedInsights } from "@vercel/speed-insights/next"
-// import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Epiphanus Onyeso",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Epiphanus Onyeso",
     images: [
       {
-        url: "/images/profile.jpg",
+        url: "@/public/images/profile.jpg",
         width: 400,
         height: 350,
         alt: "Epiphanus Onyeso",
@@ -51,8 +51,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
-        {/* <SpeedInsights />
-        <Analytics /> */}
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

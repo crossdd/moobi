@@ -1,4 +1,3 @@
-import { Award, Baby, Bug, Rocket } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa6";
 
 export const navItems = [
@@ -131,41 +130,6 @@ export const skills = {
   mobile: ["React Native", "Expo"]
 };
 
-export const experiences = [
-  {
-    year: "12/03/2023",
-    title: "The Beginning",
-    content:
-      "The journey of a thousand miles began. Wrote my first ever HTML code.",
-    backgroundColor: "#3b82f6",
-    icon: Baby,
-  },
-  {
-    year: "May 18, 2023 - May 21, 2023",
-    title: "Coding Freak",
-    content:
-      "Ahh!! The times when I all cared about was just writing code. Stayed up for 3 days, learning and building projects.",
-    backgroundColor: "#22c55e",
-    icon: Award,
-  },
-  {
-    year: "Jan 12, 2024",
-    title: "Bug Attack",
-    content:
-      "The day I encountered my first monstrous bug. It was a nightmare.",
-    backgroundColor: "#5d3a1a",
-    icon: Bug,
-  },
-  {
-    year: new Date().toDateString(),
-    title: "What Now?",
-    content:
-      "Nothing has changed. Late nights, bug attacks, and the joy of building something new. The journey continues...",
-    backgroundColor: "#ec4899",
-    icon: Rocket,
-  },
-];
-
 export const socialMediaPlatforms = [
   {
     title: "LinkedIn",
@@ -183,18 +147,3 @@ export const socialMediaPlatforms = [
     href: "https://github.com/IamUniq",
   },
 ];
-
-export const typewriterText = [
-  { text: "Ready" },
-  { text: "to" },
-  { text: "make" },
-  { text: "a" },
-  { text: "change?" },
-  { text: "You're" },
-  { text: "just" },
-  { text: "an" },
-  { text: "'Enter'" },
-  { text: "away" },
-  { text: "from" },
-  { text: "one." },
-]
