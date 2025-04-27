@@ -1,11 +1,10 @@
 import { socialMediaPlatforms } from "@/constants";
 import Link from "next/link";
+import { FloatingNav } from "../ui/floating-navbar";
 
 const SocialLinks = () => {
     return (
-        <div
-            className="flex flex-col gap-4 rounded-2xl fixed right-1 md:right-2 z-50 top-1/2 -translate-y-1/2"
-        >
+        <FloatingNav className="right-4 top-1/2 -translate-y-1/2 z-[5000] flex flex-col gap-3">
             {socialMediaPlatforms.map((item) => (
                 <Link
                     key={item.title}
@@ -21,7 +20,7 @@ const SocialLinks = () => {
                     </div>
                 </Link>
             ))}
-        </div>
+        </FloatingNav>
     );
 };
 

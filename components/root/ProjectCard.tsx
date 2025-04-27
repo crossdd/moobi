@@ -22,10 +22,10 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   return (
     <div className=
-      "flex-center w-[80vw] sm:w-[470px] lg:w-[400px] xl:w-[570px]  xxs:h-[27rem] sm:h-[24rem] md:h-[25rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50 cursor-pointer"
+      "flex-center w-[80vw] sm:w-[470px] lg:w-[400px] xl:w-[570px]  xxs:h-[27rem] sm:h-[24rem] md:h-[25rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50 "
     >
       <div
-        className="flex flex-col gap-6 w-full p-3 rounded-2xl border border-white/[0.1] group-hover/pin:border-violet-500/[0.8] group-hover/pin:shadow-lg group-hover/pin:shadow-violet-300 transition duration-700 overflow-hidden"
+        className="relative flex flex-col gap-6 w-full p-3 rounded-2xl border border-white/[0.1] group-hover/pin:border-violet-500/[0.8] group-hover/pin:shadow-lg group-hover/pin:shadow-violet-300 transition duration-700 overflow-hidden"
       >
         <div className="relative flex-center w-full h-[30vh] md:h-[26vh] lg:h-[30vh] overflow-hidden">
           <Image
@@ -52,7 +52,7 @@ const ProjectCard = ({
             {project.technologies.map((tech, index) => (
               <div
                 key={tech.title}
-                className="border border-white/[0.3] bg-black rounded-full w-8 h-8 flex-center"
+                className="border border-white/[0.1] bg-black rounded-full w-8 h-8 flex-center"
                 style={{
                   transform: `translateX(-${5 * index * 2}px)`,
                 }}
@@ -74,7 +74,7 @@ const ProjectCard = ({
               <Link
                 href={project.githubUrl}
                 target="_blank"
-                className="flex-center border border-white/[0.3] rounded-lg p-1"
+                className="flex-center border border-white/[0.1] rounded-lg p-1"
               >
                 <FaGithub fill="white" />
               </Link>

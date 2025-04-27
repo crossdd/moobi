@@ -35,7 +35,7 @@ const Skills = () => {
     }, 500);
   };
 
-  const currentSkills = skillToShow === 'frontend' ? skills.frontend : skillToShow === 'backend' ? skills.backend : skills.tools
+  const currentSkills = skillToShow === 'frontend' ? skills.frontend : skillToShow === 'backend' ? skills.backend : skillToShow === 'tools' ? skills.tools : skills.mobile
 
   return (
     <section
@@ -59,7 +59,7 @@ const Skills = () => {
       </div>
 
       <div className="flex-center flex-col h-auto mx-auto scale-75 md:scale-100 w-full lg:basis-[55%]">
-        <div className="flex-center h-[23rem] w-[23rem] md:h-[30rem] md:w-[30rem] bg-[#326FB7] rounded-full ">
+        <div className="flex-center h-[23rem] w-[23rem] md:h-[30rem] md:w-[30rem] rounded-full ">
           <div className="relative bg-[#12153E] w-72 h-72 flex items-center justify-center rounded-full">
             <h2 className="relative z-10 flex-center capitalize w-60 h-60 rounded-full text-center text-white font-exo text-xl lg:text-xl">
               {skillToShow}
@@ -154,7 +154,7 @@ const SkillRings = ({
         {...otherProps}
       >
         <div
-          className={cn("flex items-center justify-center bg-violet-500 w-48 h-48 text-center text-[21px] tracking-wider font-semibold rounded-full text-black-100", {
+          className={cn("flex items-center justify-center bg-violet-500 w-48 h-48 text-center text-[21px] tracking-wider font-semibold rounded-full text-[#E0F7FA]", {
             "opacity-0 transition-opacity delay-200 ease-in-out": isCollapsed,
           })}
           style={{

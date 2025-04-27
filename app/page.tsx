@@ -5,24 +5,20 @@ import {
   Navbar,
   RecentProjects,
   Skills,
-  // SocialLinks
+  SocialLinks,
 } from "@/components/root";
-import { FloatingNav } from "@/components/ui/floating-navbar";
 
 export default function Home() {
   return (
-    <main className="w-full overflow-x-hidden min-h-screen bg-black">
+    <main className="relative w-full overflow-x-hidden min-h-screen bg-black">
       <Navbar />
+      <SocialLinks />
 
       <Hero />
       <About />
       <Skills />
       <RecentProjects />
       <Footer />
-
-      <div className="h-[10rem]">
-        <FloatingNav />
-      </div>
     </main>
   );
 }

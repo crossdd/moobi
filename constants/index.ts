@@ -128,6 +128,7 @@ export const skills = {
   frontend: ["HTML & CSS", "Javascript", "React", "Next.js"],
   backend: ["Node.js", "PostgreSQL", "GraphQL", "Appwrite"],
   tools: ["Tailwindcss", "Drizzle", "Typescript", "Prisma"],
+  mobile: ["React Native", "Expo"]
 };
 
 export const experiences = [

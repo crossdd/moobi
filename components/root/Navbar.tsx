@@ -4,8 +4,9 @@ import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FloatingNav } from "../ui/floating-navbar";
 
-const Navbar = ({ className }: { className?: string; }) => {
+const Navbar = () => {
   const [active, setActive] = useState("");
 
   const sections = navItems.map(item => item.name.toLowerCase())
@@ -36,13 +37,7 @@ const Navbar = ({ className }: { className?: string; }) => {
   }, [sections])
 
   return (
-    <nav
-      aria-label="Navigation Links"
-      className={cn(
-        "flex-center max-w-fit fixed top-6 inset-x-0 mx-auto border bg-black border-violet-500/[0.3] rounded-full z-[5000] px-4 py-3 space-x-5",
-        className
-      )}
-    >
+    <FloatingNav className="flex-center max-w-fit fixed top-6 inset-x-0 mx-auto border bg-black border-violet-500/[0.3] rounded-full z-[5000] px-4 py-3 space-x-5">
       {navItems.map(({ name, link }) => (
         <Link
           key={name}
@@ -57,7 +52,7 @@ const Navbar = ({ className }: { className?: string; }) => {
           {name}
         </Link>
       ))}
-    </nav>
+    </FloatingNav>
   );
 };
 

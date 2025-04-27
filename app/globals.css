@@ -75,7 +75,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border !scroll-smooth;
+    @apply border-border scroll-smooth !important;
   }
 
   ::-webkit-scrollbar {
@@ -83,14 +83,12 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    border-radius: 4px;
-
-    @apply bg-white;
+    @apply bg-black;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #cbacf9;
-    border-radius: 4px;
+    background: #8b5cf6;
+    border-radius: 3px;
   }
 
   .flex-center {
@@ -108,9 +106,9 @@ body {
   }
 }
 
-.nickname_svg path {
+.name_svg path {
   fill: transparent;
-  stroke: #000;
+  stroke: #fff;
   stroke-width: 0.5;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
@@ -125,7 +123,7 @@ body {
     fill: transparent;
   }
   100% {
-    fill: #fff;
+    fill: #000;
     stroke-dashoffset: 0;
   }
 }
