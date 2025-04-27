@@ -1,5 +1,6 @@
 import { Spotlight } from "@/components/ui/spotlight";
 import Image from "next/image";
+import profile from "@/public/images/profile.jpg"
 
 const Hero = () => {
   return (
@@ -28,7 +29,15 @@ const Hero = () => {
       </div>
 
       <div className="relative xxs:w-72 xxs:h-72 xsx:w-52 xsx:h-52 md:w-96 md:h-96 rounded-full flex items-start justify-start lg:items-start lg:justify-start">
-        <Image src="/images/profile.jpg" alt="profile-picture" width={300} height={500} className="w-full h-full rounded-full object-cover hover:scale-105 transition-all duration-700 ease-in-out" />
+        <Image
+          src={profile.src}
+          alt="profile-picture"
+          width={300}
+          height={500}
+          className="w-full h-full rounded-full object-cover hover:scale-105 transition-all duration-700 ease-in-out"
+          placeholder="blur"
+          blurDataURL={profile.blurDataURL}
+        />
       </div>
     </section>
   );
