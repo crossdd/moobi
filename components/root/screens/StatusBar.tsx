@@ -13,8 +13,8 @@ const StatusBar = () => {
     }, [])
 
     return (
-        <div className="flex justify-between items-center px-6 pt-10 pb-4 text-white text-sm font-medium">
-            <div className="flex items-center space-x-1">
+        <div className="flex justify-between items-center px-4 pt-4 pb-4 text-white text-sm font-medium">
+            <div className="flex items-center">
                 <span>{currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
             </div>
             <div className="flex items-center space-x-1">

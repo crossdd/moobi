@@ -12,9 +12,9 @@ const VideoPlayer = () => {
 
     const videoRef = useRef<HTMLVideoElement>(null)
 
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(true)
     const [currentTime, setCurrentTime] = useState(0)
-    const [duration, setDuration] = useState(185)
+    const [duration, setDuration] = useState(0)
     const [showControls, setShowControls] = useState(true)
 
     useEffect(() => {
@@ -40,12 +40,12 @@ const VideoPlayer = () => {
     }, [media])
 
 
-    // Auto-hide controls after 3 seconds of inactivity
+    // Auto-hide controls after 2 seconds of inactivity
     useEffect(() => {
         if (showControls && isPlaying) {
             const timer = setTimeout(() => {
                 setShowControls(false)
-            }, 3000)
+            }, 2000)
             return () => clearTimeout(timer)
         }
     }, [showControls, isPlaying])
@@ -71,7 +71,6 @@ const VideoPlayer = () => {
         setShowControls(true)
     }
 
-
     const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const video = videoRef.current
         if (!video) return
@@ -84,7 +83,6 @@ const VideoPlayer = () => {
         setCurrentTime(newTime)
         setShowControls(true)
     }
-
 
     const handleScreenTap = () => {
         setShowControls(!showControls)
@@ -124,7 +122,7 @@ const VideoPlayer = () => {
                     </h1>
                 </div>
 
-                {/* Center Play/Pause Button */}
+                {/*  Skip/Play/Pause Buttons */}
                 {showControls && (
                     <div className="absolute top-1/2 transform -translate-y-1/2 flex items-center justify-between w-full px-6">
                         {/* Skip Backward */}

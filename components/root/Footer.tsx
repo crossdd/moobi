@@ -7,7 +7,7 @@ const Footer = () => {
     <footer id="contact" className="flex-center flex-col w-full px-3 py-6">
       <MacbookScroll
         title={
-          <h2 className="heading text-center w-full md:max-w-[70vw] lg:max-w-[60vw] px-5">
+          <h2 className="heading text-center w-full md:max-w-[70vw] lg:max-w-[60vw]">
             Ready to take your digital presence to the {" "}
             <span className="text-special">next level?</span>
           </h2>
@@ -17,7 +17,7 @@ const Footer = () => {
         }
       />
 
-      <div className="mt-16 text-sm text-center md:text-base text-neutral-700">
+      <div className="text-sm md:text-base text-neutral-700">
         Copyright &copy; 2024 Epiphanus
       </div>
     </footer>

@@ -121,10 +121,10 @@ export const MacbookScroll = ({
   }, [cursorPosition])
 
   return (
-    <div className="flex flex-shrink-0 flex-col items-center xl:gap-6">
+    <div className="flex flex-shrink-0 flex-col w-full items-center xl:gap-6">
       <>{title}</>
 
-      <div className="scale-[0.7] transform [perspective:800px] md:scale-90 xl:scale-100">
+      <div className="xsx:scale-[0.6] scale-[0.7] transform [perspective:800px] md:scale-90 xl:scale-100">
         {/* Lid */}
         <Lid
           message={message}

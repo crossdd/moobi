@@ -54,8 +54,8 @@ export default function RootLayout({
         <MediaProvider>
           {children}
         </MediaProvider>
-        <SpeedInsights />
-        <Analytics />
+        {/* <Analytics />
+        <SpeedInsights /> */}
       </body>
     </html>
   );

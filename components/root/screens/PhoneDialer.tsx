@@ -7,19 +7,31 @@ import StatusBar from "./StatusBar"
 export default function PhoneDialer() {
   const [phoneNumber, setPhoneNumber] = useState("(+234) 704-850-5025")
 
+  const slice = (number: string, start: number, end?: number) => {
+    return number.slice(start, end)
+  }
+
   const formatPhoneNumber = (number: string) => {
     // Remove all non-digits
     const digits = number.replace(/\D/g, "")
 
-    // Format as (XXX) XXX-XXXX
+    // List of area codes (country calling codes) for the 10 most influential countries
+    const influentialCodes = ['1', '44', '49', '33', '81', '86', '91', '7', '39', '234'] // US, UK, Germany, France, Japan, China, India, Russia, Italy, Nigeria
+
+    // Find if the start of the number matches any of the country codes
+    const matchCode = influentialCodes.find(code => digits.startsWith(code))
+
+    const plus = matchCode ? '+' : ''
+
     if (digits.length <= 3) {
       return digits
     } else if (digits.length <= 6) {
-      return `${digits.slice(0, 3)}) ${digits.slice(3)}`
+      return `(${plus}${slice(digits, 0, 3)}) ${slice(digits, 3)}`
     } else {
-      return `${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 9)}-${digits.slice(9, 13)}`
+      return `(${plus}${slice(digits, 0, 3)}) ${slice(digits, 3, 6)}${slice(digits, 6) && `-${slice(digits, 6, 9)}`}${slice(digits, 9) && `-${slice(digits, 9, 13)}`}`
     }
   }
+
 
   const addDigit = (digit: string) => {
     const currentDigits = phoneNumber.replace(/\D/g, "")

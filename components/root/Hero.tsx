@@ -25,7 +25,7 @@ const Hero = () => {
           <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
         </div>
 
-        <h3 className="font-semibold text-xl text-center">Your Unique Developer</h3>
+        <h3 className="text-center text-gray-300 font-semibold text-xl">Mobile | Web Developer</h3>
       </div>
 
       <div className="relative xxs:w-72 xxs:h-72 xsx:w-52 xsx:h-52 md:w-96 md:h-96 rounded-full flex items-start justify-start lg:items-start lg:justify-start">

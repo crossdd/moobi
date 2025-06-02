@@ -1,16 +1,26 @@
-interface ProjectCardProps {
-  project: {
-    id: string;
+interface Project {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  thumbnail: string;
+  liveUrl: string;
+  githubUrl: string;
+  status: string;
+  duration: string;
+  team: string;
+  year: string;
+  technologies: {
     title: string;
-    des: string;
-    thumbnail: string;
-    technologies: {
-      title: string;
-      icon: string;
-    }[];
-    liveUrl: string;
-    githubUrl: string;
-  };
+    icon: string;
+  }[];
+  features: string[];
+  challenges: string[];
+  learnings: string[];
+}
+
+interface ProjectCardProps {
+  project: Project;
 }
 
 type ScreenDisplay =

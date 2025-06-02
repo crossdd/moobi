@@ -32,14 +32,6 @@ const Gallery = ({ setCurrentScreen }: { setCurrentScreen: Dispatch<SetStateActi
                 {
                     id: "today-1",
                     type: "video",
-                    title: 'Mustangs 😂',
-                    thumbnail: '/videos/mustangs.mp4',
-                    date: new Date(),
-                    isFavorite: true,
-                },
-                {
-                    id: "today-2",
-                    type: "video",
                     title: "What was bro thinking?😂",
                     thumbnail: '/videos/listen.mp4',
                     date: new Date(),

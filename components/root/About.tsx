@@ -19,15 +19,11 @@ const About = () => {
 
         <div className="max-w-3xl text-[17px] md:text-xl mt-8 text-left leading-loose tracking-wide flex flex-col gap-3 text-gray-300">
           <p>
-            I am Epiphanus Onyeso. I am a fullstack developer who enjoys building user-friendly web and mobile applications that solve real-world problems and enhance user experiences.
+            I&apos;m Epiphanus Onyeso, a fullstack developer passionate about building web and mobile apps that solve real problems and deliver great user experiences.
           </p>
 
           <p>
-            I am not just a machine who writes code though. I have practiced a diverse set of skills: critical thinking, business strategy, sales and marketing, in order to build complete, scalable web applications. An app that can save the whole planet with no users is just a side project, right?
-          </p>
-
-          <p>
-            I strive to stay up-to-date with modern technologies and trends, creating efficient and elegant solutions that help businesses stand out.
+            Beyond coding, I&apos;ve explored business strategy, marketing, and sales — because a great app needs more than just clean code, right?. I stay current with modern tech to create smart, scalable, and user-focused solutions that help businesses grow.
           </p>
         </div>
 
