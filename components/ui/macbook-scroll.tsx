@@ -8,7 +8,7 @@ export const MacbookScroll = ({
   title,
   badge,
 }: {
-  title?: ReactNode;
+  title: ReactNode;
   badge: ReactNode;
 }) => {
   const [message, setMessage] = useState("")
@@ -121,12 +121,10 @@ export const MacbookScroll = ({
   }, [cursorPosition])
 
   return (
-    <div className="flex flex-shrink-0 xsx:scale-[0.6] scale-[0.7] transform flex-col items-center justify-start gap-8 [perspective:800px] md:scale-90 xl:scale-100">
-      <h1 className="relative max-w-3xl text-center text-4xl font-bold tracking-wide text-neutral-800 dark:text-white md:text-6xl">
-        {title}
-      </h1>
+    <div className="flex flex-shrink-0 flex-col items-center xl:gap-6">
+      <>{title}</>
 
-      <div>
+      <div className="scale-[0.7] transform [perspective:800px] md:scale-90 xl:scale-100">
         {/* Lid */}
         <Lid
           message={message}

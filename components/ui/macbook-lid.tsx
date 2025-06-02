@@ -1,6 +1,7 @@
 import emailjs from "@emailjs/browser";
 import { FormEvent, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import { TbLoader2 } from "react-icons/tb";
 
 const Lid = ({
     message,
@@ -13,8 +14,9 @@ const Lid = ({
     setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
     textareaRef: React.RefObject<HTMLTextAreaElement | null>;
 }) => {
-    const [placeholder, setPlaceholder] = useState("Want to work with me? Drop your email and I will get back to you! P.S. This keyboard works")
-    const [isSuccess, setIsSuccess] = useState(false)
+    const [placeholder, setPlaceholder] = useState("Drop your email and I will get back to you! P.S. This keyboard works")
+    const [isSending, setIsSending] = useState(false)
+    const [emailSent, setEmailSent] = useState(false)
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.target.value)
@@ -44,25 +46,35 @@ const Lid = ({
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setIsSending(true)
+
+        if (!message.includes('.com') || !message.includes('@')) {
+            setMessage('')
+            setIsSending(false)
+            setPlaceholder('Invalid email. Please type in a correct email address')
+
+            return;
+        }
 
         const sendEmail = await emailjs.send(
             process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
             process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
             {
-                email: message,
+                from_email: message
             },
             {
                 publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
                 limitRate: { throttle: 5000 },
             })
 
-        console.log({ sendEmail })
         if (sendEmail.status === 200) {
             setMessage("")
-            setPlaceholder("I have received your email. Be back in a jiffy!")
-            setIsSuccess(true)
+            setEmailSent(true)
+            setIsSending(false)
+            setPlaceholder("Email received. I'll contact you immediately. Thank you")
         } else {
-            setPlaceholder("Something went wrong. Please try again.")
+            setIsSending(false)
+            setPlaceholder("Hmm..something went wrong. Please try again.")
         }
     }
 
@@ -84,18 +96,20 @@ const Lid = ({
                 }}
                 className="absolute inset-0 flex flex-col gap-4 justify-start h-full w-[32rem] p-4"
             >
-                <div className="flex items-center">
+                <div className="relative flex items-center">
                     <textarea
                         ref={textareaRef}
                         value={message}
                         onChange={handleTextareaChange}
                         onKeyDown={handleKeyDown}
                         onSelect={handleTextareaSelect}
-                        disabled={isSuccess}
+                        disabled={emailSent}
                         placeholder={placeholder}
-                        className="w-full h-full bg-transparent text-white font-mono text-lg resize-none outline-none border-none focus:ring-0 placeholder-white/50"
+                        className="w-full h-full bg-transparent text-white/60 font-mono text-xl resize-none outline-none border-none focus:ring-0 placeholder-white/50 font-bold"
                         style={{ caretColor: "#8b5cf6" }}
                     />
+
+                    {isSending && <div className="absolute top-1/2 -translate-y-1/2"><TbLoader2 className="animate-spin" /></div>}
 
                     {message.length > 0 && (
                         <button type="submit" className="w-7 h-7 bg-violet-500 rounded-full p-1">

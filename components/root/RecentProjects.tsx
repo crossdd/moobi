@@ -1,25 +1,19 @@
 import { projects } from "@/constants";
-import AnimatedText from "./AnimatedText";
 import ProjectCard from "./ProjectCard";
 
 const RecentProjects = () => {
   return (
     <section
-      className="flex flex-col xxs:gap-10 xxs:my-12 md:my-28 lg:my-10 w-full overflow-hidden"
+      id="projects"
+      className="flex-center flex-col xxs:gap-10 xxs:my-12 md:my-28 lg:my-10 w-full overflow-hidden"
     >
-      <AnimatedText
-        title={
-          <>
-            A small selection of{" "} <br />
-            <span className="text-special">Recent Projects</span>
-          </>
-        }
-        otherClasses="sm:max-w-[70vw] lg:max-w-[60vw] mx-auto"
-      />
+      <h2 className="heading text-center w-full md:max-w-[70vw] lg:max-w-[60vw]">
+        A small selection of{" "}
+        <span className="text-special">Recent Projects</span>
+      </h2>
 
       <div
-        id="projects"
-        className="flex-center flex-wrap w-full gap-x-24 gap-y-12">
+        className="flex-center flex-wrap w-full gap-9 py-5">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}

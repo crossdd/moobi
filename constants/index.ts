@@ -124,10 +124,10 @@ export const testimonials = [
 ];
 
 export const skills = {
-  frontend: ["HTML & CSS", "Javascript", "React", "Next.js"],
+  frontend: ["HTML & CSS", "Javascript (TS)", "React", "Next.js"],
   backend: ["Node.js", "PostgreSQL", "GraphQL", "Appwrite"],
-  tools: ["Tailwindcss", "Vite", "Typescript", "Prisma"],
-  mobile: ["React Native", "Expo"]
+  tools: ["Tanstack Query", "Vite", "Upstash Redis", "Prisma"],
+  mobile: ["React Native", "Expo"],
 };
 
 export const socialMediaPlatforms = [

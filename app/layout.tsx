@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { MediaProvider } from "@/context/useMedia";
 
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
@@ -28,14 +29,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Epiphanus Onyeso",
     description:
-      "Fullstack developer based in Nigeria. I specialize in building web applications using Next.js, React, Typescript, GraphQL and PostgreSQL.",
+      "I specialize in building web and mobile applications using Next.js, React, React Native, Typescript, GraphQL and PostgreSQL.",
     url: "https://epiphanusonyeso.vercel.app",
     siteName: "Epiphanus Onyeso",
     images: [
       {
-        url: "@/public/images/profile.jpg",
-        width: 400,
-        height: 350,
+        url: "https://epiphanusonyeso.vercel.app/images/profile.jpg",
+        width: 650,
+        height: 650,
         alt: "Epiphanus Onyeso",
       },
     ],
@@ -50,7 +51,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
+        <MediaProvider>
+          {children}
+        </MediaProvider>
         <SpeedInsights />
         <Analytics />
       </body>

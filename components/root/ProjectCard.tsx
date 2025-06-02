@@ -2,32 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaGithub, FaLocationArrow } from "react-icons/fa6";
 
-type ProjectCardProps = {
-  project: {
-    id: string;
-    title: string;
-    des: string;
-    thumbnail: string;
-    technologies: {
-      title: string;
-      icon: string;
-    }[];
-    liveUrl: string;
-    githubUrl: string;
-  }
-}
-
 const ProjectCard = ({
   project,
 }: ProjectCardProps) => {
+  // md: h - [32rem]
+  // sm: w - [470px]
   return (
-    <div className=
-      "flex-center w-[80vw] sm:w-[470px] lg:w-[400px] xl:w-[570px]  xxs:h-[27.5rem] sm:h-[24rem] md:h-[32rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50 "
+    <div
+      className=
+      "flex-center w-[80vw] sm:w-[400px] lg:w-[400px] xl:w-[570px]  xxs:h-[27.5rem] sm:h-[27rem] lg:h-[34.5rem] xl:h-[27rem] relative group/pin z-50"
     >
       <div
-        className="relative flex flex-col gap-6 w-full p-3 rounded-2xl border border-white/[0.1] group-hover/pin:border-violet-500/[0.8] group-hover/pin:shadow-lg group-hover/pin:shadow-violet-300 transition duration-700 overflow-hidden"
+        className="relative flex flex-col gap-6 w-full h-full p-3 rounded-2xl ring-1 ring-neutral-800 group-hover/pin:shadow-md group-hover/pin:shadow-violet-300 transition duration-500 overflow-hidden"
       >
-        <div className="relative flex-center w-full h-[30vh] md:h-[26vh] lg:h-[30vh] overflow-hidden">
+        <Link
+          href={`/projects/${project.id}`}
+          className="relative flex-center w-full h-[60%] overflow-hidden">
           <Image
             src={project.thumbnail || "/images/bg.png"}
             alt={project.title}
@@ -36,7 +26,7 @@ const ProjectCard = ({
             loading="lazy"
             className="w-full h-full rounded-2xl object-cover"
           />
-        </div>
+        </Link>
 
         <div className="tracking-wide leading-relaxed">
           <h2 className="font-bold line-clamp-1 text-gray-100 text-lg">
@@ -47,12 +37,12 @@ const ProjectCard = ({
           </p>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-end justify-between">
           <div className="flex items-center">
             {project.technologies.map((tech, index) => (
               <div
                 key={tech.title}
-                className="border border-white/[0.1] bg-black rounded-full w-8 h-8 flex-center"
+                className="ring-1 ring-white/[0.1] bg-black rounded-full w-8 h-8 flex-center"
                 style={{
                   transform: `translateX(-${5 * index * 2}px)`,
                 }}
@@ -63,7 +53,8 @@ const ProjectCard = ({
                   alt={tech.title}
                   width={50}
                   height={50}
-                  className="p-2"
+                  loading="lazy"
+                  className="w-full h-auto object-center object-cover p-2"
                 />
               </div>
             ))}
@@ -74,7 +65,7 @@ const ProjectCard = ({
               <Link
                 href={project.githubUrl}
                 target="_blank"
-                className="flex-center border border-white/[0.1] rounded-lg p-1"
+                className="flex-center ring-1 ring-white/[0.3] rounded-lg p-1"
               >
                 <FaGithub fill="white" />
               </Link>

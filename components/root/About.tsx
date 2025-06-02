@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { MdHandshake } from "react-icons/md";
-import { MacbookScroll } from "../ui/macbook-scroll";
+import { MdEmail } from "react-icons/md";
 import MagicButton from "./MagicButton";
-import Image from "next/image";
-import signature from "@/public/images/signature.svg"
+import Phone from "./Phone";
 
 const About = () => {
   return (
@@ -12,7 +10,12 @@ const About = () => {
       className="w-full relative flex flex-col items-center lg:flex-row gap-8 min-h-screen xsx:mt-12 xxs:mt-0"
     >
       <div className="flex justify-center flex-col px-4 md:px-12  md:justify-start lg:justify-center lg:basis-1/2">
-        <h2 className="heading leading-tight font-poppins">Helloo!!</h2>
+        <div className="text-center">
+          <h1 className="heading text-center">
+            Who am I?
+          </h1>
+          <h3 className="text-sm text-gray-400">Just a chill guy who wants to build, build, build, ...</h3>
+        </div>
 
         <div className="max-w-3xl text-[17px] md:text-xl mt-8 text-left leading-loose tracking-wide flex flex-col gap-3 text-gray-300">
           <p>
@@ -20,7 +23,7 @@ const About = () => {
           </p>
 
           <p>
-            Over the past 3 years I have honed and practiced a diverse set of skills: critical thinking, business strategy, sales and marketing, and of course writing clean code, in order to build complete, scalable web applications.
+            I am not just a machine who writes code though. I have practiced a diverse set of skills: critical thinking, business strategy, sales and marketing, in order to build complete, scalable web applications. An app that can save the whole planet with no users is just a side project, right?
           </p>
 
           <p>
@@ -28,19 +31,20 @@ const About = () => {
           </p>
         </div>
 
-        <Link href="#projects" className="w-52">
+        <Link href="mailto:epiphanusonyeso05@gmail.com" className="max-w-52">
           <MagicButton
-            title="View Projects"
-            icon={<MdHandshake />}
-            position="right"
-            animate={true}
+            title="Let's talk"
+            icon={<MdEmail />}
+            position="left"
+            otherClasses="mt-0"
+            animate
           />
         </Link>
       </div>
 
-      <MacbookScroll badge={
-        <Image src={signature} alt="Iam Unique" width={100} height={30} className="invert" />
-      } />
+      <div className="flex-center lg:basis-1/2">
+        <Phone />
+      </div>
     </section>
   );
 };
