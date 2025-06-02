@@ -9,7 +9,7 @@ const About = () => {
       id="about"
       className="w-full relative flex flex-col items-center lg:flex-row gap-8 min-h-screen xsx:mt-12 xxs:mt-0"
     >
-      <div className="flex justify-center flex-col px-4 md:px-12  md:justify-start lg:justify-center lg:basis-1/2">
+      <div className="flex justify-center flex-col px-4 md:px-12  md:justify-start lg:justify-center lg:basis-1/2 gap-8">
         <div className="text-center">
           <h1 className="heading text-center">
             Who am I?
@@ -17,7 +17,7 @@ const About = () => {
           <h3 className="text-sm text-gray-400">Just a chill guy who wants to build, build, build, ...</h3>
         </div>
 
-        <div className="max-w-3xl text-[17px] md:text-xl mt-8 text-left leading-loose tracking-wide flex flex-col gap-3 text-gray-300">
+        <div className="max-w-3xl text-[17px] md:text-xl text-left leading-loose tracking-wide flex flex-col gap-3 text-gray-300">
           <p>
             I&apos;m Epiphanus Onyeso, a fullstack developer passionate about building web and mobile apps that solve real problems and deliver great user experiences.
           </p>

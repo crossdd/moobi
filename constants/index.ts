@@ -9,14 +9,15 @@ export const navItems = [
 
 export const projects = [
   {
-    id: "zentry",
-    title: "Zentry - Gaming Website",
-    des: "Delve into the world of gaming with insane animations and excellent graphics - The Exp is unreal",
-    thumbnail: "/images/zentry.png",
+    id: "snapgram",
+    title: "Snapgram",
+    description:
+      "A sleek social media platform that connects users through real-time posts, profiles, and messaging—built for seamless interaction and modern engagement.",
+    thumbnail: "/images/snapgram.png",
     technologies: [
       {
-        title: "React",
-        icon: "/icons/re.svg",
+        title: "Nextjs",
+        icon: "/icons/next.svg",
       },
       {
         title: "Tailwindcss",
@@ -27,17 +28,18 @@ export const projects = [
         icon: "/icons/ts.svg",
       },
       {
-        title: "GSAP",
-        icon: "/icons/gsap.svg",
+        title: "Appwrite",
+        icon: "/icons/appwrite.svg",
       },
     ],
-    liveUrl: "https://zentryawwwards.vercel.app/",
-    githubUrl: "https://github.com/IamUniq/zentry",
+    liveUrl: "https://snapgram-patroncodes.vercel.app/",
+    githubUrl: "https://github.com/patroncodes/snapgram",
   },
   {
     id: "pixel-care",
     title: "Pixel Care",
-    des: "A Comprehensive Health Management System designed to streamline hospital operations ensuring top-tier care and operational excellence",
+    description:
+      "A Comprehensive Health Management System designed to streamline hospital operations ensuring top-tier care and operational excellence",
     thumbnail: "/images/pixelcare.png",
     technologies: [
       {
@@ -58,12 +60,13 @@ export const projects = [
       },
     ],
     liveUrl: "https://pixel-care.vercel.app",
-    githubUrl: "https://github.com/IamUniq/pixel-care",
+    githubUrl: "https://github.com/patroncodes/pixel-care",
   },
   {
     id: "brainwave",
     title: "Brainwave",
-    des: "Learning how to use GSAP to create nice animations and transitions. Totally worth it...",
+    description:
+      "Learning how to use GSAP to create nice animations and transitions. Totally worth it...",
     thumbnail: "/images/brainwave.png",
     technologies: [
       {
@@ -84,26 +87,46 @@ export const projects = [
       },
     ],
     liveUrl: "https://pixel-brainwave.vercel.app",
-    githubUrl: "https://github.com/IamUniq/pixel-brainwave",
+    githubUrl: "https://github.com/patroncodes/pixel-brainwave",
   },
   {
-    id: "gericht",
-    title: "Gericht",
-    des: "Minimalistic website for a restaurant: responsive and neatly designed",
-    thumbnail: "/images/gericht.png",
+    id: "e-library",
+    title: "Bookwise",
+    description:
+      "A modern e-library platform offering easy access to a vast collection of digital books, research materials, and learning resources anytime, anywhere.",
+    thumbnail: "/images/e-library.png",
     technologies: [
       {
-        title: "React",
-        icon: "/icons/re.svg",
+        title: "Nextjs",
+        icon: "/icons/next.svg",
       },
       {
         title: "Tailwindcss",
         icon: "/icons/tail.svg",
       },
     ],
-    liveUrl: "https://gericht-restaurant-rust.vercel.app/",
-    githubUrl: "https://github.com/IamUniq/gericht-restaurant",
+    liveUrl: "https://university-library-theta-jet.vercel.app/",
+    githubUrl: "https://github.com/patroncodes/university-library",
   },
+  // {
+  //   id: "school-manager",
+  //   title: "My School",
+  //   description:
+  //     "A modern e-library platform offering easy access to a vast collection of digital books, research materials, and learning resources anytime, anywhere.",
+  //   thumbnail: "/images/e-library.png",
+  //   technologies: [
+  //     {
+  //       title: "Nextjs",
+  //       icon: "/icons/next.svg",
+  //     },
+  //     {
+  //       title: "Tailwindcss",
+  //       icon: "/icons/tail.svg",
+  //     },
+  //   ],
+  //   liveUrl: "https://university-library-theta-jet.vercel.app/",
+  //   githubUrl: "https://github.com/patroncodes/school-manager",
+  // },
 ];
 
 export const testimonials = [
