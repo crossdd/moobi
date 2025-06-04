@@ -24,8 +24,8 @@ const StatusBar = () => {
                     ))}
                 </div>
                 <span className="text-xs">📶</span>
-                <div className="w-6 h-4 border border-white rounded-sm relative">
-                    <div className="w-4 h-2 bg-green-400 rounded-sm absolute top-0.5 left-0.5"></div>
+                <div className="w-6 h-2 border border-white rounded-sm relative">
+                    <div className="w-4 h-2 bg-green-400 rounded-sm absolute top-0 left-0"></div>
                 </div>
             </div>
         </div>

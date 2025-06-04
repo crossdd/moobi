@@ -139,7 +139,7 @@ body {
   stroke-width: 0.5;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
-  animation: loadingAnimation 4s ease-in-out infinite;
+  animation: loadingAnimation 7s ease-in-out 4s infinite reverse;
 }
 
 @keyframes loadingAnimation {

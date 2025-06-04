@@ -1,4 +1,4 @@
-import { useMedia } from '@/context/useMedia'
+import { useMedia } from '@/context/MediaContext'
 import Image from 'next/image'
 
 const ImageView = () => {

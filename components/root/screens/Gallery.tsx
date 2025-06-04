@@ -2,7 +2,11 @@ import { LuFolder, LuHeart, LuSearch, LuTriangle } from "react-icons/lu"
 import { MdMoreVert } from "react-icons/md"
 import StatusBar from "./StatusBar"
 import { Dispatch, SetStateAction } from "react"
-import { useMedia } from "@/context/useMedia"
+import { useMedia } from "@/context/MediaContext"
+import movieflix1 from "@/public/images/movieflix1.jpg";
+import movieflix2 from "@/public/images/movieflix2.jpg";
+import movieflix3 from "@/public/images/movieflix3.jpg";
+import movieflix4 from "@/public/images/movieflix4.jpg";
 
 // Define media item types
 interface MediaItem {
@@ -46,7 +50,28 @@ const Gallery = ({ setCurrentScreen }: { setCurrentScreen: Dispatch<SetStateActi
                 {
                     id: "may-1",
                     type: "photo",
-                    thumbnail: '/images/profile.jpg',
+                    thumbnail: movieflix1.src,
+                    date: new Date(),
+                    isFavorite: true,
+                },
+                {
+                    id: "may-2",
+                    type: "photo",
+                    thumbnail: movieflix2.src,
+                    date: new Date(),
+                    isFavorite: true,
+                },
+                {
+                    id: "may-3",
+                    type: "photo",
+                    thumbnail: movieflix3.src,
+                    date: new Date(),
+                    isFavorite: true,
+                },
+                {
+                    id: "may-4",
+                    type: "photo",
+                    thumbnail: movieflix4.src,
                     date: new Date(),
                     isFavorite: true,
                 },

@@ -62,13 +62,13 @@ export const Tabs = ({
                                 layoutId="clickedbutton"
                                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                                 className={cn(
-                                    "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                                    "absolute inset-0 bg-zinc-800 rounded-full ",
                                     activeTabClassName
                                 )}
                             />
                         )}
 
-                        <span className="relative block text-black dark:text-white">
+                        <span className="relative block text-white">
                             {tab.title}
                         </span>
                     </button>
@@ -79,7 +79,7 @@ export const Tabs = ({
                 active={active}
                 key={active.value}
                 hovering={hovering}
-                className={cn("mt-32", contentClassName)}
+                className={cn(`${hovering ? "mt-32" : 'mt-7'}`, contentClassName)}
             />
         </>
     );

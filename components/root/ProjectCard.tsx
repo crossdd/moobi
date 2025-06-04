@@ -5,8 +5,6 @@ import { FaGithub, FaLocationArrow } from "react-icons/fa6";
 const ProjectCard = ({
   project,
 }: { project: Project }) => {
-  // md: h - [32rem]
-  // sm: w - [470px]
   return (
     <div
       className=
@@ -15,8 +13,8 @@ const ProjectCard = ({
       <div
         className="relative flex flex-col gap-6 w-full h-full p-3 rounded-2xl ring-1 ring-neutral-800 group-hover/pin:shadow-md group-hover/pin:shadow-violet-300 transition duration-500 overflow-hidden"
       >
-        <div
-          // href={`/projects/${project.id}`}
+        <Link
+          href={`/projects/${project.id}`}
           className="relative flex-center w-full h-[60%] overflow-hidden">
           <Image
             src={project.thumbnail || "/images/bg.png"}
@@ -26,7 +24,7 @@ const ProjectCard = ({
             loading="lazy"
             className="w-full h-full rounded-2xl object-cover"
           />
-        </div>
+        </Link>
 
         <div className="tracking-wide leading-relaxed">
           <h2 className="font-bold line-clamp-1 text-gray-100 text-lg">
@@ -78,7 +76,7 @@ const ProjectCard = ({
                 className="flex-center"
               >
                 <span className="text-sm text-lime-50">
-                  Live Site
+                  Live <span className="xsx:hidden xs:flex">Site</span>
                 </span>
                 <FaLocationArrow fill="#8b5cf6" className="ms-1" />
               </Link>

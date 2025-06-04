@@ -1,6 +1,6 @@
 "use client"
 
-import { useMedia } from "@/context/useMedia"
+import { useMedia } from "@/context/MediaContext"
 import type React from "react"
 
 import { useEffect, useRef, useState } from "react"

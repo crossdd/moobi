@@ -48,7 +48,7 @@ export default function Phone({ showNotch = true, backgroundColor = "#000" }: iP
     }
 
     return (
-        <div className="flex items-center justify-center h-full">
+        <div className="flex items-center justify-center h-full xsx:scale-75 xxs:scale-95 xs:scale-100">
             <div className="relative h-full">
                 {/* iPhone 16 Body */}
                 <div

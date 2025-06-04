@@ -9,14 +9,11 @@ interface Project {
     title: string;
     icon: string;
   }[];
-  // subtitle: string;
-  // status: string;
-  // duration: string;
-  // team: string;
-  // year: string;
-  // features: string[];
-  // challenges: string[];
-  // learnings: string[];
+  subtitle?: string;
+  team?: boolean;
+  features: string[];
+  challenges: string[];
+  learnings: string[];
 }
 
 interface ProjectCardProps {

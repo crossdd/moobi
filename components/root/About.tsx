@@ -38,7 +38,7 @@ const About = () => {
         </Link>
       </div>
 
-      <div className="flex-center lg:basis-1/2">
+      <div className="flex-center lg:basis-1/2 xsx:h-[32rem] xxs:h-[37.5rem]">
         <Phone />
       </div>
     </section>

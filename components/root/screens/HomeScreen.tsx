@@ -21,7 +21,7 @@ const HomeScreen = ({ setCurrentScreen }: HomeScreenProps) => {
                 alt="profile-picture"
                 width={300}
                 height={500}
-                className="absolute inset-0 w-full h-full object-cover opacity-55 z-0"
+                className="absolute inset-0 w-full h-full object-cover opacity-45 z-0"
                 placeholder="blur"
                 blurDataURL={profile.blurDataURL}
             />
@@ -41,7 +41,6 @@ const HomeScreen = ({ setCurrentScreen }: HomeScreenProps) => {
                                 <div className={`w-14 h-14 ${app.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}>
                                     {app.icon}
                                 </div>
-                                <span className="text-white text-xs mt-1 text-center">{app.name}</span>
                             </button>
                         ))}
                     </div>

@@ -12,7 +12,7 @@ export const projects = [
     id: "snapgram",
     title: "Snapgram",
     description:
-      "A sleek social media platform that connects users through real-time posts, profiles, and messaging—built for seamless interaction and modern engagement.",
+      "A modern social media web app that lets users share photos, videos, and stories in real time. It mimics the experience of platforms like Instagram with a focus on simplicity and responsiveness. Users can upload content, follow others, and interact through likes and views. It’s designed for creators and social media enthusiasts who want a lightweight, fast, and visually engaging experience.",
     thumbnail: "/images/snapgram.png",
     technologies: [
       {
@@ -34,12 +34,27 @@ export const projects = [
     ],
     liveUrl: "https://snapgram-patroncodes.vercel.app/",
     githubUrl: "https://github.com/patroncodes/snapgram",
+    features: [
+      "User Authentication and Management",
+      "Content Management (posts, stories, highlights)",
+      "Like and save functionality",
+      "Personalized user profiles",
+    ],
+    challenges: [
+      "Handling errors and providing proper feedback",
+      "Working with Tanstack Query, since it was my first time",
+      "Creating intuitive data visualizations",
+    ],
+    learnings: [
+      "How to use TanStack Query for managing server state, caching, and background data synchronization",
+      "How to create and implement Appwrite Functions",
+    ],
   },
   {
     id: "pixel-care",
     title: "Pixel Care",
     description:
-      "A Comprehensive Health Management System designed to streamline hospital operations ensuring top-tier care and operational excellence",
+      "A healthcare management platform tailored for clinics, hospitals, and solo practitioners. It helps medical professionals manage appointments, patient records, and doctor-patient interactions efficiently. It prioritizes ease of use, data security, and speed. The platform serves both healthcare providers and patients looking for organized, digital-first medical experiences",
     thumbnail: "/images/pixelcare.png",
     technologies: [
       {
@@ -61,12 +76,23 @@ export const projects = [
     ],
     liveUrl: "https://pixel-care.vercel.app",
     githubUrl: "https://github.com/patroncodes/pixel-care",
+    features: [
+      "Appointment Scheduling",
+      "Medical Records Management",
+      "Real-Time Notifications",
+      "Responsive design",
+    ],
+    challenges: [
+      "Handling sensitive data",
+      "Ensuring role based access control",
+    ],
+    learnings: ["Efficient state and data management"],
   },
   {
     id: "brainwave",
     title: "Brainwave",
     description:
-      "Learning how to use GSAP to create nice animations and transitions. Totally worth it...",
+      "Brainwave is an AI-powered landing page for a fictional product or service that blends cutting-edge animations with modern web design. It demonstrates the power of motion and interactivity in user interfaces. It's aimed at startups and creative agencies seeking to make a bold visual impression with their digital presence.",
     thumbnail: "/images/brainwave.png",
     technologies: [
       {
@@ -88,12 +114,27 @@ export const projects = [
     ],
     liveUrl: "https://pixel-brainwave.vercel.app",
     githubUrl: "https://github.com/patroncodes/pixel-brainwave",
+    features: [
+      "Hero Animation and Smooth Transitions",
+      "Interactive Content Sections",
+      "Typescript-Driven Component Structure",
+    ],
+    challenges: [
+      "Working with GSAP since it's my first time",
+      "Performance Optimization",
+      "Synchronizing animation timelines",
+    ],
+    learnings: [
+      "Mastering animation with GSAP",
+      "Design for Experience",
+      "Strong Tying with Typescript",
+    ],
   },
   {
     id: "e-library",
     title: "Bookwise",
     description:
-      "A modern e-library platform offering easy access to a vast collection of digital books, research materials, and learning resources anytime, anywhere.",
+      "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, search academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
     thumbnail: "/images/e-library.png",
     technologies: [
       {
@@ -104,9 +145,28 @@ export const projects = [
         title: "Tailwindcss",
         icon: "/icons/tail.svg",
       },
+      {
+        title: "Prisma",
+        icon: "/icons/prisma.svg",
+      },
+      {
+        title: "Redis",
+        icon: "/icons/redis.svg",
+      },
     ],
     liveUrl: "https://university-library-theta-jet.vercel.app/",
     githubUrl: "https://github.com/patroncodes/university-library",
+    features: [
+      "Searchable Digital Library",
+      "Categorized Book Listings",
+      "Book Preview and Borrowing Option",
+      "Admin and Upload Panel",
+    ],
+    challenges: [
+      "Resource Management (Books, PDFs, etc)",
+      "Scalability of Content",
+    ],
+    learnings: [],
   },
   // {
   //   id: "school-manager",
@@ -162,11 +222,11 @@ export const socialMediaPlatforms = [
   {
     title: "Twitter",
     icon: FaTwitter,
-    href: "https://x.com/1am_uniq",
+    href: "https://x.com/patroncodes",
   },
   {
     title: "GitHub",
     icon: FaGithub,
-    href: "https://github.com/IamUniq",
+    href: "https://github.com/patroncodes",
   },
 ];
