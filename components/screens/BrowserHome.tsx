@@ -1,0 +1,116 @@
+import {BrowserHomeProps} from "@/types";
+import {LiaHomeSolid} from "react-icons/lia";
+import {BsPerson} from "react-icons/bs";
+import {CgMoreVertical} from "react-icons/cg";
+import Image from "next/image";
+import {LuClock} from "react-icons/lu";
+import {FiMoreHorizontal} from "react-icons/fi";
+
+const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progress, setScreen, handleSearch}: BrowserHomeProps) => {
+    return (
+        <div className="flex-1 flex flex-col">
+            {/* Address Bar */}
+            <div className="flex items-center justify-between gap-3 py-1 w-full">
+                <LiaHomeSolid className="fill-white" size={20}/>
+
+
+                <div className="flex items-center gap-4">
+                    <div className="w-6 h-6 rounded-full flex-center bg-gray-600">
+                        <BsPerson fill="white" />
+                    </div>
+                    <div className="w-6 h-6 border-2 border-primary p-1 text-white flex-center rounded-md text-xs font-light">
+                        1
+                    </div>
+                    <CgMoreVertical className="text-white w-4 h-4" />
+                </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-1 pb-4 flex flex-col items-center justify-center">
+                {/* Google Logo */}
+                <div className="mt-5">
+                    <svg width="120" height="40" viewBox="0 0 272 92" className="mb-4">
+                        <g fill="none" fillRule="evenodd">
+                            <path
+                                fill="#EA4335"
+                                d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"
+                            />
+                            <path
+                                fill="#FBBC05"
+                                d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"
+                            />
+                            <path
+                                fill="#EA4335"
+                                d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"
+                            />
+                            <path fill="#34A853" d="M225 3v65h-9.5V3h9.5z"/>
+                            <path
+                                fill="#EA4335"
+                                d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"
+                            />
+                            <path
+                                fill="#FBBC05"
+                                d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z"
+                            />
+                        </g>
+                    </svg>
+                </div>
+
+                <input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={onKeyPress}
+                    placeholder="Search or type web address"
+                    className="w-full bg-gray-600 rounded-full border-0 py-3 px-4 text-base text-white flex-1 focus-visible:ring-0 focus:outline-none"
+                />
+
+                {isLoading && (
+                    <div className="h-0.5 w-full bg-gray-200 mx-4 mb-4 rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-blue-500 transition-all duration-75 delay-75 ease-in-out rounded-full"
+                            style={{width: `${progress}%`}}
+                        ></div>
+                    </div>
+                )}
+
+                {/* Quick Access Icons */}
+                <div className="grid grid-cols-3 gap-6 w-full mt-5 max-w-xs">
+                    <div className="flex flex-col items-center gap-2">
+                        <div
+                            onClick={() => handleSearch("https://epiphanusonyeso.vercel.app")}
+                            className="w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer"
+                        >
+                            <Image src="/images/logo.png" alt="logo" width={42} height={42}
+                                   className="object-cover object-center"/>
+                        </div>
+                        <span className="text-xs text-gray-600">Epiphanus</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2" onClick={() =>
+                        setScreen("history")}>
+                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                            <LuClock className="w-6 h-6 text-white"/>
+                        </div>
+                        <span className="text-xs text-gray-600">History</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                            <FiMoreHorizontal className="w-6 h-6 text-white"/>
+                        </div>
+                        <span className="text-xs text-gray-600">More</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex justify-center items-center py-4 border-t border-gray-600">
+                <div className="flex gap-8">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default BrowserHome

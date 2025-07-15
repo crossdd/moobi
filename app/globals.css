@@ -44,6 +44,7 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --neon: 169 100% 50%;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -70,6 +71,7 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --neon: 169 100% 50%;
   }
 }
 
@@ -98,11 +100,15 @@ body {
 
 @layer utilities {
   .heading {
-    @apply text-gray-300 font-bold text-4xl md:text-6xl font-serif;
+    @apply text-gray-300 font-bold text-4xl md:text-5xl max-w-lg font-serif;
   }
 
-  .text-special {
-    @apply text-violet-500;
+  .shimmer-btn {
+    @apply flex items-center gap-2 animate-shimmer border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] font-medium transition-colors
+  }
+
+  .top-gradient {
+    @apply absolute inset-x-0 h-px w-1/2 mx-auto -top-px shadow-2xl  bg-gradient-to-r from-transparent via-teal-500 to-transparent
   }
 }
 
@@ -133,24 +139,12 @@ body {
   border: none;
 }
 
-.name_svg path {
-  fill: transparent;
-  stroke: #fff;
-  stroke-width: 0.5;
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-  animation: loadingAnimation 7s ease-in-out 4s infinite reverse;
+.spin-custom {
+  animation: spin360 1s linear infinite;
 }
 
-@keyframes loadingAnimation {
-  0% {
-    stroke-dashoffset: 50;
-  }
-  80% {
-    fill: transparent;
-  }
-  100% {
-    fill: #000;
-    stroke-dashoffset: 0;
+@keyframes spin360 {
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -1,24 +1,11 @@
-import {
-  About,
-  Footer,
-  Hero,
-  Navbar,
-  RecentProjects,
-  Skills,
-  SocialLinks,
-} from "@/components/root";
+import React from 'react'
+import Phone from "@/components/screens/Phone";
 
-export default function Home() {
-  return (
-    <main className="relative w-full overflow-x-hidden min-h-screen bg-black">
-      <Navbar />
-      <SocialLinks />
-
-      <Hero />
-      <About />
-      <Skills />
-      <RecentProjects />
-      <Footer />
-    </main>
-  );
+const Page = () => {
+    return (
+        <div className="w-full h-screen overflow-hidden flex-center">
+            <Phone />
+        </div>
+    )
 }
+export default Page

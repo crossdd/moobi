@@ -1,11 +1,5 @@
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa6";
-
-export const navItems = [
-  { name: "About", link: "#about" },
-  { name: "Skills", link: "#skills" },
-  { name: "Projects", link: "#projects" },
-  { name: "Contact", link: "#contact" },
-];
+import {FaGithub, FaLinkedin} from "react-icons/fa6";
+import {BsTwitterX} from "react-icons/bs";
 
 export const projects = [
   {
@@ -14,10 +8,11 @@ export const projects = [
     description:
       "A modern social media web app that lets users share photos, videos, and stories in real time. It mimics the experience of platforms like Instagram with a focus on simplicity and responsiveness. Users can upload content, follow others, and interact through likes and views. It’s designed for creators and social media enthusiasts who want a lightweight, fast, and visually engaging experience.",
     thumbnail: "/images/snapgram.png",
+    year: '2024',
     technologies: [
       {
-        title: "Nextjs",
-        icon: "/icons/next.svg",
+        title: "React",
+        icon: "/icons/re.svg",
       },
       {
         title: "Tailwindcss",
@@ -56,6 +51,7 @@ export const projects = [
     description:
       "A healthcare management platform tailored for clinics, hospitals, and solo practitioners. It helps medical professionals manage appointments, patient records, and doctor-patient interactions efficiently. It prioritizes ease of use, data security, and speed. The platform serves both healthcare providers and patients looking for organized, digital-first medical experiences",
     thumbnail: "/images/pixelcare.png",
+    year: '2024',
     technologies: [
       {
         title: "Nextjs",
@@ -94,6 +90,7 @@ export const projects = [
     description:
       "Brainwave is an AI-powered landing page for a fictional product or service that blends cutting-edge animations with modern web design. It demonstrates the power of motion and interactivity in user interfaces. It's aimed at startups and creative agencies seeking to make a bold visual impression with their digital presence.",
     thumbnail: "/images/brainwave.png",
+    year: "2024",
     technologies: [
       {
         title: "React",
@@ -136,6 +133,7 @@ export const projects = [
     description:
       "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, search academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
     thumbnail: "/images/e-library.png",
+    year: "2025",
     technologies: [
       {
         title: "Nextjs",
@@ -168,25 +166,29 @@ export const projects = [
     ],
     learnings: [],
   },
-  // {
-  //   id: "school-manager",
-  //   title: "My School",
-  //   description:
-  //     "A modern e-library platform offering easy access to a vast collection of digital books, research materials, and learning resources anytime, anywhere.",
-  //   thumbnail: "/images/e-library.png",
-  //   technologies: [
-  //     {
-  //       title: "Nextjs",
-  //       icon: "/icons/next.svg",
-  //     },
-  //     {
-  //       title: "Tailwindcss",
-  //       icon: "/icons/tail.svg",
-  //     },
-  //   ],
-  //   liveUrl: "https://university-library-theta-jet.vercel.app/",
-  //   githubUrl: "https://github.com/patroncodes/school-manager",
-  // },
+  {
+    id: "school-manager",
+    title: "My School",
+    description:
+      "A modern e-library platform offering easy access to a vast collection of digital books, research materials, and learning resources anytime, anywhere.",
+    thumbnail: "/images/e-library.png",
+    year: "2025",
+    technologies: [
+      {
+        title: "Nextjs",
+        icon: "/icons/next.svg",
+      },
+      {
+        title: "Tailwindcss",
+        icon: "/icons/tail.svg",
+      },
+    ],
+    liveUrl: "https://university-library-theta-jet.vercel.app/",
+    githubUrl: "https://github.com/patroncodes/school-manager",
+    features: [],
+    challenges: [],
+    learnings: [],
+  },
 ];
 
 export const testimonials = [
@@ -206,10 +208,10 @@ export const testimonials = [
   },
 ];
 
-export const skills = {
+export const skills: {[key: string]: string[]} = {
   frontend: ["HTML & CSS", "Javascript (TS)", "React", "Next.js"],
-  backend: ["Node.js", "PostgreSQL", "GraphQL", "Appwrite"],
-  tools: ["Tanstack Query", "Vite", "Upstash Redis", "Prisma"],
+  backend: ["Upstash Redis", "PostgreSQL", "GraphQL", "Appwrite"],
+  tools: ["Tanstack-Query", "Vite", "Github", "Prisma"],
   mobile: ["React Native", "Expo"],
 };
 
@@ -221,7 +223,7 @@ export const socialMediaPlatforms = [
   },
   {
     title: "Twitter",
-    icon: FaTwitter,
+    icon: BsTwitterX,
     href: "https://x.com/patroncodes",
   },
   {
@@ -230,3 +232,58 @@ export const socialMediaPlatforms = [
     href: "https://github.com/patroncodes",
   },
 ];
+
+export const gallery = [
+  {
+    title: "Today",
+    date: new Date(),
+    items: [
+      {
+        id: "today-1",
+        type: "video",
+        title: "What was bro thinking?😂",
+        thumbnail: '/videos/listen.mp4',
+        date: new Date(),
+        isFavorite: false,
+      },
+    ],
+  },
+  {
+    title: "May 20",
+    date: new Date(),
+    items: [
+      {
+        id: "may-1",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/movieflix1.jpg",
+        date: new Date(),
+        isFavorite: true,
+      },
+      {
+        id: "may-2",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/movieflix2.jpg",
+        date: new Date(),
+        isFavorite: true,
+      },
+      {
+        id: "may-3",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/movieflix3.jpg",
+        date: new Date(),
+        isFavorite: true,
+      },
+      {
+        id: "may-4",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/movieflix4.jpg",
+        date: new Date(),
+        isFavorite: true,
+      },
+    ],
+  }
+]

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
-import { MediaProvider } from "@/context/MediaContext";
+import {MediaProvider} from "@/context/MediaContext";
+import React from "react";
 
-// import { SpeedInsights } from "@vercel/speed-insights/next"
-// import { Analytics } from "@vercel/analytics/react"
+import {SpeedInsights} from "@vercel/speed-insights/next"
+import {Analytics} from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Epiphanus Onyeso",
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
     "freelance web developer",
   ],
 
+  icons: {
+    icon: "/images/logo.png"
+  },
+
   openGraph: {
     title: "Epiphanus Onyeso",
     description:
@@ -34,9 +39,9 @@ export const metadata: Metadata = {
     siteName: "Epiphanus Onyeso",
     images: [
       {
-        url: "https://epiphanusonyeso.vercel.app/images/profile.jpg",
+        url: "https://epiphanusonyeso.vercel.app/images/logo.png",
         width: 650,
-        height: 650,
+        height: 300,
         alt: "Epiphanus Onyeso",
       },
     ],
@@ -50,12 +55,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased bg-black">
         <MediaProvider>
           {children}
+        <Analytics />
+        <SpeedInsights />
         </MediaProvider>
-        {/* <Analytics />
-        <SpeedInsights /> */}
       </body>
     </html>
   );

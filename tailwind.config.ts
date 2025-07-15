@@ -20,8 +20,10 @@ export default {
       },
       animation: {
         aurora: "aurora 60s linear infinite",
+        shimmer: "shimmer 2s linear infinite"
       },
       colors: {
+        primary: "#8b5cf6",
         walnut: {
           50: "#F5F5DC",
           300: "#8A5A30",
@@ -29,6 +31,7 @@ export default {
         black: {
           DEFAULT: "#000",
           100: "#000319",
+          200: "#000010"
         },
         purple: "#CBACF9",
         background: "hsl(var(--background))",
@@ -56,6 +59,14 @@ export default {
           backgroundPosition: "350% 50%, 350% 50%",
         },
       },
+      shimmer: {
+        from: {
+          "backgroundPosition": "0 0"
+        },
+        to: {
+          "backgroundPosition": "-200% 0"
+        }
+      }
     },
   },
   plugins: [
