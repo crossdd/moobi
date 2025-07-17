@@ -6,13 +6,8 @@ interface Project {
   description: string;
   thumbnail: string;
   liveUrl: string;
-  year: string;
   githubUrl: string;
-  technologies: {
-    title: string;
-    icon: string;
-  }[];
-  subtitle?: string;
+  technologies: string[];
   team?: boolean;
   features: string[];
   challenges: string[];
@@ -20,6 +15,8 @@ interface Project {
 }
 
 type Skill = "frontend" | "backend" | "tools" | "mobile"
+
+type BrowserScreen = "home" | "history" | "bookmark" | "bookmark-pId"
 
 type ScreenDisplay =
   | "home"
@@ -32,7 +29,6 @@ type ScreenDisplay =
   | "project-detail"
   | "chrome"
   | "lock"
-  | "chrome-history"
   | "info"
   | "snake"
   | "guess"
@@ -56,7 +52,6 @@ declare interface BrowserHomeProps {
   isLoading: boolean,
   progress: number
   setScreen: React.Dispatch<React.SetStateAction<BrowserScreen>>
-  handleSearch: (searchTerm?: string) => void
 }
 
 declare interface BrowserHistoryProps {
@@ -70,4 +65,9 @@ declare interface History {
   id: number;
   title: string;
   url: string
+}
+
+declare interface BrowserBookmarkProps {
+  setScreen:  React.Dispatch<React.SetStateAction<BrowserScreen>>
+  setProjectId:  React.Dispatch<React.SetStateAction<string>>
 }

@@ -6,13 +6,12 @@ import Image from "next/image";
 import {LuClock} from "react-icons/lu";
 import {FiMoreHorizontal} from "react-icons/fi";
 
-const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progress, setScreen, handleSearch}: BrowserHomeProps) => {
+const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progress, setScreen}: BrowserHomeProps) => {
     return (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col p-4">
             {/* Address Bar */}
             <div className="flex items-center justify-between gap-3 py-1 w-full">
                 <LiaHomeSolid className="fill-white" size={20}/>
-
 
                 <div className="flex items-center gap-4">
                     <div className="w-6 h-6 rounded-full flex-center bg-gray-600">
@@ -77,7 +76,7 @@ const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progre
                 <div className="grid grid-cols-3 gap-6 w-full mt-5 max-w-xs">
                     <div className="flex flex-col items-center gap-2">
                         <div
-                            onClick={() => handleSearch("https://epiphanusonyeso.vercel.app")}
+                            onClick={() => setScreen("bookmark")}
                             className="w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer"
                         >
                             <Image src="/images/logo.png" alt="logo" width={42} height={42}

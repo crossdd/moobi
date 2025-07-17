@@ -2,15 +2,12 @@
 
 import {FormEvent, useState} from "react"
 import emailjs from '@emailjs/browser'
-import {useMedia} from "@/context/MediaContext";
 import {BiPaperPlane, BiPencil} from "react-icons/bi";
 import {BsCheckCircle, BsEmojiSmile} from "react-icons/bs";
 import {GrGallery} from "react-icons/gr";
 import {LuLoaderPinwheel} from "react-icons/lu";
 
 const MailCompose = () => {
-    const {setCurrentScreen} = useMedia()
-
     const [fromEmail, setFromEmail] = useState("")
     const [toEmail, setToEmail] = useState("epiphanusonyeso05@gmail.com")
     const [subject, setSubject] = useState("")
@@ -124,18 +121,13 @@ const MailCompose = () => {
         <form onSubmit={handleSubmit} className="relative w-full h-full overflow-y-scroll mt-10 no-visible-scrollbar">
             {/* Navigation Bar */}
             <div className="border-b border-gray-300">
-                <div className="flex justify-between items-center px-4 py-3">
-                    <button
-                        type="button"
-                        className="text-blue-500 font-medium"
-                        onClick={() => setCurrentScreen('home')}
-                    >Cancel</button>
+                <div className="flex justify-end items-end px-4 py-3">
                     <button
                         type="submit"
                         disabled={isSending}
                         className={`text-blue-500 font-medium disabled:text-blue-500/65`}
                     >
-                        {!isSending ? <BiPaperPlane /> : <LuLoaderPinwheel className="spin-custom" />}
+                        {!isSending ? <BiPaperPlane size={24} /> : <LuLoaderPinwheel className="spin-custom" />}
                     </button>
                 </div>
             </div>

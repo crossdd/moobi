@@ -5,8 +5,12 @@ import {useState} from "react"
 import {History} from "@/types";
 import BrowserHistory from "@/components/screens/BrowserHistory";
 import BrowserHome from "@/components/screens/BrowserHome";
-
-type BrowserScreen = "home" | "history"
+import BrowserBookmark from "@/components/screens/BrowserBookmark";
+import {useMedia} from "@/context/MediaContext";
+import ProjectInfo from "@/components/screens/browser-bookmark/ProjectInfo";
+import {LiaHomeSolid} from "react-icons/lia";
+import {CgLink, CgMoreVertical} from "react-icons/cg";
+import {BiPlus} from "react-icons/bi";
 
 const historyData: History[] = [
     {
@@ -45,8 +49,7 @@ const Browser = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [history, setHistory] = useState<History[]>(historyData)
-
-    const [screen, setScreen] = useState<BrowserScreen>("home")
+    const {currentBrowserScreen, setCurrentBrowserScreen, projectId, setProjectId} = useMedia()
 
     const [searchQuery, setSearchQuery] = useState("")
 
@@ -113,7 +116,6 @@ const Browser = () => {
         }, 100);
     };
 
-
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             handleSearch()
@@ -121,26 +123,58 @@ const Browser = () => {
     }
 
     return (
-        <div className="relative w-full h-full overflow-hidden p-4 mt-10">
-            {screen === 'home' && (
+        <div className="relative w-full h-full overflow-hidden mt-10">
+            {currentBrowserScreen === 'home' && (
                 <BrowserHome
                     searchQuery={searchQuery} 
                     setSearchQuery={setSearchQuery} 
                     onKeyPress={handleKeyPress}
                     isLoading={isLoading} 
                     progress={progress} 
-                    setScreen={setScreen}
-                    handleSearch={handleSearch}
+                    setScreen={setCurrentBrowserScreen}
                 />
             )}
 
-            {screen === 'history' && (
+            {currentBrowserScreen === 'history' && (
                 <BrowserHistory
-                    setScreen={setScreen}
+                    setScreen={setCurrentBrowserScreen}
                     history={history}
                     handleSearch={handleSearch}
                     setHistory={setHistory}
                 />
+            )}
+
+            {(currentBrowserScreen === 'bookmark' || currentBrowserScreen === 'bookmark-pId') && (
+                <main className="relative w-full h-full overflow-x-hidden overflow-y-scroll no-visible-scrollbar">
+                    {/* Address Bar */}
+                    <div className="sticky top-0 flex items-center justify-between gap-3 py-2 px-2 w-full text-white bg-black z-50">
+                        <div className="flex items-center gap-2">
+                            <LiaHomeSolid size={16}/>
+                            <div className="bg-gray-600 rounded-full flex items-center gap-1 py-1 px-1">
+                                <CgLink size={16} />
+                                <input
+                                    disabled
+                                    placeholder="epiphanusonyeso.vercel.app"
+                                    className="border-0 text-xs bg-transparent focus-visible:ring-0 focus:outline-none"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <BiPlus fill="white" size={16} />
+                            <div className="w-6 h-6 border-2 border-primary p-1 text-white flex-center rounded-md text-xs font-light">
+                                1
+                            </div>
+                            <CgMoreVertical size={16} />
+                        </div>
+                    </div>
+
+                    {currentBrowserScreen === 'bookmark' ? (
+                        <BrowserBookmark setScreen={setCurrentBrowserScreen} setProjectId={setProjectId} />
+                    ) : (
+                        <ProjectInfo projectId={projectId} />
+                    )}
+                </main>
             )}
         </div>
     )

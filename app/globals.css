@@ -112,6 +112,15 @@ body {
   }
 }
 
+.name_svg path {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 0.5;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: loadingAnimation 10s ease-in-out infinite reverse;
+}
+
 .no-visible-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -146,5 +155,18 @@ body {
 @keyframes spin360 {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingAnimation {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  80% {
+    fill: transparent;
+  }
+  100% {
+    fill: #000319;
+    stroke-dashoffset: 0;
   }
 }

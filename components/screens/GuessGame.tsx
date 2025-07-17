@@ -93,7 +93,7 @@ const GuessGame = () => {
     }
 
     return (
-        <div className="relative w-full h-full overflow-hidden mt-10 px-3 bg-white">
+        <div className="relative w-full h-full overflow-hidden mt-8 px-3 bg-white">
             {/* Setup Screen */}
             {gameState === "setup" && (
                 <div className="flex-1 flex-center flex-col space-y-6 mt-32">

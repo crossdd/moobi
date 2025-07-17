@@ -72,7 +72,7 @@ export default function Phone() {
                                                     ? <SnakeGame />
                                                     : currentScreen === 'guess'
                                                         ? <GuessGame />
-                                                        : <LockScreen />
+                                                            : <LockScreen />
     }
 
 

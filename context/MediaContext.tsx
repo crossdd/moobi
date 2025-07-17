@@ -9,7 +9,7 @@ import {
     SetStateAction,
 } from 'react';
 import { gallery } from '@/constants';
-import {type MediaItem, type MediaType, type ScreenDisplay} from "@/types";
+import {type BrowserScreen, type MediaItem, type MediaType, type ScreenDisplay} from "@/types";
 
 interface Media {
     type: MediaType;
@@ -28,6 +28,8 @@ interface ContextType {
     setCurrentScreen: Dispatch<SetStateAction<ScreenDisplay>>;
     lastScreen: ScreenDisplay;
     setLastScreen: Dispatch<SetStateAction<ScreenDisplay>>;
+    currentBrowserScreen: BrowserScreen;
+    setCurrentBrowserScreen: Dispatch<SetStateAction<BrowserScreen>>;
     goToNextMedia: () => void;
     goToPreviousMedia: () => void;
 }
@@ -51,6 +53,8 @@ const INIT_STATE: ContextType = {
     setCurrentScreen: () => {},
     lastScreen: 'lock',
     setLastScreen: () => {},
+    currentBrowserScreen: 'home',
+    setCurrentBrowserScreen: () => {},
     goToNextMedia: () => {},
     goToPreviousMedia: () => {},
 };
@@ -63,6 +67,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
 
     const [lastScreen, setLastScreen] = useState<ScreenDisplay>("home")
     const [currentScreen, setCurrentScreen] = useState<ScreenDisplay>('lock');
+    const [currentBrowserScreen, setCurrentBrowserScreen] = useState<BrowserScreen>("home")
 
     const [allMedia, setAllMedia] = useState<MediaItem[]>(defaultAllMedia as MediaItem[]);
 
@@ -103,6 +108,8 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
                 setCurrentScreen,
                 lastScreen,
                 setLastScreen,
+                currentBrowserScreen,
+                setCurrentBrowserScreen,
                 goToNextMedia,
                 goToPreviousMedia,
             }}

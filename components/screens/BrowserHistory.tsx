@@ -20,7 +20,7 @@ const BrowserHistory = ({setScreen, history, handleSearch, setHistory}: BrowserH
     }
 
     return (
-        <div className="flex-1 w-full relative h-full flex flex-col">
+        <div className="flex-1 w-full relative h-full flex flex-col px-2 py-4">
             {/* Header */}
             <div className="flex items-center justify-between text-white">
                 <div className="flex items-center gap-1">

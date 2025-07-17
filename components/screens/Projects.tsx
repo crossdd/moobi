@@ -10,7 +10,7 @@ const Projects = () => {
         (project) =>
             project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            project.technologies.some((tech) => tech.icon.toLowerCase().includes(searchQuery.toLowerCase()))
+            project.technologies.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()))
     )
 
     const handleProjectSelect = (id: string) => {

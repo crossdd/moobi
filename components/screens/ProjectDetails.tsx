@@ -3,7 +3,7 @@ import {useMedia} from "@/context/MediaContext";
 import Image from "next/image";
 import {ReactNode, useState} from "react";
 import {AiOutlineArrowRight} from "react-icons/ai";
-import {cn} from "@/lib/utils";
+import {cn, getTechIcon} from "@/lib/utils";
 import {type Project} from "@/types";
 
 type ModalType = "description" | "features" | "learnings" | "challenges" | "stack" | ""
@@ -70,19 +70,19 @@ const ProjectDetails = () => {
                             <div className="flex flex-col gap-4">
                                 {project.technologies.map((tech) => (
                                     <div
-                                        key={tech.title}
+                                        key={tech}
                                         className="flex items-center gap-4"
-                                        title={tech.title}
+                                        title={tech}
                                     >
                                         <Image
-                                            src={tech.icon}
-                                            alt={tech.title}
+                                            src={getTechIcon(tech)}
+                                            alt={tech}
                                             width={50}
                                             height={50}
                                             loading="lazy"
-                                            className={cn("w-7 h-7 p-1 object-center object-cover", tech.title === 'Prisma' && "invert")}
+                                            className={cn("w-7 h-7 p-1 object-center object-cover", tech === 'Prisma' && "invert")}
                                         />
-                                        <div className="text-white text-sm">{tech.title}</div>
+                                        <div className="text-white text-sm">{tech}</div>
                                     </div>
                                 ))}
                             </div>

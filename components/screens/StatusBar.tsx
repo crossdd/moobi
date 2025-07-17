@@ -18,14 +18,16 @@ const StatusBar = () => {
 
 
     return (
-        <div className={cn("flex justify-between items-center px-1 pt-1.5 mt-2 mx-1.5 text-white text-sm font-medium w-[290px] bg-black rounded-t-full",(currentScreen === 'lock' || currentScreen === 'image-view' || currentScreen === 'video-player') && "bg-transparent")}>
-            <div className={cn("px-2", currentScreen === 'lock' && "opacity-0")}>
+        <div className={cn("flex justify-between items-center px-1 pt-2.5 mt-2.5 mx-px text-sm font-medium w-[302px] rounded-t-full bg-transparent",
+            currentScreen === 'guess' ? "text-black bg-white" : 'text-white'
+        )}>
+            <div className={cn("pl-5 font-medium", currentScreen === 'lock' && "opacity-0")}>
                 {currentTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: false })}
             </div>
            <div className="flex items-center space-x-1 mr-2">
                 <div className="flex space-x-1">
                     {[1, 2, 3].map((_, index) => (
-                        <div key={index + 1} className="w-1 h-1 bg-white rounded-full"/>
+                        <div key={index + 1} className={cn("w-1 h-1 bg-white rounded-full", currentScreen === 'guess' ? "bg-black" : 'bg-white')}/>
                     ))}
                 </div>
                 <span className="text-xs">📶</span>

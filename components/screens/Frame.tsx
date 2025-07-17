@@ -6,7 +6,7 @@ import {useMedia} from "@/context/MediaContext";
 
 const Frame = ({children}: {children: React.ReactNode}) => {
     const [isOn, setIsOn] = useState(false)
-    const {currentScreen, setCurrentScreen, setLastScreen} = useMedia()
+    const {currentScreen, setCurrentScreen, setLastScreen, setCurrentBrowserScreen, currentBrowserScreen} = useMedia()
 
     const toggleScreenOnOff = () => {
         if(isOn) {
@@ -84,7 +84,7 @@ const Frame = ({children}: {children: React.ReactNode}) => {
                 </button>
 
                 <button
-                    disabled={!isOn}
+                    disabled={!isOn || currentScreen === 'home' || currentScreen === 'lock'}
                     onClick={() => {
                         if (currentScreen === 'home') {
                             return;
@@ -92,9 +92,13 @@ const Frame = ({children}: {children: React.ReactNode}) => {
                             setCurrentScreen('gallery')
                         } else if(currentScreen === 'project-detail') {
                             setCurrentScreen("projects")
-                        }  else if(currentScreen === "chrome-history") {
-                            setCurrentScreen("chrome")
-                        }else {
+                        } else if(currentScreen === 'chrome' && currentBrowserScreen !== 'home') {
+                            if(currentBrowserScreen === 'bookmark-pId') {
+                                setCurrentBrowserScreen("bookmark")
+                            } else {
+                                setCurrentBrowserScreen("home")
+                            }
+                        } else {
                             setCurrentScreen('home')
                         }
                     }}
