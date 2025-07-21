@@ -7,7 +7,6 @@ import BrowserHistory from "@/components/screens/BrowserHistory";
 import BrowserHome from "@/components/screens/BrowserHome";
 import BrowserBookmark from "@/components/screens/BrowserBookmark";
 import {useMedia} from "@/context/MediaContext";
-import ProjectInfo from "@/components/screens/browser-bookmark/ProjectInfo";
 import {LiaHomeSolid} from "react-icons/lia";
 import {CgLink, CgMoreVertical} from "react-icons/cg";
 import {BiPlus} from "react-icons/bi";
@@ -49,7 +48,7 @@ const Browser = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [history, setHistory] = useState<History[]>(historyData)
-    const {currentBrowserScreen, setCurrentBrowserScreen, projectId, setProjectId} = useMedia()
+    const {currentBrowserScreen, setCurrentBrowserScreen} = useMedia()
 
     const [searchQuery, setSearchQuery] = useState("")
 
@@ -144,12 +143,12 @@ const Browser = () => {
                 />
             )}
 
-            {(currentBrowserScreen === 'bookmark' || currentBrowserScreen === 'bookmark-pId') && (
+            {currentBrowserScreen === 'bookmark' && (
                 <main className="relative w-full h-full overflow-x-hidden overflow-y-scroll no-visible-scrollbar">
                     {/* Address Bar */}
                     <div className="sticky top-0 flex items-center justify-between gap-3 py-2 px-2 w-full text-white bg-black z-50">
                         <div className="flex items-center gap-2">
-                            <LiaHomeSolid size={16}/>
+                            <LiaHomeSolid size={16} onClick={() => setCurrentBrowserScreen("home")}/>
                             <div className="bg-gray-600 rounded-full flex items-center gap-1 py-1 px-1">
                                 <CgLink size={16} />
                                 <input
@@ -169,11 +168,7 @@ const Browser = () => {
                         </div>
                     </div>
 
-                    {currentBrowserScreen === 'bookmark' ? (
-                        <BrowserBookmark setScreen={setCurrentBrowserScreen} setProjectId={setProjectId} />
-                    ) : (
-                        <ProjectInfo projectId={projectId} />
-                    )}
+                        <BrowserBookmark />
                 </main>
             )}
         </div>

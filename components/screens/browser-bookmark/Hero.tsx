@@ -2,7 +2,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative h-[94vh] w-full flex items-center justify-center flex-col gap-12 overflow-hidden">
+    <section id="hero" className="relative h-[83vh] w-full flex-center flex-col gap-12 overflow-hidden">
       <Spotlight />
 
       <div className="flex justify-center flex-col gap-4 text-white">

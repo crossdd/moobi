@@ -35,6 +35,7 @@ const ProjectInfo = ({ projectId }: { projectId: string }) => {
     return (
         <>
             <Navbar />
+
             <div
                 className="absolute inset-0 opacity-35"
                 style={{
@@ -46,11 +47,11 @@ const ProjectInfo = ({ projectId }: { projectId: string }) => {
             <div className="relative z-10 flex-center flex-col gap-6 px-4">
                 <div className="flex flex-col gap-12 mt-24">
                     <div>
-                        <SpecialText text={project.title} as="h1" className="heading !text-6xl mb-4 flex gap-2" />
+                        <SpecialText text={project.title} as="h1" className="heading !text-5xl mb-4 flex gap-2" />
 
-                        <p className="text-base text-gray-400 tracking-wide leading-relaxed mb-8">{project.description}</p>
+                        <p className="text-base text-gray-400 tracking-wide leading-relaxed">{project.description}</p>
 
-                        <h2 className="text-lg text-white mb-4">Technologies Used:</h2>
+                        <h2 className="text-lg text-white mt-6 mb-4">Technologies Used:</h2>
                         <div className="flex items-center w-full flex-wrap gap-4">
                             {project.technologies.map((tech, index) => (
                                 <div key={index} className="flex items-center border border-neutral-700 rounded-full pr-4">

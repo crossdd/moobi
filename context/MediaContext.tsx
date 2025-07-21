@@ -49,7 +49,7 @@ const INIT_STATE: ContextType = {
     setMedia: () => {},
     allMedia: defaultAllMedia as MediaItem[],
     setAllMedia: () => {},
-    currentScreen: 'lock',
+    currentScreen: 'boot',
     setCurrentScreen: () => {},
     lastScreen: 'lock',
     setLastScreen: () => {},
@@ -66,7 +66,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
     const [projectId, setProjectId] = useState<string>("");
 
     const [lastScreen, setLastScreen] = useState<ScreenDisplay>("home")
-    const [currentScreen, setCurrentScreen] = useState<ScreenDisplay>('lock');
+    const [currentScreen, setCurrentScreen] = useState<ScreenDisplay>('boot');
     const [currentBrowserScreen, setCurrentBrowserScreen] = useState<BrowserScreen>("home")
 
     const [allMedia, setAllMedia] = useState<MediaItem[]>(defaultAllMedia as MediaItem[]);

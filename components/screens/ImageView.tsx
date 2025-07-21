@@ -20,24 +20,24 @@ const ImageView = () => {
 
     return (
         <div
-            className="w-full h-full relative overflow-hidden"
+            className="w-full h-full flex-center relative overflow-hidden"
              {...swipeHandlers}
         >
-            <div className="relative mb-10">
-            <div className="absolute -top-4 left-0 right-0 p-6">
-                <h4 className="text-white text-lg font-semibold">
-                    {media.title}
-                </h4>
-            </div>
+            <div className="relative">
+                <div className="absolute -top-4 left-0 right-0 p-6">
+                    <h4 className="text-white text-lg font-semibold">
+                        {media.title}
+                    </h4>
+                </div>
 
             {media.type === 'photo' && (
-                <Image
-                    src={media.url}
-                    alt={media.title || 'Media'}
-                    width={700}
-                    height={700}
-                    className="w-full h-full object-cover"
-                />
+                    <Image
+                        src={media.url}
+                        alt={media.title || 'Media'}
+                        width={400}
+                        height={400}
+                        className="w-full h-full"
+                    />
             )}
             </div>
         </div>

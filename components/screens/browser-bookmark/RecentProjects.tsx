@@ -1,8 +1,7 @@
 import {projects} from "@/constants";
 import ProjectCard from "./ProjectCard";
-import {BrowserBookmarkProps} from "@/types";
 
-const RecentProjects = (props: BrowserBookmarkProps) => {
+const RecentProjects = () => {
   return (
     <section
       id="projects"
@@ -18,7 +17,6 @@ const RecentProjects = (props: BrowserBookmarkProps) => {
           <ProjectCard
             key={project.id}
             project={project}
-            {...props}
           />
         ))}
       </div>

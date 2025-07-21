@@ -5,8 +5,29 @@ import React, {useState} from "react";
 import {useMedia} from "@/context/MediaContext";
 
 const Frame = ({children}: {children: React.ReactNode}) => {
-    const [isOn, setIsOn] = useState(false)
+    const [isOn, setIsOn] = useState(true)
     const {currentScreen, setCurrentScreen, setLastScreen, setCurrentBrowserScreen, currentBrowserScreen} = useMedia()
+
+    let pressTimer: NodeJS.Timeout;
+
+    const handlePressStart = () => {
+        pressTimer = setTimeout(() => {
+           togglePhoneState()
+        }, 1000);
+    };
+
+
+    const handlePressEnd = () => {
+        clearTimeout(pressTimer);
+    };
+
+    const handleClick = () => {
+        clearTimeout(pressTimer)
+
+        if(currentScreen === 'shutdown' || currentScreen === 'boot') return
+
+        toggleScreenOnOff()
+    };
 
     const toggleScreenOnOff = () => {
         if(isOn) {
@@ -21,10 +42,21 @@ const Frame = ({children}: {children: React.ReactNode}) => {
         }
     }
 
+    const togglePhoneState = () => {
+        if(currentScreen !== 'shutdown') {
+            setLastScreen("home")
+            setCurrentScreen("shutdown")
+        } else {
+            setCurrentScreen("boot")
+        }
+    }
+
+    const isCurrentlyOn = currentScreen !== 'shutdown' && isOn
+
     return (
-        <div className="relative h-full">
+        <div className="relative h-full flex-center gap-4">
             {/* iPhone 16 Body */}
-            <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-2 shadow-2xl w-80 h-[650px]">
+            <div className="relative bg-gradient-to-b from-gray-600 via-gray-800 to-gray-900 rounded-[3rem] p-2 shadow-2xl w-80 h-[600px]">
                 {/* Power Button */}
                 <div className="absolute -right-1 top-24 w-1 h-16 bg-gray-700 rounded-l-sm"></div>
 
@@ -37,8 +69,7 @@ const Frame = ({children}: {children: React.ReactNode}) => {
 
                 {/* Screen */}
                 <div
-                    className={`relative w-full h-full rounded-[2.5rem] overflow-hidden transition-all duration-300 ${isOn ? "bg-black" : "bg-gray-900"
-                    }`}
+                    className={`relative w-full h-full rounded-[2.5rem] overflow-hidden transition-all duration-300 bg-black`}
                 >
                     {/* Status Bar */}
                     {isOn && (
@@ -66,13 +97,18 @@ const Frame = ({children}: {children: React.ReactNode}) => {
             </div>
 
             {/* Power Button Toggle */}
-            <div className="flex flex-col gap-5 bg-gray-800 absolute -right-7 top-1/2 transform -translate-y-1/2 rounded-md">
+            <div className="flex flex-col gap-5 bg-gradient-to-b from-gray-600 via-gray-800 to-gray-900 rounded-md">
                 <button
-                    onClick={toggleScreenOnOff}
+                    onMouseDown={handlePressStart}
+                    onTouchStart={handlePressStart}
+                    onMouseUp={handlePressEnd}
+                    onMouseLeave={handlePressEnd}
+                    onTouchEnd={handlePressEnd}
+                    onClick={handleClick}
+                    // onClick={togglePhoneState}
                     className="p-2 text-white rounded-lg text-sm hover:bg-gray-700 transition-colors"
                 >
-
-                    {isOn ? <LuPowerOff size={19} /> : <LuPower size={19} />}
+                    {isCurrentlyOn ? <LuPowerOff size={19} /> : <LuPower size={19} />}
                 </button>
 
                 <button
@@ -93,11 +129,7 @@ const Frame = ({children}: {children: React.ReactNode}) => {
                         } else if(currentScreen === 'project-detail') {
                             setCurrentScreen("projects")
                         } else if(currentScreen === 'chrome' && currentBrowserScreen !== 'home') {
-                            if(currentBrowserScreen === 'bookmark-pId') {
-                                setCurrentBrowserScreen("bookmark")
-                            } else {
                                 setCurrentBrowserScreen("home")
-                            }
                         } else {
                             setCurrentScreen('home')
                         }

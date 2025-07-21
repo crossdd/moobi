@@ -9,6 +9,7 @@ import {Button} from "@/components/ui/button"
 import Image from "next/image";
 import {useMedia} from "@/context/MediaContext";
 import {BsSnapchat, BsWhatsapp} from "react-icons/bs";
+import {motion} from 'framer-motion'
 
 const LockScreen = () => {
     const [currentTime, setCurrentTime] = useState(new Date())
@@ -66,7 +67,12 @@ const LockScreen = () => {
     ]
 
     return (
-        <div className="w-full h-full relative">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="w-full h-full relative"
+        >
             <Image
                 src={lockscreen.src}
                 alt="profile-picture"
@@ -79,10 +85,14 @@ const LockScreen = () => {
             {/* Lock Screen Content */}
             <div className="flex flex-col h-full justify-between pt-16 pb-8">
                 {/* Time and Date */}
-                <div className="text-center text-white px-6">
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-center text-white">
                     <div className="text-7xl font-thin mb-2 tracking-tight">{formatTime(currentTime)}</div>
-                    <div className="text-lg font-medium opacity-90">{formatDate(currentTime)}</div>
-                </div>
+                    <div className="text-lg font-medium">{formatDate(currentTime)}</div>
+                </motion.div>
 
                 {/* Notifications Area */}
                 <div className="flex-1 flex flex-col justify-center px-2 space-y-3">
@@ -150,7 +160,7 @@ const LockScreen = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

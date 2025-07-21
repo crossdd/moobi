@@ -6,7 +6,6 @@ const StatusBar = () => {
     const {currentScreen} = useMedia()
     const [currentTime, setCurrentTime] = useState(new Date())
 
-
     // Update time every second
     useEffect(() => {
         const timer = setInterval(() => {
@@ -16,10 +15,11 @@ const StatusBar = () => {
         return () => clearInterval(timer)
     }, [])
 
+    if(currentScreen === 'boot' || currentScreen === 'shutdown') return null
 
     return (
-        <div className={cn("flex justify-between items-center px-1 pt-2.5 mt-2.5 mx-px text-sm font-medium w-[302px] rounded-t-full bg-transparent",
-            currentScreen === 'guess' ? "text-black bg-white" : 'text-white'
+        <div className={cn("flex justify-between items-center px-1 pt-3 mt-4 mx-[1.5px] text-sm font-medium w-[302px] rounded-t-full bg-transparent",
+            currentScreen === 'guess' ? "text-black bg-transparent" : 'text-white'
         )}>
             <div className={cn("pl-5 font-medium", currentScreen === 'lock' && "opacity-0")}>
                 {currentTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: false })}

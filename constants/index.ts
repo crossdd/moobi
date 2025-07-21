@@ -219,6 +219,22 @@ export const gallery = [
         date: new Date(),
         isFavorite: true,
       },
+    {
+        id: "may-5",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/profile.jpg",
+        date: new Date(),
+        isFavorite: true,
+      },
+    {
+        id: "may-6",
+        type: "photo",
+        title: "",
+        thumbnail: "/images/profile-animated.png",
+        date: new Date(),
+        isFavorite: true,
+      },
     ],
   },
 ];

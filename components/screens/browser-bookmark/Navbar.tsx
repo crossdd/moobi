@@ -3,18 +3,21 @@ import Link from "next/link";
 import {BsGithub} from "react-icons/bs";
 import {FaHome} from "react-icons/fa";
 import {FaFileCsv} from "react-icons/fa6";
+import {useMedia} from "@/context/MediaContext";
 
 const Navbar = () => {
+    const {setProjectId} = useMedia()
+
   return (
     <nav className="flex-center max-w-fit fixed top-24 inset-x-0 mx-auto  backdrop-blur-3xl rounded-xl px-4 py-2 space-x-5 bg-black/30 z-20 border border-white hover:bg-primary/5 transition-colors delay-100 duration-200">
-      <Link
-        href="/"
-        className={cn(
+      <button
+          onClick={() => setProjectId("")}
+          className={cn(
           "relative items-center transition-colors hover:text-opacity-80 text-white"
-        )}
+          )}
       >
         <FaHome size={16} />
-      </Link>
+      </button>
 
       <div className="h-5 w-px bg-gray-600" />
 

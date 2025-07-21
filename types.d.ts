@@ -16,9 +16,10 @@ interface Project {
 
 type Skill = "frontend" | "backend" | "tools" | "mobile"
 
-type BrowserScreen = "home" | "history" | "bookmark" | "bookmark-pId"
+type BrowserScreen = "home" | "history" | "bookmark"
 
 type ScreenDisplay =
+  | "boot"
   | "home"
   | "phone"
   | "mail"
@@ -32,6 +33,7 @@ type ScreenDisplay =
   | "info"
   | "snake"
   | "guess"
+  | "shutdown"
 
 type MediaType = "photo" | "video"
 

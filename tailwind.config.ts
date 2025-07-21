@@ -20,7 +20,8 @@ export default {
       },
       animation: {
         aurora: "aurora 60s linear infinite",
-        shimmer: "shimmer 2s linear infinite"
+        shimmer: "shimmer 2s linear infinite",
+        pulseCustom: 'pulseCustom 1.5s ease-in-out infinite',
       },
       colors: {
         primary: "#8b5cf6",
@@ -66,7 +67,11 @@ export default {
         to: {
           "backgroundPosition": "-200% 0"
         }
-      }
+      },
+      pulseCustom: {
+        '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+        '50%': { transform: 'scale(1.2)', opacity: '0.6' },
+      },
     },
   },
   plugins: [

@@ -1,22 +1,16 @@
 import Image from "next/image";
-import { FaLocationArrow } from "react-icons/fa6";
+import {FaLocationArrow} from "react-icons/fa6";
 
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { cn, getTechIcon } from "@/lib/utils";
-import {BrowserBookmarkProps, type Project} from "@/types";
+import {CardBody, CardContainer, CardItem} from "@/components/ui/3d-card";
+import {cn, getTechIcon} from "@/lib/utils";
+import {type Project} from "@/types";
+import {useMedia} from "@/context/MediaContext";
 
-const ProjectCard = ({
-  project,
-    setProjectId,
-    setScreen
-}: { project: Project } & BrowserBookmarkProps) => {
+const ProjectCard = ({project}: { project: Project }) => {
+    const {setProjectId} = useMedia()
 
     const handleClick = () => {
         setProjectId(project.id)
-
-        setTimeout(() => {
-            setScreen("bookmark-pId")
-        }, 700)
     }
 
   return (

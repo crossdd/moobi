@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section className="w-full relative flex flex-col justify-center gap-8">
       <div className="flex justify-center flex-col px-4 gap-4">
-        <h1 className="heading text-center !text-primary">
+        <h1 className="heading text-center">
           About Me
         </h1>
 
@@ -21,7 +21,6 @@ const About = () => {
 
       <div className="flex-center">
          <Image src="/images/profile-animated.png" alt="me" width={400} height={400} className="rounded-full" />
-        {/*<Image src="/images/profile.jpg" alt="me" width={400} height={600} className="rounded-full" />*/}
       </div>
     </section>
   );

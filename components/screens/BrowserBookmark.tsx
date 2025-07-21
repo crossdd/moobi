@@ -1,17 +1,26 @@
 import {About, Footer, Hero, Navbar, RecentProjects, Skills} from "@/components/screens/browser-bookmark";
-import {type BrowserBookmarkProps} from "@/types";
-import React from "react";
+import {useMedia} from "@/context/MediaContext";
+import ProjectInfo from "@/components/screens/browser-bookmark/ProjectInfo";
+import type React from "react";
 
-const BrowserBookmark = (props: BrowserBookmarkProps) => {
+const BrowserBookmark = () => {
+    const {projectId} = useMedia()
+
+    if(projectId === "") {
+        return (
+            <>
+                <Navbar />
+                <Hero />
+                <About />
+                <Skills />
+                <RecentProjects />
+                <Footer />
+            </>
+        )
+    }
+
     return (
-        <>
-            <Navbar />
-            <Hero />
-            <About />
-            <Skills />
-            <RecentProjects {...props} />
-            <Footer />
-        </>
+        <ProjectInfo projectId={projectId} />
     )
 }
 export default BrowserBookmark

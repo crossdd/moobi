@@ -1,10 +1,11 @@
 "use client"
 
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {Button} from "@/components/ui/button"
 import {LuArrowDown, LuArrowUp, LuBrain, LuCheck, LuPlay} from "react-icons/lu";
+import {cn} from "@/lib/utils";
 
-type GameState = "setup" | "playing" | "finished"
+type GameState = "loading" | "setup" | "playing" | "finished"
 type GuessResult = 'lower' | 'higher' | 'correct'
 
 interface Guess {
@@ -14,12 +15,23 @@ interface Guess {
 }
 
 const GuessGame = () => {
-    const [gameState, setGameState] = useState<GameState>("setup")
+    const [gameState, setGameState] = useState<GameState>("loading")
     const [computerNumber, setComputerNumber] = useState<number | null>(null)
     const [inputValue, setInputValue] = useState("")
     const [guesses, setGuesses] = useState<Guess[]>([])
     const [currentGuess, setCurrentGuess] = useState<number | null>(null)
     const [attempts, setAttempts] = useState(0)
+
+    useEffect(() => {
+        if(gameState === 'loading') {
+            const loadingInterval = setInterval(() => {
+
+                setGameState("setup")
+            }, 4000)
+
+            return () => clearInterval(loadingInterval)
+        }
+    }, [gameState])
 
     const startGame = () => {
         const computerGuess = Math.floor(Math.random() * 100) + 1
@@ -93,10 +105,16 @@ const GuessGame = () => {
     }
 
     return (
-        <div className="relative w-full h-full overflow-hidden mt-8 px-3 bg-white">
+        <div className={cn("relative w-full h-full overflow-hidden px-3 bg-white", gameState !== "playing" && "flex-center")}>
             {/* Setup Screen */}
+            {gameState === "loading" && (
+                <div className="flex-1 flex-center">
+                        <LuBrain className="w-16 h-16 text-blue-500 mx-auto mb-4 animate-pulseCustom" />
+                </div>
+            )}
+
             {gameState === "setup" && (
-                <div className="flex-1 flex-center flex-col space-y-6 mt-32">
+                <div className="flex-1 flex flex-col space-y-6">
                     <div className="text-center">
                         <LuBrain className="w-16 h-16 text-blue-500 mx-auto mb-4" />
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">Guess My Number</h2>
@@ -112,8 +130,7 @@ const GuessGame = () => {
 
             {/* Playing Screen */}
             {gameState === "playing" && (
-                <div className="flex-1 flex flex-col">
-                    {/* Current Guess */}
+                <div className="flex-1 flex flex-col mt-12">
                     <div className="bg-gradient-to-tr from-blue-50 via-pink-50 to-blue-50 rounded-xl p-6 my-4 text-center flex flex-col gap-4 items-center">
                         <div className="flex items-center justify-center gap-2">
                             <LuBrain className="w-6 h-6 text-blue-500" />
@@ -170,7 +187,7 @@ const GuessGame = () => {
 
             {/* Finished Screen */}
             {gameState === "finished" && (
-                <div className="flex-1 flex flex-col items-center justify-center space-y-6 mt-8">
+                <div className="flex-1 flex-center flex-col space-y-6">
                     <div className="text-center">
                         <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                             <LuCheck className="w-10 h-10 text-white" />

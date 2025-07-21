@@ -2,10 +2,11 @@
 
 import React from "react"
 import dynamic from "next/dynamic"
-import Loader from "@/components/screens/Loader";
+import Loader from "@/components/Loader";
 import {useMedia} from "@/context/MediaContext"
 import LockScreen from "@/components/screens/LockScreen";
 import Frame from "@/components/screens/Frame";
+import BootScreen from "@/components/screens/BootScreen";
 
 const HomeScreen = dynamic(() => import('@/components/screens/HomeScreen'), {
     loading: () =><Loader />,
@@ -72,13 +73,13 @@ export default function Phone() {
                                                     ? <SnakeGame />
                                                     : currentScreen === 'guess'
                                                         ? <GuessGame />
+                                                        : (currentScreen === 'boot' || currentScreen === 'shutdown')
+                                                            ? <BootScreen currentScreen={currentScreen} />
                                                             : <LockScreen />
     }
 
-
-
     return (
-        <div className="flex items-center justify-center h-full xsx:scale-75 xxs:scale-95 xs:scale-100">
+        <div className="flex-center flex-1 h-full py-2">
            <Frame>
                <ScreenDisplay />
            </Frame>

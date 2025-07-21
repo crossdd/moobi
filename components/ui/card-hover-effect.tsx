@@ -48,10 +48,12 @@ export const HoverEffect = ({
                             />
                         )}
                     </AnimatePresence>
-                    <Card>
-                        <CardTitle>{item.title}</CardTitle>
-                        <CardDescription contents={item.contents} />
-                    </Card>
+                    {item.contents.length > 0 && (
+                        <Card>
+                            <CardTitle>{item.title}</CardTitle>
+                            <CardDescription contents={item.contents} />
+                        </Card>
+                    )}
                 </div>
             ))}
         </div>
