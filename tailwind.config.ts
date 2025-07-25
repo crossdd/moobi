@@ -22,6 +22,7 @@ export default {
         aurora: "aurora 60s linear infinite",
         shimmer: "shimmer 2s linear infinite",
         pulseCustom: 'pulseCustom 1.5s ease-in-out infinite',
+        flash: 'flash 1.5s ease-in-out infinite',
       },
       colors: {
         primary: "#8b5cf6",
@@ -72,6 +73,10 @@ export default {
         '0%, 100%': { transform: 'scale(1)', opacity: '1' },
         '50%': { transform: 'scale(1.2)', opacity: '0.6' },
       },
+      flash: {
+       ' 0%, 100% ': {color: "#3b82f6" /* Tailwind's blue-500 */},
+        '50%':  {color: "#93c5fd" /* Tailwind's blue-300 */}
+      }
     },
   },
   plugins: [

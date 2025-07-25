@@ -5,6 +5,8 @@ import {ReactNode, useState} from "react";
 import {AiOutlineArrowRight} from "react-icons/ai";
 import {cn, getTechIcon} from "@/lib/utils";
 import {type Project} from "@/types";
+import Link from "next/link";
+import {RxExternalLink} from "react-icons/rx";
 
 type ModalType = "description" | "features" | "learnings" | "challenges" | "stack" | ""
 
@@ -21,7 +23,7 @@ const ProjectDetails = () => {
     }
 
     return (
-        <div className="relative w-full h-full mt-14 px-3">
+        <div className="relative w-full h-full py-12 px-3 overflow-y-scroll no-visible-scrollbar">
             <Image src={project.thumbnail} alt={project.title} width={400} height={200}
                    className="w-full h-auto object-center rounded-b-lg"/>
 
@@ -54,6 +56,18 @@ const ProjectDetails = () => {
                     onClick={() => setModalToOpen("learnings")}>
                     <p className="text-white text-base">Progress Made</p>
                     <AiOutlineArrowRight/>
+                </li>
+                <li className="text-white">
+                    <Link href={project.liveUrl} className="flex items-center justify-between w-full">
+                        <p className="text-white text-base">Live Demo</p>
+                        <RxExternalLink/>
+                    </Link>
+                </li>
+                <li className="text-white">
+                    <Link href={project.githubUrl} className="flex items-center justify-between w-full">
+                        <p className="text-white text-base">Source Code</p>
+                        <RxExternalLink/>
+                    </Link>
                 </li>
             </ul>
 
@@ -105,7 +119,7 @@ const ProjectDetails = () => {
 }
 export default ProjectDetails
 
-const Modal = ({children}: { children: ReactNode }) => {
+export const Modal = ({children}: { children: ReactNode }) => {
     return (
         <div className="absolute top-1/2 -translate-y-1/2 flex w-[90%] h-fit border px-6 py-8 rounded-xl bg-black">
             {children}

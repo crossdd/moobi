@@ -1,5 +1,6 @@
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
-import { BsTwitterX } from "react-icons/bs";
+import {FaGithub, FaLinkedin} from "react-icons/fa6";
+import {BsTwitterX} from "react-icons/bs";
+import {HistoryType} from "@/types";
 
 export const techIcons: { [key: string]: string } = {
   react: "/icons/re.svg",
@@ -92,7 +93,7 @@ export const projects = [
     id: "e-library",
     title: "Bookwise",
     description:
-        "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, search academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
+        "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, tracks academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
     thumbnail: "/images/e-library.png",
     year: "2025",
     technologies: ["Next.js", "Tailwindcss", "Typescript", "Prisma", "Redis"],
@@ -238,3 +239,105 @@ export const gallery = [
     ],
   },
 ];
+
+export const musicCatalog = [
+  {
+    id: "1",
+    title: "Blinding Lights",
+    artist: "The Weeknd",
+    album: "After Hours",
+    duration: 200,
+    albumArt: "🌃",
+    genre: "Pop",
+  },
+  {
+    id: "2",
+    title: "Watermelon Sugar",
+    artist: "Harry Styles",
+    album: "Fine Line",
+    duration: 174,
+    albumArt: "🍉",
+    genre: "Pop",
+  },
+  {
+    id: "3",
+    title: "Good 4 U",
+    artist: "Olivia Rodrigo",
+    album: "SOUR",
+    duration: 178,
+    albumArt: "💜",
+    genre: "Pop Rock",
+  },
+  {
+    id: "4",
+    title: "Levitating",
+    artist: "Dua Lipa",
+    album: "Future Nostalgia",
+    duration: 203,
+    albumArt: "✨",
+    genre: "Dance Pop",
+  },
+  {
+    id: "5",
+    title: "Stay",
+    artist: "The Kid LAROI & Justin Bieber",
+    album: "F*CK LOVE 3",
+    duration: 141,
+    albumArt: "🎵",
+    genre: "Pop",
+  },
+  {
+    id: "6",
+    title: "Heat Waves",
+    artist: "Glass Animals",
+    album: "Dreamland",
+    duration: 238,
+    albumArt: "🌊",
+    genre: "Indie Pop",
+  },
+  {
+    id: "7",
+    title: "Industry Baby",
+    artist: "Lil Nas X ft. Jack Harlow",
+    album: "MONTERO",
+    duration: 212,
+    albumArt: "👑",
+    genre: "Hip Hop",
+  },
+  {
+    id: "8",
+    title: "Bad Habits",
+    artist: "Ed Sheeran",
+    album: "=",
+    duration: 231,
+    albumArt: "🎸",
+    genre: "Pop",
+  },
+]
+
+export const browserHistory: HistoryType[] = [
+  {
+    id: 1,
+    query: "GitHub",
+  },
+  {
+    id: 2,
+    query: "Stack Overflow",
+  },
+  {
+    id: 3,
+    query: "Vercel",
+  },
+  {
+    id: 4,
+    query: "React",
+  },
+  {
+    id: 5,
+    query: "Tailwind CSS",
+  },
+  {
+    id: 6,
+    query: "MDN Web Docs",
+  },
+]

@@ -8,19 +8,21 @@ import Link from "next/link";
 import {socialMediaPlatforms} from "@/constants";
 import {cn} from "@/lib/utils";
 import {BsBrowserChrome, BsFolder} from "react-icons/bs";
-import {ScreenDisplay} from "@/types";
+import {type ScreenOptions} from "@/types";
 import {GiSnake} from "react-icons/gi";
 import {LuBrain} from "react-icons/lu";
+import {FcMusic} from "react-icons/fc";
 
 const HomeScreen = () => {
     const {setCurrentScreen} = useMedia()
 
     const apps = [
-        { name: "info", icon: IoInformationCircle, color: "bg-gray-400" },
-        { name: "guess", icon: LuBrain, color: "text-primary bg-white" },
-        { name: "projects", icon: BsFolder, color: "bg-yellow-300" },
-        { name: "chrome", icon: BsBrowserChrome, color: "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500" },
-        { name: "snake", icon: GiSnake, color: "bg-red-200" },
+        { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
+        { name: "Guess", icon: LuBrain, color: "text-primary bg-white" },
+        { name: "Projects", icon: BsFolder, color: "bg-yellow-300" },
+        { name: "Chrome", icon: BsBrowserChrome, color: "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500" },
+        { name: "Snake", icon: GiSnake, color: "bg-green-600" },
+        { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
     ]
 
     const dockApps = [
@@ -46,13 +48,13 @@ const HomeScreen = () => {
                     <button
                         key={index}
                         className="flex flex-col items-center"
-                        onClick={() => setCurrentScreen(app.name as ScreenDisplay)}
+                        onClick={() => setCurrentScreen(app.name.toLowerCase() as ScreenOptions)}
                     >
                         <div className={`w-14 h-14 ${app.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}>
                             <app.icon />
                         </div>
 
-                        <p className="capitalize text-gray-200 text-sm font-light">{app.name}</p>
+                        <p className="text-gray-200 text-sm font-light">{app.name}</p>
                     </button>
                 ))}
 
@@ -78,7 +80,7 @@ const HomeScreen = () => {
                             <button
                                 key={index}
                                 className="flex flex-col items-center"
-                                onClick={() => setCurrentScreen(app.name as ScreenDisplay)}
+                                onClick={() => setCurrentScreen(app.name as ScreenOptions)}
                             >
                                 <div className={`w-14 h-14 ${app.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}>
                                     <app.icon />

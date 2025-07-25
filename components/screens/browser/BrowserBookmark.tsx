@@ -1,6 +1,6 @@
-import {About, Footer, Hero, Navbar, RecentProjects, Skills} from "@/components/screens/browser-bookmark";
+import {About, Footer, Hero, Navbar, RecentProjects, Skills} from "@/components/screens/browser/browser-bookmark";
 import {useMedia} from "@/context/MediaContext";
-import ProjectInfo from "@/components/screens/browser-bookmark/ProjectInfo";
+import ProjectInfo from "@/components/screens/browser/browser-bookmark/ProjectInfo";
 import type React from "react";
 
 const BrowserBookmark = () => {

@@ -9,7 +9,7 @@ import {
     SetStateAction,
 } from 'react';
 import { gallery } from '@/constants';
-import {type BrowserScreen, type MediaItem, type MediaType, type ScreenDisplay} from "@/types";
+import {type BrowserScreen, type MediaItem, type MediaType, type MusicPlayerScreen, type ScreenOptions} from "@/types";
 
 interface Media {
     type: MediaType;
@@ -24,12 +24,14 @@ interface ContextType {
     setMedia: Dispatch<SetStateAction<Media>>;
     allMedia: MediaItem[];
     setAllMedia: Dispatch<SetStateAction<MediaItem[]>>;
-    currentScreen: ScreenDisplay;
-    setCurrentScreen: Dispatch<SetStateAction<ScreenDisplay>>;
-    lastScreen: ScreenDisplay;
-    setLastScreen: Dispatch<SetStateAction<ScreenDisplay>>;
+    currentScreen: ScreenOptions;
+    setCurrentScreen: Dispatch<SetStateAction<ScreenOptions>>;
+    lastScreen: ScreenOptions;
+    setLastScreen: Dispatch<SetStateAction<ScreenOptions>>;
     currentBrowserScreen: BrowserScreen;
     setCurrentBrowserScreen: Dispatch<SetStateAction<BrowserScreen>>;
+    currentPlayerScreen: MusicPlayerScreen;
+    setCurrentPlayerScreen: Dispatch<SetStateAction<MusicPlayerScreen>>;
     goToNextMedia: () => void;
     goToPreviousMedia: () => void;
 }
@@ -55,6 +57,8 @@ const INIT_STATE: ContextType = {
     setLastScreen: () => {},
     currentBrowserScreen: 'home',
     setCurrentBrowserScreen: () => {},
+    currentPlayerScreen: 'library',
+    setCurrentPlayerScreen: () => {},
     goToNextMedia: () => {},
     goToPreviousMedia: () => {},
 };
@@ -65,9 +69,10 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
     const [media, setMedia] = useState<Media>(defaultMedia);
     const [projectId, setProjectId] = useState<string>("");
 
-    const [lastScreen, setLastScreen] = useState<ScreenDisplay>("home")
-    const [currentScreen, setCurrentScreen] = useState<ScreenDisplay>('boot');
+    const [lastScreen, setLastScreen] = useState<ScreenOptions>("home")
+    const [currentScreen, setCurrentScreen] = useState<ScreenOptions>('boot');
     const [currentBrowserScreen, setCurrentBrowserScreen] = useState<BrowserScreen>("home")
+    const [currentPlayerScreen, setCurrentPlayerScreen] = useState<MusicPlayerScreen>("library")
 
     const [allMedia, setAllMedia] = useState<MediaItem[]>(defaultAllMedia as MediaItem[]);
 
@@ -110,6 +115,8 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
                 setLastScreen,
                 currentBrowserScreen,
                 setCurrentBrowserScreen,
+                currentPlayerScreen,
+                setCurrentPlayerScreen,
                 goToNextMedia,
                 goToPreviousMedia,
             }}

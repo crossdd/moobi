@@ -6,8 +6,8 @@ import Link from "next/link";
 import {notFound} from "next/navigation";
 import {LuExternalLink, LuGithub} from "react-icons/lu";
 import {type Project} from "@/types";
-import SpecialText from "@/components/screens/browser-bookmark/SpecialText";
-import {Navbar} from "@/components/screens/browser-bookmark/index";
+import SpecialText from "@/components/screens/browser/browser-bookmark/SpecialText";
+import {Navbar} from "@/components/screens/browser/browser-bookmark/index";
 import React from "react";
 
 const ProjectInfo = ({ projectId }: { projectId: string }) => {

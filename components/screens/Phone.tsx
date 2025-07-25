@@ -7,6 +7,8 @@ import {useMedia} from "@/context/MediaContext"
 import LockScreen from "@/components/screens/LockScreen";
 import Frame from "@/components/screens/Frame";
 import BootScreen from "@/components/screens/BootScreen";
+import {MusicProvider} from "@/context/MusicContext";
+import {BrowserProvider} from "@/context/BrowserContext";
 
 const HomeScreen = dynamic(() => import('@/components/screens/HomeScreen'), {
     loading: () =><Loader />,
@@ -35,7 +37,7 @@ const Projects = dynamic(() => import('@/components/screens/Projects'), {
 const ProjectDetails = dynamic(() => import('@/components/screens/ProjectDetails'), {
     loading: () =><Loader />,
 })
-const Browser = dynamic(() => import('@/components/screens/Browser'), {
+const Browser = dynamic(() => import('@/components/screens/browser/Browser'), {
     loading: () =><Loader />,
 })
 const SnakeGame = dynamic(() => import('@/components/screens/SnakeGame'), {
@@ -44,46 +46,48 @@ const SnakeGame = dynamic(() => import('@/components/screens/SnakeGame'), {
 const GuessGame = dynamic(() => import('@/components/screens/GuessGame'), {
     loading: () =><Loader />,
 })
+const MusicPlayer = dynamic(() => import('@/components/screens/music-player/iTunes'), {
+    loading: () =><Loader />,
+})
 
-export default function Phone() {
+const Phone = () => {
     const {currentScreen} = useMedia()
 
-    const ScreenDisplay = () => {
-        return currentScreen === 'gallery'
-            ? <Gallery  />
-            : currentScreen === 'video-player'
-                ? <VideoPlayer />
-                : currentScreen === 'image-view'
-                    ? <ImageView />
-                    : currentScreen === 'phone'
-                        ? <PhoneDialer />
-                        : currentScreen === 'mail'
-                            ? <MailCompose />
-                            : currentScreen === 'info'
-                                ? <About />
-                                :currentScreen === 'projects'
-                                    ? <Projects />
-                                    :currentScreen === 'project-detail'
-                                        ? <ProjectDetails />
-                                        :currentScreen === 'chrome'
-                                            ? <Browser />
-                                            :currentScreen === 'home'
-                                                ? <HomeScreen />
-                                                : currentScreen === 'snake'
-                                                    ? <SnakeGame />
-                                                    : currentScreen === 'guess'
-                                                        ? <GuessGame />
-                                                        : (currentScreen === 'boot' || currentScreen === 'shutdown')
-                                                            ? <BootScreen currentScreen={currentScreen} />
-                                                            : <LockScreen />
+    const screen: {[key: string]: React.JSX.Element} = {
+        gallery: <Gallery />,
+        "video-player": <VideoPlayer />,
+        "image-view": <ImageView />,
+        phone: <PhoneDialer />,
+        mail: <MailCompose />,
+        info: <About />,
+        projects: <Projects />,
+        "project-detail": <ProjectDetails />,
+        home: <HomeScreen />,
+        snake: <SnakeGame />,
+        guess: <GuessGame />,
+        boot: <BootScreen />,
+        shutdown: <BootScreen />,
+        chrome:  (
+            <BrowserProvider>
+                <Browser />
+            </BrowserProvider>
+        ),
+        itunes:  (
+            <MusicProvider>
+                <MusicPlayer />
+            </MusicProvider>
+        ),
+        lock: <LockScreen />
     }
 
     return (
         <div className="flex-center flex-1 h-full py-2">
            <Frame>
-               <ScreenDisplay />
+               {screen[currentScreen]}
            </Frame>
         </div>
     )
 }
+
+export default Phone
 

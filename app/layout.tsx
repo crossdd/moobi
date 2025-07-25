@@ -3,9 +3,6 @@ import "./globals.css";
 import {MediaProvider} from "@/context/MediaContext";
 import React from "react";
 
-import {SpeedInsights} from "@vercel/speed-insights/next"
-import {Analytics} from "@vercel/analytics/react"
-
 export const metadata: Metadata = {
   title: "Epiphanus Onyeso",
   description: "Fullstack developer based in Nigeria. I specialize in building web applications using Next.js, React, Typescript, GraphQL and PostgreSQL. I am available for collaborations.",
@@ -57,9 +54,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased bg-black">
         <MediaProvider>
-          {children}
-        <Analytics />
-        <SpeedInsights />
+            {children}
+          {/*<Analytics />*/}
+          {/*<SpeedInsights />*/}
         </MediaProvider>
       </body>
     </html>

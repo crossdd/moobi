@@ -4,8 +4,8 @@ import {useEffect, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import {useMedia} from "@/context/MediaContext";
 
-const BootScreen = ({currentScreen}: {currentScreen: 'boot' | 'shutdown'}) => {
-    const {setCurrentScreen} = useMedia()
+const BootScreen = () => {
+    const {currentScreen, setCurrentScreen} = useMedia()
     const [bootStage, setBootStage] = useState<"initial" | "logo" | "progress" | "complete">("initial")
     const [isShutdown, setIsShutDown] = useState(false)
 

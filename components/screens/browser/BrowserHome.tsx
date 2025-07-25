@@ -1,12 +1,28 @@
-import {BrowserHomeProps} from "@/types";
+import {BrowserScreen} from "@/types";
 import {LiaHomeSolid} from "react-icons/lia";
 import {BsPerson} from "react-icons/bs";
 import {CgMoreVertical} from "react-icons/cg";
 import Image from "next/image";
 import {LuClock} from "react-icons/lu";
 import {FiMoreHorizontal} from "react-icons/fi";
+import {Button} from "@/components/ui/button";
+import {BiLoader, BiSearch} from "react-icons/bi";
+import {Dispatch, FormEvent, SetStateAction} from "react";
 
-const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progress, setScreen}: BrowserHomeProps) => {
+interface BrowserHomeProps {
+    searchQuery: string;
+    setSearchQuery:  Dispatch<SetStateAction<string>>;
+    isLoading: boolean,
+    setScreen: Dispatch<SetStateAction<BrowserScreen>>
+    onSubmit :(query?: string, start?: number) => Promise<void>
+}
+
+const BrowserHome = ({searchQuery, setSearchQuery, isLoading, setScreen, onSubmit}: BrowserHomeProps) => {
+    const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        await onSubmit()
+    }
+
     return (
         <div className="flex-1 flex flex-col p-4">
             {/* Address Bar */}
@@ -55,22 +71,22 @@ const BrowserHome = ({searchQuery, setSearchQuery, onKeyPress, isLoading, progre
                     </svg>
                 </div>
 
-                <input
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={onKeyPress}
-                    placeholder="Search or type web address"
-                    className="w-full bg-gray-600 rounded-full border-0 py-3 px-4 text-base text-white flex-1 focus-visible:ring-0 focus:outline-none"
-                />
+                <form onSubmit={handleSubmit} className="w-full bg-gray-600 rounded-full border-0 py-3 px-4">
+                    <input
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search or type web address"
+                        className="bg-transparent text-base text-white flex-1 w-[90%] focus-visible:ring-0 focus:outline-none"
+                    />
 
-                {isLoading && (
-                    <div className="h-0.5 w-full bg-gray-200 mx-4 mb-4 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-blue-500 transition-all duration-75 delay-75 ease-in-out rounded-full"
-                            style={{width: `${progress}%`}}
-                        ></div>
-                    </div>
-                )}
+                    <Button type="submit" size="sm" variant="ghost" className="w-[10%]">
+                        {isLoading ? (
+                            <BiLoader className="w-6 h-6 text-white spin-custom" />
+                        ) : (
+                            <BiSearch className="w-6 h-6 text-white" />
+                        )}
+                    </Button>
+                </form>
 
                 {/* Quick Access Icons */}
                 <div className="grid grid-cols-3 gap-6 w-full mt-5 max-w-xs">

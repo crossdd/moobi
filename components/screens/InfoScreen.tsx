@@ -19,7 +19,7 @@ const infos = [
     },
     {
         label: "Open Source Contributions",
-        value: "3"
+        value: "3+"
     },
     {
         label: "Specialization",
@@ -57,14 +57,12 @@ const InfoScreen = () => {
                 <h3 className="text-lg font-bold text-gray-300 border-b pb-2 rounded-b-md mt-4">Technologies Used</h3>
 
                 {stacks.map(stack => (
-                    <li key={stack} className="text-white flex justify-between w-full">
-                        <p className="text-gray-400 text-base capitalize w-[60%]">{stack}</p>
+                    <li key={stack} className="text-white flex flex-col gap-1 w-full">
+                        <p className="text-gray-300 text-base capitalize w-[60%]">{stack}</p>
 
-                       <ul className="flex flex-col gap-2 w-[40%]">
-                           {skills[stack].map(skill => (
-                               <li key={skill} className="text-gray-200 text-base font-serif text-start">{skill}</li>
-                           ))}
-                       </ul>
+                       <p className="text-sm text-gray-400">
+                           {skills[stack].join(", ")}
+                       </p>
                     </li>
                 ))}
             </ul>

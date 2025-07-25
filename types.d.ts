@@ -16,9 +16,10 @@ interface Project {
 
 type Skill = "frontend" | "backend" | "tools" | "mobile"
 
-type BrowserScreen = "home" | "history" | "bookmark"
+type BrowserScreen = "home" | "history" | "bookmark" | "search-result" | "web"
+type MusicPlayerScreen = "library" | "search" | "nowPlaying"
 
-type ScreenDisplay =
+type ScreenOptions =
   | "boot"
   | "home"
   | "phone"
@@ -34,6 +35,7 @@ type ScreenDisplay =
   | "snake"
   | "guess"
   | "shutdown"
+  | "itunes"
 
 type MediaType = "photo" | "video"
 
@@ -47,29 +49,51 @@ interface MediaItem {
   duration?: string
 }
 
-declare interface BrowserHomeProps {
-  searchQuery: string;
-  setSearchQuery:  React.Dispatch<React.SetStateAction<string>>;
-  onKeyPress: (e: React.KeyboardEvent) => void;
-  isLoading: boolean,
-  progress: number
-  setScreen: React.Dispatch<React.SetStateAction<BrowserScreen>>
-}
-
-declare interface BrowserHistoryProps {
-  history: History[];
-  setHistory: React.Dispatch<React.SetStateAction<History[]>>
-  setScreen: React.Dispatch<React.SetStateAction<BrowserScreen>>
-  handleSearch: (searchTerm?: string) => void
-}
-
-declare interface History {
+interface HistoryType{
   id: number;
-  title: string;
-  url: string
+  query: string;
 }
 
 declare interface BrowserBookmarkProps {
   setScreen:  React.Dispatch<React.SetStateAction<BrowserScreen>>
   setProjectId:  React.Dispatch<React.SetStateAction<string>>
+}
+
+declare interface Song {
+  id: string
+  title: string
+  artist: string
+  album: string
+  duration: number
+  albumArt: string
+  genre: string
+  streamUrl: string,
+  permalink?: string,
+  playCount?: number,
+  favoriteCount?: number,
+  repostCount?: number,
+}
+
+interface CustomSearchResultData {
+  title: string;
+  link: string;
+  displayLink: string;
+  snippet: string;
+  formattedUrl: string;
+  htmlSnippet: string;
+  pagemap: string
+}
+
+interface CustomSearchResult {
+  query: string;
+  totalResults: string;
+  searchTime: string;
+  results: CustomSearchResultData[];
+  nextPage?: {
+    startIndex: number;
+  };
+  previousPage?: {
+    startIndex: number;
+  };
+  onPageChange?: (startIndex: number) => void;
 }

@@ -1,22 +1,39 @@
 "use client"
 
-import React, {useState} from "react"
+import {Dispatch, SetStateAction, useState} from "react"
 import {Button} from "@/components/ui/button"
-import {BrowserHistoryProps} from "@/types";
+import {BrowserScreen, HistoryType} from "@/types";
 import {LuArrowLeft, LuClock, LuTrash2} from "react-icons/lu";
 import {CgMoreVertical} from "react-icons/cg";
+import {BiLoader} from "react-icons/bi";
 
-const BrowserHistory = ({setScreen, history, handleSearch, setHistory}: BrowserHistoryProps) => {
-    const [searchQuery, setSearchQuery] = useState("")
+interface BrowserHistoryProps {
+    history: HistoryType[];
+    setHistory: Dispatch<SetStateAction<HistoryType[]>>
+    isLoading: boolean,
+    setScreen: Dispatch<SetStateAction<BrowserScreen>>
+    onSubmit: (query?: string, start?: number) => Promise<void>
+    setSearchQuery: Dispatch<SetStateAction<string>>
+}
+
+const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, setSearchQuery}: BrowserHistoryProps) => {
+    const [searchTerm, setSearchTerm] = useState("")
 
     const filteredHistory = history.filter(
         (item) =>
-            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.url.toLowerCase().includes(searchQuery.toLowerCase()),
+            item.query.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
     const clearAllHistory = () => {
         setHistory([])
+    }
+
+    const handleSearch = async (query: string) => {
+        setSearchQuery(query)
+
+        setTimeout(() => {
+            onSubmit()
+        }, 500)
     }
 
     return (
@@ -42,12 +59,18 @@ const BrowserHistory = ({setScreen, history, handleSearch, setHistory}: BrowserH
             {/* Search Bar */}
             <div className="px-4 py-3">
                 <input
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search history"
                     className="w-full bg-gray-600 rounded-full border-0 py-3 px-4 text-base text-white flex-1 focus-visible:ring-0 focus:outline-none"
                 />
             </div>
+
+            {isLoading && (
+                <div className="flex-center">
+                    <BiLoader className="w-6 h-6 spin-custom text-gray-400" />
+                </div>
+            )}
 
             {/* History List */}
             <div className="flex-1 overflow-y-auto no-visible-scrollbar">
@@ -60,19 +83,13 @@ const BrowserHistory = ({setScreen, history, handleSearch, setHistory}: BrowserH
                             {filteredHistory.map((item) => (
                                 <div
                                     key={item.id}
-                                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-black-100/40`}
-                                    onClick={() => handleSearch(item.url)}
+                                    className={`flex items-center justify-between gap-3 px-4 py-3 cursor-pointer hover:bg-black-100/40`}
+                                    onClick={() => handleSearch(item.query)}
                                 >
-                                    {/* Favicon */}
-                                    <div className="w-8 h-8 bg-gray-500 rounded-lg flex-center justify-center text-sm text-gray-800 uppercase font-bold">
-                                        {item.title[0]}{item.title[3]}
-                                    </div>
+                                        <div className="flex-1 min-w-0 text-sm font-medium text-gray-400 truncate">{item.query}
+                                        </div>
 
-                                    {/* Content */}
-                                    <div className="flex-1 min-w-0">
-                                        <div className="text-sm font-medium text-gray-400 truncate">{item.title}</div>
-                                        <div className="text-xs text-gray-500 truncate">{item.url}</div>
-                                    </div>
+                                        <div className="text-gray-500 text-sm">9:03</div>
                                 </div>
                             ))}
                         </div>
@@ -83,7 +100,7 @@ const BrowserHistory = ({setScreen, history, handleSearch, setHistory}: BrowserH
                         <LuClock className="w-12 h-12 mb-4 text-gray-300" />
                         <h3 className="text-lg font-medium mb-2">No history found</h3>
                         <p className="text-sm text-center px-8">
-                            {searchQuery ? "Try a different search term" : "Your browsing history will appear here"}
+                            {searchTerm ? "Try a different tracks term" : "Your browsing history will appear here"}
                         </p>
                     </div>
                 )}

@@ -18,8 +18,9 @@ const StatusBar = () => {
     if(currentScreen === 'boot' || currentScreen === 'shutdown') return null
 
     return (
-        <div className={cn("flex justify-between items-center px-1 pt-3 mt-4 mx-[1.5px] text-sm font-medium w-[302px] rounded-t-full bg-transparent",
-            currentScreen === 'guess' ? "text-black bg-transparent" : 'text-white'
+        <div className={cn("flex justify-between items-center px-1 pt-3 mt-7 mx-[1.5px] text-sm font-medium w-[302px] rounded-t-full bg-transparent",
+            currentScreen === 'guess' ? "text-black bg-transparent" : 'text-white',
+            currentScreen === 'itunes' && "bg-black"
         )}>
             <div className={cn("pl-5 font-medium", currentScreen === 'lock' && "opacity-0")}>
                 {currentTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: false })}
