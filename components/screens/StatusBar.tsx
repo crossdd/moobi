@@ -18,7 +18,7 @@ const StatusBar = () => {
     if(currentScreen === 'boot' || currentScreen === 'shutdown') return null
 
     return (
-        <div className={cn("flex justify-between items-center px-1 pt-3 mt-7 mx-[1.5px] text-sm font-medium w-[302px] rounded-t-full bg-transparent",
+        <div className={cn("flex justify-between items-center px-1 pt-3 mt-6 mx-[1.5px] text-sm font-medium w-[302px] rounded-t-full bg-transparent h-6",
             currentScreen === 'guess' ? "text-black bg-transparent" : 'text-white',
             currentScreen === 'itunes' && "bg-black"
         )}>

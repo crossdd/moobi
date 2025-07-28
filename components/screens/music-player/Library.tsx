@@ -4,14 +4,16 @@ import {LuAlbum, LuMusic, LuSearch} from "react-icons/lu";
 import {FiMoreHorizontal} from "react-icons/fi";
 import Loader from "@/components/Loader";
 import {useMusic} from "@/context/MusicContext";
+import {Song} from "@/types";
 
 const Library = () => {
-    const {setCurrentPlayerScreen, playSong, setMusicCatalog, musicCatalog} = useMusic()
+    const {setCurrentPlayerScreen, playSong, setQueue} = useMusic()
+    const [tracks, setTracks] = useState<Song[]>([])
 
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if(musicCatalog.length === 0) {
+        if(tracks.length === 0) {
             fetchTrendingTracks()
         }
     }, [])
@@ -23,7 +25,7 @@ const Library = () => {
             const data = await response.json()
 
             if (data.success) {
-                setMusicCatalog(data.data)
+                setTracks(data.data)
             } else {
                 console.error("Failed to fetch tracks:", data.error)
             }
@@ -32,6 +34,14 @@ const Library = () => {
         } finally {
             setIsLoading(false)
         }
+    }
+
+    const handlePlaySong = async(song: Song) => {
+        const trackIndex = tracks.findIndex((track) => track.id === song.id)
+        const newQueue = tracks.slice(trackIndex)
+
+        setQueue(newQueue)
+        await playSong(song)
     }
 
     const formatTime = (seconds: number) => {
@@ -73,7 +83,7 @@ const Library = () => {
                     <div className="mt-2">
                         <h2 className="text-lg font-semibold text-gray-300 mb-3">Recommended for today</h2>
                         <div className="flex w-full gap-3 overflow-x-scroll no-visible-scrollbar">
-                            {musicCatalog.slice(0,6).map((song) => (
+                            {tracks.slice(0,6).map((song) => (
                                 <div
                                     key={song.id}
                                     className="w-44 flex flex-col gap-3 p-3 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 rounded-lg group border !border-neutral-900"
@@ -105,11 +115,11 @@ const Library = () => {
 
                         <h2 className="text-lg font-semibold text-gray-300 mb-3 mt-4">Trending Songs</h2>
                         <div className="flex flex-col gap-3 w-full">
-                            {musicCatalog.slice(6).map((song) => (
+                            {tracks.slice(6).map((song) => (
                                 <div
                                     key={song.id}
                                     className="flex items-center gap-3 py-1 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 px-1 rounded-lg group"
-                                    onClick={() => playSong(song)}
+                                    onClick={() => handlePlaySong(song)}
                                 >
                                     {/* Album Art */}
                                     <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center overflow-hidden">

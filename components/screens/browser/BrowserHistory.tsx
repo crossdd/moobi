@@ -2,21 +2,17 @@
 
 import {Dispatch, SetStateAction, useState} from "react"
 import {Button} from "@/components/ui/button"
-import {BrowserScreen, HistoryType} from "@/types";
 import {LuArrowLeft, LuClock, LuTrash2} from "react-icons/lu";
 import {CgMoreVertical} from "react-icons/cg";
 import {BiLoader} from "react-icons/bi";
+import {useBrowser} from "@/context/BrowserContext";
 
 interface BrowserHistoryProps {
-    history: HistoryType[];
-    setHistory: Dispatch<SetStateAction<HistoryType[]>>
-    isLoading: boolean,
-    setScreen: Dispatch<SetStateAction<BrowserScreen>>
-    onSubmit: (query?: string, start?: number) => Promise<void>
     setSearchQuery: Dispatch<SetStateAction<string>>
 }
 
-const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, setSearchQuery}: BrowserHistoryProps) => {
+const BrowserHistory = ({ setSearchQuery}: BrowserHistoryProps) => {
+    const {handleSearch, setHistory, history, isSearching, setCurrentBrowserScreen } = useBrowser()
     const [searchTerm, setSearchTerm] = useState("")
 
     const filteredHistory = history.filter(
@@ -28,12 +24,12 @@ const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, s
         setHistory([])
     }
 
-    const handleSearch = async (query: string) => {
+    const handleHistoryClick = async (query: string) => {
         setSearchQuery(query)
 
-        setTimeout(() => {
-            onSubmit()
-        }, 500)
+        if(!query.trim()) return;
+
+        await handleSearch(query)
     }
 
     return (
@@ -41,7 +37,7 @@ const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, s
             {/* Header */}
             <div className="flex items-center justify-between text-white">
                 <div className="flex items-center gap-1">
-                    <Button variant="ghost" size="sm" className="p-2" onClick={() => setScreen("home")}>
+                    <Button variant="ghost" size="sm" className="p-2" onClick={() => setCurrentBrowserScreen("browser-home")}>
                         <LuArrowLeft className="w-5 h-5" />
                     </Button>
                     <h1 className="text-lg font-medium">
@@ -66,7 +62,7 @@ const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, s
                 />
             </div>
 
-            {isLoading && (
+            {isSearching && (
                 <div className="flex-center">
                     <BiLoader className="w-6 h-6 spin-custom text-gray-400" />
                 </div>
@@ -83,13 +79,17 @@ const BrowserHistory = ({ onSubmit, history, isLoading, setScreen, setHistory, s
                             {filteredHistory.map((item) => (
                                 <div
                                     key={item.id}
-                                    className={`flex items-center justify-between gap-3 px-4 py-3 cursor-pointer hover:bg-black-100/40`}
-                                    onClick={() => handleSearch(item.query)}
+                                    className="flex justify-between p-3 cursor-pointer hover:bg-black-100/40"
+                                    onClick={() => handleHistoryClick(item.url || item.query)}
                                 >
-                                        <div className="flex-1 min-w-0 text-sm font-medium text-gray-400 truncate">{item.query}
-                                        </div>
+                                    <div className="flex flex-col gap-1 w-[77%]">
+                                        <h2 className="text-sm font-medium text-gray-200 truncate">{item.query}
+                                        </h2>
 
-                                        <div className="text-gray-500 text-sm">9:03</div>
+                                        <p className="text-gray-300  text-xs truncate">{item?.url}</p>
+                                    </div>
+
+                                        <div className="text-gray-300 text-xs">{item.time}</div>
                                 </div>
                             ))}
                         </div>

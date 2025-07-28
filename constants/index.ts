@@ -1,6 +1,11 @@
 import {FaGithub, FaLinkedin} from "react-icons/fa6";
-import {BsTwitterX} from "react-icons/bs";
+import {BsBrowserChrome, BsFolder, BsTwitterX} from "react-icons/bs";
 import {HistoryType} from "@/types";
+import {IoInformationCircle} from "react-icons/io5";
+import {LuBrain} from "react-icons/lu";
+import {GiSnake} from "react-icons/gi";
+import {FcMusic} from "react-icons/fc";
+import {TiWeatherCloudy} from "react-icons/ti";
 
 export const techIcons: { [key: string]: string } = {
   react: "/icons/re.svg",
@@ -240,104 +245,39 @@ export const gallery = [
   },
 ];
 
-export const musicCatalog = [
-  {
-    id: "1",
-    title: "Blinding Lights",
-    artist: "The Weeknd",
-    album: "After Hours",
-    duration: 200,
-    albumArt: "🌃",
-    genre: "Pop",
-  },
-  {
-    id: "2",
-    title: "Watermelon Sugar",
-    artist: "Harry Styles",
-    album: "Fine Line",
-    duration: 174,
-    albumArt: "🍉",
-    genre: "Pop",
-  },
-  {
-    id: "3",
-    title: "Good 4 U",
-    artist: "Olivia Rodrigo",
-    album: "SOUR",
-    duration: 178,
-    albumArt: "💜",
-    genre: "Pop Rock",
-  },
-  {
-    id: "4",
-    title: "Levitating",
-    artist: "Dua Lipa",
-    album: "Future Nostalgia",
-    duration: 203,
-    albumArt: "✨",
-    genre: "Dance Pop",
-  },
-  {
-    id: "5",
-    title: "Stay",
-    artist: "The Kid LAROI & Justin Bieber",
-    album: "F*CK LOVE 3",
-    duration: 141,
-    albumArt: "🎵",
-    genre: "Pop",
-  },
-  {
-    id: "6",
-    title: "Heat Waves",
-    artist: "Glass Animals",
-    album: "Dreamland",
-    duration: 238,
-    albumArt: "🌊",
-    genre: "Indie Pop",
-  },
-  {
-    id: "7",
-    title: "Industry Baby",
-    artist: "Lil Nas X ft. Jack Harlow",
-    album: "MONTERO",
-    duration: 212,
-    albumArt: "👑",
-    genre: "Hip Hop",
-  },
-  {
-    id: "8",
-    title: "Bad Habits",
-    artist: "Ed Sheeran",
-    album: "=",
-    duration: 231,
-    albumArt: "🎸",
-    genre: "Pop",
-  },
-]
-
 export const browserHistory: HistoryType[] = [
   {
     id: 1,
     query: "GitHub",
+    time: '10:02'
   },
   {
     id: 2,
-    query: "Stack Overflow",
+    query: "MDN Web Docs",
+    time: "13:45"
   },
   {
     id: 3,
     query: "Vercel",
+    time: "13:52"
   },
-  {
-    id: 4,
-    query: "React",
-  },
-  {
-    id: 5,
-    query: "Tailwind CSS",
-  },
-  {
-    id: 6,
-    query: "MDN Web Docs",
-  },
+]
+
+// Each array is a screen. Each screen is allowed to have only 9 apps. Your app won't be displayed if you don't adhere to that.
+// Screen 1 should have only 6 apps
+export const mobileApps = [
+    [
+      { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
+      { name: "Guess", icon: LuBrain, color: "text-primary bg-white" },
+      { name: "Projects", icon: BsFolder, color: "bg-yellow-300" },
+      { name: "Chrome", icon: BsBrowserChrome, color: "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500" },
+      { name: "Snake", icon: GiSnake, color: "bg-green-600" },
+      { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
+    ],
+    [
+      { name: "Weather", icon: TiWeatherCloudy, color: "bg-blue-400" },
+    ],
+    [
+      // Intentionally left empty for the music player widget. Add your apps in another array
+    ]
 ]

@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {Button} from "@/components/ui/button";
 import {LuChevronDown, LuLoader, LuMusic, LuSearch} from "react-icons/lu";
 import {useMusic} from "@/context/MusicContext";
+import {Song} from "@/types";
 
 const Search = () => {
-    const {currentPlayerScreen, setCurrentPlayerScreen, playSong, setSearchResults, searchResults} = useMusic()
+    const {currentPlayerScreen, setCurrentPlayerScreen, playSong, setQueue} = useMusic()
     const [searchQuery, setSearchQuery] = useState("")
+    const [searchResults, setSearchResults] = useState<Song[]>([])
     const [isSearching, setIsSearching] = useState(false)
 
     const searchTracks = async (query: string) => {
@@ -43,6 +45,14 @@ const Search = () => {
 
         return () => clearTimeout(timeoutId)
     }, [searchQuery, currentPlayerScreen])
+
+    const handlePlaySong = async(song: Song) => {
+        const trackIndex = searchResults.findIndex((track) => track.id === song.id)
+        const newQueue = searchResults.slice(trackIndex)
+
+        setQueue(newQueue)
+        await playSong(song)
+    }
 
     const formatTime = (seconds: number) => {
         if (!seconds || isNaN(seconds)) return "0:00"
@@ -85,7 +95,7 @@ const Search = () => {
                             <div
                                 key={song.id}
                                 className="flex items-center gap-3 py-3 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-500 px-1 rounded-lg group"
-                                onClick={() => playSong(song)}
+                                onClick={() => handlePlaySong(song)}
                             >
                                 <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg flex items-center justify-center overflow-hidden">
                                     {song.albumArt ? (

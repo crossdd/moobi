@@ -15,14 +15,14 @@ import {type MusicPlayerScreen, Song} from "@/types";
 
 interface ContextType {
     audioRef: RefObject<HTMLAudioElement | null>
-    musicCatalog: Song[]
-    setMusicCatalog: Dispatch<SetStateAction<Song[]>>
-    searchResults: Song[]
-    setSearchResults: Dispatch<SetStateAction<Song[]>>
+    queue: Song[]
+    setQueue: Dispatch<SetStateAction<Song[]>>
     currentSong: Song | null
     setCurrentSong: Dispatch<SetStateAction<Song | null>>
     currentPlayerScreen: MusicPlayerScreen;
     setCurrentPlayerScreen: Dispatch<SetStateAction<MusicPlayerScreen>>;
+    lastPlayerScreen: MusicPlayerScreen;
+    setLastPlayerScreen: Dispatch<SetStateAction<MusicPlayerScreen>>;
 
     progress: number[]
     setProgress: Dispatch<SetStateAction<number[]>>;
@@ -44,14 +44,14 @@ interface ContextType {
 
 const INIT_STATE: ContextType = {
     audioRef: {current: null},
-    musicCatalog: [],
-    setMusicCatalog: () => {},
-    searchResults: [],
-    setSearchResults: () => {},
+    queue: [],
+    setQueue: () => {},
     currentSong: null,
     setCurrentSong: () => {},
     currentPlayerScreen: 'library',
     setCurrentPlayerScreen: () => {},
+    lastPlayerScreen: 'library',
+    setLastPlayerScreen: () => {},
     progress: [0],
     setProgress: () => {},
     audioError: null,
@@ -74,15 +74,15 @@ const MusicContext = createContext<ContextType>(INIT_STATE);
 
 const MusicProvider = ({ children }: { children: ReactNode }) => {
     const [currentPlayerScreen, setCurrentPlayerScreen] = useState<MusicPlayerScreen>("library")
+    const [lastPlayerScreen, setLastPlayerScreen] = useState<MusicPlayerScreen>("library")
 
-    const [musicCatalog, setMusicCatalog] = useState<Song[]>([])
-    const [searchResults, setSearchResults] = useState<Song[]>([])
+    const [queue, setQueue] = useState<Song[]>([])
     const [currentSong, setCurrentSong] = useState<Song | null>(null)
     const [progress, setProgress] = useState<number[]>([0])
     const [audioError, setAudioError] = useState<string | null>(null)
     const [isPlaying, setIsPlaying] = useState(false)
     const [isShuffled, setIsShuffled] = useState(false)
-    const [repeatMode, setRepeatMode] = useState<"off" | "all" | "one">("all")
+    const [repeatMode, setRepeatMode] = useState<"off" | "all" | "one">("off")
     const [volume, setVolume] = useState([75])
     const [isLoading, setIsLoading] = useState(false)
 
@@ -102,7 +102,7 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
             if (repeatMode === "one") {
                 audio.currentTime = 0
                 audio.play()
-            } else if (repeatMode === "all" || isShuffled) {
+            } else if (repeatMode === "off" || isShuffled) {
                 skipForward()
             } else {
                 setIsPlaying(false)
@@ -136,6 +136,7 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
             setCurrentSong(song)
             setIsLoading(true)
             setProgress([0])
+
             setCurrentPlayerScreen("nowPlaying")
 
             // Get stream URL
@@ -174,8 +175,6 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
     const playPause = () => {
         if (!audioRef.current || !currentSong) return
 
-        console.log("Play paused", audioRef.current)
-
         if (isPlaying) {
             audioRef.current.pause()
         } else {
@@ -190,19 +189,20 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
     const skipForward = () => {
         if (!currentSong) return
 
-        const currentList = currentPlayerScreen === 'library' ? musicCatalog : searchResults
-        const currentIndex = currentList.findIndex((song) => song.id === currentSong.id)
-        const nextIndex = (currentIndex + 1) % currentList.length
-        playSong(currentList[nextIndex])
+        const currentIndex = queue.findIndex((song) => song.id === currentSong.id)
+        if(currentIndex === -1) return;
+        const nextIndex = (currentIndex + 1) % queue.length
+        playSong(queue[nextIndex])
     }
 
     const skipBackward = () => {
         if (!currentSong) return
 
-        const currentList = currentPlayerScreen === 'library' ? musicCatalog : searchResults
-        const currentIndex = currentList.findIndex((song) => song.id === currentSong.id)
-        const prevIndex = currentIndex === 0 ? currentList.length - 1 : currentIndex - 1
-        playSong(currentList[prevIndex])
+        const currentIndex = queue.findIndex((song) => song.id === currentSong.id)
+        if (currentIndex === -1) return;
+
+        const prevIndex = currentIndex === 0 ? queue.length - 1 : currentIndex - 1
+        playSong(queue[prevIndex])
     }
 
     const toggleRepeat = () => {
@@ -216,12 +216,12 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
         <MusicContext.Provider
             value={{
                 audioRef,
-                musicCatalog,
-                setMusicCatalog,
-                searchResults,
-                setSearchResults,
+                queue,
+                setQueue,
                 currentPlayerScreen,
                 setCurrentPlayerScreen,
+                lastPlayerScreen,
+                setLastPlayerScreen,
                 progress,
                 setProgress,
                 currentSong,

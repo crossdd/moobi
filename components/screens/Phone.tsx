@@ -7,8 +7,6 @@ import {useMedia} from "@/context/MediaContext"
 import LockScreen from "@/components/screens/LockScreen";
 import Frame from "@/components/screens/Frame";
 import BootScreen from "@/components/screens/BootScreen";
-import {MusicProvider} from "@/context/MusicContext";
-import {BrowserProvider} from "@/context/BrowserContext";
 
 const HomeScreen = dynamic(() => import('@/components/screens/HomeScreen'), {
     loading: () =><Loader />,
@@ -49,6 +47,9 @@ const GuessGame = dynamic(() => import('@/components/screens/GuessGame'), {
 const MusicPlayer = dynamic(() => import('@/components/screens/music-player/iTunes'), {
     loading: () =><Loader />,
 })
+const WeatherApp = dynamic(() => import('@/components/screens/weather-app/Weather'), {
+    loading: () =><Loader />,
+})
 
 const Phone = () => {
     const {currentScreen} = useMedia()
@@ -67,17 +68,10 @@ const Phone = () => {
         guess: <GuessGame />,
         boot: <BootScreen />,
         shutdown: <BootScreen />,
-        chrome:  (
-            <BrowserProvider>
-                <Browser />
-            </BrowserProvider>
-        ),
-        itunes:  (
-            <MusicProvider>
-                <MusicPlayer />
-            </MusicProvider>
-        ),
-        lock: <LockScreen />
+        chrome:  <Browser />,
+        itunes: <MusicPlayer />,
+        lock: <LockScreen />,
+        weather: <WeatherApp />
     }
 
     return (

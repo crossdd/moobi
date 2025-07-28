@@ -33,7 +33,7 @@ const BootScreen = () => {
         }
 
         bootSequence()
-    }, [setCurrentScreen])
+    }, [currentScreen, setCurrentScreen])
 
     return (
         <div className="w-full h-full bg-black rounded-[50px] overflow-hidden relative flex items-center justify-center">

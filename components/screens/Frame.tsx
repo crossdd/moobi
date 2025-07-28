@@ -3,10 +3,15 @@ import {LuPower, LuPowerOff} from "react-icons/lu";
 import {TbSmartHome, TbTriangle} from "react-icons/tb";
 import React, {useState} from "react";
 import {useMedia} from "@/context/MediaContext";
+import {useBrowser} from "@/context/BrowserContext";
+import {useMusic} from "@/context/MusicContext";
+import {MusicPlayerScreen} from "@/types";
 
 const Frame = ({children}: {children: React.ReactNode}) => {
     const [isOn, setIsOn] = useState(true)
-    const {currentScreen, setCurrentScreen, setLastScreen, setCurrentBrowserScreen, currentBrowserScreen} = useMedia()
+    const {currentScreen, setCurrentScreen, lastScreen, setLastScreen} = useMedia()
+    const {currentBrowserScreen, setCurrentBrowserScreen} = useBrowser()
+    const {currentPlayerScreen, setCurrentPlayerScreen} = useMusic()
 
     let pressTimer: NodeJS.Timeout;
 
@@ -28,7 +33,6 @@ const Frame = ({children}: {children: React.ReactNode}) => {
 
         toggleScreenOnOff()
     };
-
     const toggleScreenOnOff = () => {
         if(isOn) {
             if(currentScreen !== 'lock') {
@@ -53,6 +57,41 @@ const Frame = ({children}: {children: React.ReactNode}) => {
 
     const isCurrentlyOn = currentScreen !== 'shutdown' && isOn
 
+    const backAction = () => {
+        switch (currentScreen) {
+            case "home":
+                break;
+            case "chrome":
+                if(currentBrowserScreen === 'browser-frame') {
+                    setCurrentBrowserScreen("browser-search-results")
+                } else if(currentBrowserScreen !== 'browser-home') {
+                    setCurrentBrowserScreen("browser-home")
+                } else {
+                    setCurrentScreen("home")
+                }
+                break;
+            case 'project-detail':
+                setCurrentScreen("projects")
+                break;
+            case 'video-player':
+                setCurrentScreen('gallery')
+                break;
+            case 'image-view':
+                setCurrentScreen('gallery')
+                break;
+            case 'itunes':
+                if(currentPlayerScreen === 'nowPlaying') {
+                    setCurrentPlayerScreen(lastScreen as MusicPlayerScreen)
+                } else {
+                    setCurrentScreen("home")
+                }
+                break;
+            default:
+                setCurrentScreen("home")
+                break
+        }
+    }
+
     return (
         <div className="relative h-full flex-center gap-4">
             {/* iPhone 16 Body */}
@@ -73,7 +112,7 @@ const Frame = ({children}: {children: React.ReactNode}) => {
                 >
                     {/* Status Bar */}
                     {isOn && (
-                        <div className="fixed top-0 w-full z-50">
+                        <div className="absolute -top-6 w-full z-50">
                             <StatusBar />
                         </div>
                     )}
@@ -120,20 +159,8 @@ const Frame = ({children}: {children: React.ReactNode}) => {
                 </button>
 
                 <button
-                    disabled={!isOn || currentScreen === 'home' || currentScreen === 'lock'}
-                    onClick={() => {
-                        if (currentScreen === 'home') {
-                            return;
-                        } else if (currentScreen === 'video-player' || currentScreen === 'image-view') {
-                            setCurrentScreen('gallery')
-                        } else if(currentScreen === 'project-detail') {
-                            setCurrentScreen("projects")
-                        } else if(currentScreen === 'chrome' && currentBrowserScreen !== 'home') {
-                                setCurrentBrowserScreen("home")
-                        } else {
-                            setCurrentScreen('home')
-                        }
-                    }}
+                    disabled={!isOn || currentScreen === 'home' || currentScreen === 'lock' || currentScreen === 'shutdown' || currentScreen === 'boot'}
+                    onClick={backAction}
                     className="p-2 text-white disabled:text-gray-400 rounded-lg text-sm hover:bg-gray-700 disabled:hover:bg-transparent -rotate-90 transition-colors"
                 >
                     <TbTriangle size={19} />

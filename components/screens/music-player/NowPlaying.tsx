@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {
     LuChevronDown,
-    LuHeart, LuLoader,
+    LuHeart,
+    LuLoader,
     LuMusic,
     LuPause,
     LuPlay,
@@ -19,7 +20,7 @@ import {useMusic} from "@/context/MusicContext";
 import {AiFillExclamationCircle} from "react-icons/ai";
 
 const NowPlaying = () => {
-    const {audioRef, setCurrentPlayerScreen, currentSong, audioError, setIsShuffled, skipForward, skipBackward, progress, setProgress, toggleRepeat, playPause, volume, setVolume, isPlaying, isShuffled, repeatMode, isLoading} = useMusic()
+    const {audioRef, setCurrentPlayerScreen, currentSong, audioError, setIsShuffled, skipForward, skipBackward, progress, setProgress, toggleRepeat, playPause, volume, setVolume, isPlaying, isShuffled, repeatMode, isLoading, lastPlayerScreen} = useMusic()
 
     const [isLiked, setIsLiked] = useState(false)
     const [showError, setShowError] = useState(true)
@@ -57,7 +58,7 @@ const NowPlaying = () => {
         <div className="flex flex-col gap-5 bg-gradient-to-b from-purple-100 to-pink-100 w-full h-full relative overflow-hidden py-2">
             {/* Header */}
             <div className="flex items-center justify-between">
-                <Button variant="ghost" size="sm" onClick={() => setCurrentPlayerScreen("library")} className="p-2">
+                <Button variant="ghost" size="sm" onClick={() => setCurrentPlayerScreen(lastPlayerScreen)} className="p-2 text-white text-xs">
                     <LuChevronDown className="w-5 h-5" />
                 </Button>
                 <div className="text-center">
