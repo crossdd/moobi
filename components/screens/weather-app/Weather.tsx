@@ -1,385 +1,394 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import {
-    LuMapPin,
-    LuWind,
-    LuDroplets,
-    LuEye,
-    LuThermometer,
-    LuCloudRain,
-    LuLoader,
-    LuRefreshCw,
-    LuSearch
-} from "react-icons/lu"
-import { Button } from "@/components/ui/button"
-import {WeatherData} from "@/types";
+  LuMapPin,
+  LuWind,
+  LuDroplets,
+  LuEye,
+  LuThermometer,
+  LuCloudRain,
+  LuLoader,
+  LuRefreshCw,
+  LuSearch,
+} from "react-icons/lu";
+import { Button } from "@/components/ui/button";
+import { useWeather } from "@/context/WeatherContext";
+import { getTemperature, getWeatherBackground } from "@/lib/utils";
+import { useMedia } from "@/context";
 
 const Weather = () => {
-    const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-    // const [location, setLocation] = useState("New York")
-    const [searchLocation, setSearchLocation] = useState("")
-    const [isSearching, setIsSearching] = useState(false)
-    const [isCelsius, setIsCelsius] = useState(true)
-    const [selectedView, setSelectedView] = useState<"hourly" | "daily">("hourly")
+  const { fetchWeather, error, isLoading, weatherData } = useWeather();
+  const { setCurrentScreen } = useMedia();
 
-    const fetchWeather = async (loc: string) => {
-        setIsLoading(true)
-        setError(null)
+  const [searchLocation, setSearchLocation] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [isCelsius, setIsCelsius] = useState(true);
+  const [selectedView, setSelectedView] = useState<"hourly" | "daily">(
+    "hourly",
+  );
 
-        try {
-            const response = await fetch(`/api/weather?location=${encodeURIComponent(loc)}&days=7`)
-            const data = await response.json()
+  useEffect(() => {
+    handleRefresh();
+  }, []);
 
-            if (data.success) {
-                setWeatherData(data.data)
-                // setLocation(loc)
-            } else {
-                setError(data.error || "Failed to fetch weather data")
-            }
-        } catch (err) {
-            setError("Network error occurred")
-            console.error("Weather fetch error:", err)
-        } finally {
-            setIsLoading(false)
-        }
+  const handleSearch = async () => {
+    if (!searchLocation.trim()) return;
+
+    setIsSearching(true);
+    await fetchWeather(searchLocation);
+    setSearchLocation("");
+    setIsSearching(false);
+  };
+
+  const handleRefresh = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(`${latitude},${longitude}`);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          // Fallback if user denies location
+          fetchWeather("New York");
+        },
+      );
+    } else {
+      // If geolocation is not supported
+      fetchWeather("New York");
     }
+  };
 
-    useEffect(() => {
-        handleRefresh()
-    }, []);
+  const formatTime = (timeString: string) => {
+    const date = new Date(timeString);
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      hour12: true,
+    });
+  };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const handleSearch = async () => {
-        if (!searchLocation.trim()) return
-
-        setIsSearching(true)
-        await fetchWeather(searchLocation)
-        setSearchLocation("")
-        setIsSearching(false)
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return "Tomorrow";
+    } else {
+      return date.toLocaleDateString("en-US", { weekday: "short" });
     }
+  };
 
-    const handleRefresh = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    fetchWeather(`${latitude},${longitude}`);
-                },
-                (error) => {
-                    console.error("Geolocation error:", error);
-                    // Fallback if user denies location
-                    fetchWeather("Atalanta");
-                }
-            );
-        } else {
-            // Geolocation not supported
-            fetchWeather("New York");
-        }
-    }
-
-    const formatTime = (timeString: string) => {
-        const date = new Date(timeString)
-        return date.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            hour12: true,
-        })
-    }
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString)
-        const today = new Date()
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
-
-        if (date.toDateString() === today.toDateString()) {
-            return "Today"
-        } else if (date.toDateString() === tomorrow.toDateString()) {
-            return "Tomorrow"
-        } else {
-            return date.toLocaleDateString("en-US", { weekday: "short" })
-        }
-    }
-
-    const getWeatherBackground = (condition: string, isDay = true) => {
-        const conditionLower = condition.toLowerCase()
-
-        if (conditionLower.includes("sunny") || conditionLower.includes("clear")) {
-            return isDay
-                ? "linear-gradient(135deg, #87CEEB 0%, #98D8E8 50%, #B0E0E6 100%)"
-                : "linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b82f6 100%)"
-        } else if (conditionLower.includes("cloud")) {
-            return "linear-gradient(135deg, #74b9ff 0%, #81ecec 50%, #a29bfe 100%)"
-        } else if (conditionLower.includes("rain") || conditionLower.includes("drizzle")) {
-            return "linear-gradient(135deg, #4b6cb7 0%, #182848 50%, #2c3e50 100%)"
-        } else if (conditionLower.includes("snow")) {
-            return "linear-gradient(135deg, #e6f3ff 0%, #cce7ff 50%, #b3daff 100%)"
-        } else if (conditionLower.includes("thunder") || conditionLower.includes("storm")) {
-            return "linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #4a6741 100%)"
-        } else {
-            return "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)"
-        }
-    }
-
-    const getTemperature = (tempC: number, tempF: number) => {
-        return isCelsius ? `${Math.round(tempC)}°` : `${Math.round(tempF)}°`
-    }
-
-    if (isLoading && !weatherData) {
-        return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-                <div className="relative">
-                    <div className="w-[375px] h-[812px] bg-black rounded-[60px] p-2 shadow-2xl">
-                        <div className="w-full h-full bg-blue-500 rounded-[50px] overflow-hidden relative flex items-center justify-center">
-                            <div className="text-center text-white">
-                                <LuLoader className="w-12 h-12 animate-spin mx-auto mb-4" />
-                                <p className="text-lg">Loading Weather...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    if (error) {
-        return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-                <div className="relative">
-                    <div className="w-[375px] h-[812px] bg-black rounded-[60px] p-2 shadow-2xl">
-                        <div className="w-full h-full bg-red-500 rounded-[50px] overflow-hidden relative flex items-center justify-center">
-                            <div className="text-center text-white px-8">
-                                <div className="text-6xl mb-4">⚠️</div>
-                                <h2 className="text-xl font-bold mb-2">Weather Error</h2>
-                                <p className="text-sm mb-4">{error}</p>
-                                <Button onClick={handleRefresh} className="bg-white text-red-500 hover:bg-gray-100">
-                                    Try Again
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    if (!weatherData) return null
-
-    const currentHour = new Date().getHours()
-    const todayHours =
-        weatherData.forecast.forecastday[0]?.hour.filter((hour) => {
-            const hourTime = new Date(hour.time).getHours()
-            return hourTime >= currentHour
-        }) || []
-
-    const tomorrowHours = weatherData.forecast.forecastday[1]?.hour.slice(0, 24 - todayHours.length) || []
-    const next24Hours = [...todayHours, ...tomorrowHours].slice(0, 24)
-
+  if (isLoading && !weatherData) {
     return (
-        <div
-            className="flex-1 flex flex-col px-4 py-4 mt-10"
-             style={{
-            background: getWeatherBackground(weatherData.current.condition.text, true),
-        }}>
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                    <LuMapPin className="w-5 h-5 text-white" />
-                    <span className="text-white text-lg font-medium">{weatherData.location.name}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <Button
-                        onClick={() => setIsCelsius(!isCelsius)}
-                        className="bg-white/20 hover:bg-white/30 text-white border-0 text-sm px-3 py-1 h-8"
-                    >
-                        {isCelsius ? "°C" : "°F"}
-                    </Button>
-                    <Button
-                        onClick={handleRefresh}
-                        disabled={isLoading}
-                        className="bg-white/20 hover:bg-white/30 text-white border-0 p-2 h-8 w-8"
-                    >
-                        <LuRefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
-                    </Button>
-                </div>
-            </div>
+      <div className="flex-center h-full w-full bg-gradient-to-br from-blue-400 via-blue-300 to-blue-400 p-4">
+        <LuLoader className="spin-custom mx-auto mb-4 h-12 w-12" />
+      </div>
+    );
+  }
 
-            {/* Search */}
-            <div className="mb-6">
-                <div className="flex gap-1">
-                    <div className="relative flex-1 bg-gray-500/50 py-2 rounded-lg">
-                        <LuSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/60" />
-                        <input
-                            value={searchLocation}
-                            onChange={(e) => setSearchLocation(e.target.value)}
-                            onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                            placeholder="Search location..."
-                            className="pl-10 bg-transparent text-white placeholder:text-white/60 focus:outline-none"
-                        />
-                    </div>
-                    <Button
-                        onClick={handleSearch}
-                        disabled={isSearching || !searchLocation.trim()}
-                        className="bg-white/20 hover:bg-white/30 text-white border-0 px-4"
-                    >
-                        {isSearching ? <LuLoader className="w-4 h-4 animate-spin" /> : "Go"}
-                    </Button>
-                </div>
-            </div>
-
-            {/* Current Weather */}
-            <div className="text-center mb-8">
-                <div className="text-7xl font-thin text-white mb-2">
-                    {getTemperature(weatherData.current.temp_c, weatherData.current.temp_f)}
-                </div>
-                <div className="text-base text-white/90 mb-2">{weatherData.current.condition.text}</div>
-                <div className="text-base text-white/80">
-                    H:
-                    {getTemperature(
-                        weatherData.forecast.forecastday[0].day.maxtemp_c,
-                        weatherData.forecast.forecastday[0].day.maxtemp_f,
-                    )}{" "}
-                    L:
-                    {getTemperature(
-                        weatherData.forecast.forecastday[0].day.mintemp_c,
-                        weatherData.forecast.forecastday[0].day.mintemp_f,
-                    )}
-                </div>
-            </div>
-
-            {/* View Toggle */}
-            <div className="flex bg-white/20 rounded-xl p-1 mb-4">
-                <Button
-                    onClick={() => setSelectedView("hourly")}
-                    className={`flex-1 py-2 text-sm font-medium rounded-lg border-0 ${
-                        selectedView === "hourly"
-                            ? "bg-white/30 text-white"
-                            : "bg-transparent text-white/70 hover:bg-white/10"
-                    }`}
-                >
-                    Hourly
-                </Button>
-                <Button
-                    onClick={() => setSelectedView("daily")}
-                    className={`flex-1 py-2 text-sm font-medium rounded-lg border-0 ${
-                        selectedView === "daily"
-                            ? "bg-white/30 text-white"
-                            : "bg-transparent text-white/70 hover:bg-white/10"
-                    }`}
-                >
-                    7-Day
-                </Button>
-            </div>
-
-            {/* Hourly/Daily Forecast */}
-            <div className="bg-white/20 backdrop-blur-xl rounded-2xl p-4 flex-1">
-                {selectedView === "hourly" ? (
-                    <div className="space-y-3">
-                        <h3 className="text-white font-medium text-sm mb-3">Next 24 Hours</h3>
-                        <div className="space-y-2 max-h-48 overflow-y-auto no-visible-scrollbar">
-                            {next24Hours.map((hour, index) => (
-                                <div key={index} className="flex items-center justify-between py-2">
-                                    <div className="flex items-center gap-3">
-                            <span className="text-white/80 text-sm w-12">
-                              {index === 0 ? "Now" : formatTime(hour.time)}
-                            </span>
-                                        <img src={`https:${hour.condition.icon}`} alt={hour.condition.text} className="w-6 h-6" />
-                                        <span className="text-white/70 text-xs flex-1">{hour.condition.text}</span>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        {hour.chance_of_rain > 0 && (
-                                            <div className="flex items-center gap-1">
-                                                <LuCloudRain className="w-3 h-3 text-blue-300" />
-                                                <span className="text-blue-300 text-xs">{hour.chance_of_rain}%</span>
-                                            </div>
-                                        )}
-                                        <span className="text-white font-medium text-sm">
-                              {getTemperature(hour.temp_c, hour.temp_f)}
-                            </span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="space-y-3">
-                        <h3 className="text-white font-medium text-sm mb-3">7-Day Forecast</h3>
-                        <div className="space-y-2 no-visible-scrollbar">
-                            {weatherData.forecast.forecastday.map((day, index) => (
-                                <div key={index} className="flex items-center justify-between py-2">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-white/80 text-sm w-16">{formatDate(day.date)}</span>
-                                        <img
-                                            src={`https:${day.day.condition.icon}`}
-                                            alt={day.day.condition.text}
-                                            className="w-6 h-6"
-                                        />
-                                        <span className="text-white/70 text-xs flex-1">{day.day.condition.text}</span>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        {day.day.daily_chance_of_rain > 0 && (
-                                            <div className="flex items-center gap-1">
-                                                <LuCloudRain className="w-3 h-3 text-blue-300" />
-                                                <span className="text-blue-300 text-xs">{day.day.daily_chance_of_rain}%</span>
-                                            </div>
-                                        )}
-                                        <div className="flex items-center gap-2">
-                              <span className="text-white/60 text-sm">
-                                {getTemperature(day.day.mintemp_c, day.day.mintemp_f)}
-                              </span>
-                                            <span className="text-white font-medium text-sm">
-                                {getTemperature(day.day.maxtemp_c, day.day.maxtemp_f)}
-                              </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-
-            {/* Weather Details */}
-            <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/20 backdrop-blur-xl rounded-xl p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                        <LuWind className="w-4 h-4 text-white/80" />
-                        <span className="text-white/80 text-xs">WIND</span>
-                    </div>
-                    <div className="text-white text-lg font-medium">{Math.round(weatherData.current.wind_mph)} mph</div>
-                    <div className="text-white/60 text-xs">{weatherData.current.wind_dir}</div>
-                </div>
-
-                <div className="bg-white/20 backdrop-blur-xl rounded-xl p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                        <LuDroplets className="w-4 h-4 text-white/80" />
-                        <span className="text-white/80 text-xs">HUMIDITY</span>
-                    </div>
-                    <div className="text-white text-lg font-medium">{weatherData.current.humidity}%</div>
-                </div>
-
-                <div className="bg-white/20 backdrop-blur-xl rounded-xl p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                        <LuEye className="w-4 h-4 text-white/80" />
-                        <span className="text-white/80 text-xs">VISIBILITY</span>
-                    </div>
-                    <div className="text-white text-lg font-medium">{Math.round(weatherData.current.vis_miles)} mi</div>
-                </div>
-
-                <div className="bg-white/20 backdrop-blur-xl rounded-xl p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                        <LuThermometer className="w-4 h-4 text-white/80" />
-                        <span className="text-white/80 text-xs">FEELS LIKE</span>
-                    </div>
-                    <div className="text-white text-lg font-medium">
-                        {getTemperature(weatherData.current.feelslike_c, weatherData.current.feelslike_f)}
-                    </div>
-                </div>
-            </div>
+  if (error) {
+    return (
+      <div className="flex-center h-full w-full bg-red-500 p-4">
+        <div className="px-8 text-center text-white">
+          <div className="mb-4 text-6xl">⚠️</div>
+          <h2 className="mb-2 text-xl font-bold">Weather Error</h2>
+          <p className="mb-4 text-sm">{error}</p>
+          <Button
+            onClick={handleRefresh}
+            className="bg-white text-red-500 hover:bg-gray-100"
+          >
+            Try Again
+          </Button>
         </div>
-    )
-}
+      </div>
+    );
+  }
 
-export default Weather
+  if (!weatherData) {
+    // redirect to home
+    setCurrentScreen("home");
+    return null;
+  }
+
+  const currentHour = new Date().getHours();
+  const todayHours =
+    weatherData.forecast.forecastday[0]?.hour.filter((hour) => {
+      const hourTime = new Date(hour.time).getHours();
+      return hourTime >= currentHour;
+    }) || [];
+
+  const tomorrowHours =
+    weatherData.forecast.forecastday[1]?.hour.slice(
+      0,
+      24 - todayHours.length,
+    ) || [];
+  const next24Hours = [...todayHours, ...tomorrowHours].slice(0, 24);
+
+  return (
+    <div
+      className="mt-10 flex flex-1 flex-col px-4 py-4"
+      style={{
+        background: getWeatherBackground(weatherData.current.condition.text),
+      }}
+    >
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <LuMapPin className="h-5 w-5 text-white" />
+          <span className="text-lg font-medium text-white">
+            {weatherData.location.name}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => setIsCelsius(!isCelsius)}
+            className="h-8 border-0 bg-white/20 px-3 py-1 text-sm text-white hover:bg-white/30"
+          >
+            {isCelsius ? "°C" : "°F"}
+          </Button>
+          <Button
+            onClick={handleRefresh}
+            disabled={isLoading}
+            className="h-8 w-8 border-0 bg-white/20 p-2 text-white hover:bg-white/30"
+          >
+            <LuRefreshCw
+              className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+            />
+          </Button>
+        </div>
+      </div>
+
+      {/* Search */}
+      <div className="mb-6">
+        <div className="flex gap-1">
+          <div className="relative flex-1 rounded-lg bg-gray-500/50 py-2">
+            <LuSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-white/60" />
+            <input
+              value={searchLocation}
+              onChange={(e) => setSearchLocation(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="Search location..."
+              className="bg-transparent pl-10 text-white placeholder:text-white/60 focus:outline-none"
+            />
+          </div>
+          <Button
+            onClick={handleSearch}
+            disabled={isSearching || !searchLocation.trim()}
+            className="border-0 bg-white/20 px-4 text-white hover:bg-white/30"
+          >
+            {isSearching ? <LuLoader className="h-4 w-4 animate-spin" /> : "Go"}
+          </Button>
+        </div>
+      </div>
+
+      {/* Current Weather */}
+      <div className="mb-8 text-center">
+        <div className="mb-2 text-7xl font-thin text-white">
+          {getTemperature(
+            isCelsius,
+            weatherData.current.temp_c,
+            weatherData.current.temp_f,
+          )}
+        </div>
+        <div className="mb-2 text-base text-white/90">
+          {weatherData.current.condition.text}
+        </div>
+        <div className="text-base text-white/80">
+          H:
+          {getTemperature(
+            isCelsius,
+            weatherData.forecast.forecastday[0].day.maxtemp_c,
+            weatherData.forecast.forecastday[0].day.maxtemp_f,
+          )}{" "}
+          L:
+          {getTemperature(
+            isCelsius,
+            weatherData.forecast.forecastday[0].day.mintemp_c,
+            weatherData.forecast.forecastday[0].day.mintemp_f,
+          )}
+        </div>
+      </div>
+
+      {/* View Toggle */}
+      <div className="mb-4 flex rounded-xl bg-white/20 p-1">
+        <Button
+          onClick={() => setSelectedView("hourly")}
+          className={`flex-1 rounded-lg border-0 py-2 text-sm font-medium ${
+            selectedView === "hourly"
+              ? "bg-white/30 text-white"
+              : "bg-transparent text-white/70 hover:bg-white/10"
+          }`}
+        >
+          Hourly
+        </Button>
+        <Button
+          onClick={() => setSelectedView("daily")}
+          className={`flex-1 rounded-lg border-0 py-2 text-sm font-medium ${
+            selectedView === "daily"
+              ? "bg-white/30 text-white"
+              : "bg-transparent text-white/70 hover:bg-white/10"
+          }`}
+        >
+          7-Day
+        </Button>
+      </div>
+
+      {/* Hourly/Daily Forecast */}
+      <div className="flex-1 rounded-2xl bg-white/20 p-4 backdrop-blur-xl">
+        {selectedView === "hourly" ? (
+          <div className="space-y-3">
+            <h3 className="mb-3 text-sm font-medium text-white">
+              Next 24 Hours
+            </h3>
+            <div className="no-visible-scrollbar max-h-48 space-y-2 overflow-y-auto">
+              {next24Hours.map((hour, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between py-2"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-12 text-sm text-white/80">
+                      {index === 0 ? "Now" : formatTime(hour.time)}
+                    </span>
+                    <img
+                      src={`https:${hour.condition.icon}`}
+                      alt={hour.condition.text}
+                      className="h-6 w-6"
+                    />
+                    <span className="flex-1 text-xs text-white/70">
+                      {hour.condition.text}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {hour.chance_of_rain > 0 && (
+                      <div className="flex items-center gap-1">
+                        <LuCloudRain className="h-3 w-3 text-blue-300" />
+                        <span className="text-xs text-blue-300">
+                          {hour.chance_of_rain}%
+                        </span>
+                      </div>
+                    )}
+                    <span className="text-sm font-medium text-white">
+                      {getTemperature(isCelsius, hour.temp_c, hour.temp_f)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <h3 className="mb-3 text-sm font-medium text-white">
+              7-Day Forecast
+            </h3>
+            <div className="no-visible-scrollbar space-y-2">
+              {weatherData.forecast.forecastday.map((day, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between py-2"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-16 text-sm text-white/80">
+                      {formatDate(day.date)}
+                    </span>
+                    <img
+                      src={`https:${day.day.condition.icon}`}
+                      alt={day.day.condition.text}
+                      className="h-6 w-6"
+                    />
+                    <span className="flex-1 text-xs text-white/70">
+                      {day.day.condition.text}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {day.day.daily_chance_of_rain > 0 && (
+                      <div className="flex items-center gap-1">
+                        <LuCloudRain className="h-3 w-3 text-blue-300" />
+                        <span className="text-xs text-blue-300">
+                          {day.day.daily_chance_of_rain}%
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-white/60">
+                        {getTemperature(
+                          isCelsius,
+                          day.day.mintemp_c,
+                          day.day.mintemp_f,
+                        )}
+                      </span>
+                      <span className="text-sm font-medium text-white">
+                        {getTemperature(
+                          isCelsius,
+                          day.day.maxtemp_c,
+                          day.day.maxtemp_f,
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Weather Details */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-xl bg-white/20 p-3 backdrop-blur-xl">
+          <div className="mb-1 flex items-center gap-2">
+            <LuWind className="h-4 w-4 text-white/80" />
+            <span className="text-xs text-white/80">WIND</span>
+          </div>
+          <div className="text-lg font-medium text-white">
+            {Math.round(weatherData.current.wind_mph)} mph
+          </div>
+          <div className="text-xs text-white/60">
+            {weatherData.current.wind_dir}
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white/20 p-3 backdrop-blur-xl">
+          <div className="mb-1 flex items-center gap-2">
+            <LuDroplets className="h-4 w-4 text-white/80" />
+            <span className="text-xs text-white/80">HUMIDITY</span>
+          </div>
+          <div className="text-lg font-medium text-white">
+            {weatherData.current.humidity}%
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white/20 p-3 backdrop-blur-xl">
+          <div className="mb-1 flex items-center gap-2">
+            <LuEye className="h-4 w-4 text-white/80" />
+            <span className="text-xs text-white/80">VISIBILITY</span>
+          </div>
+          <div className="text-lg font-medium text-white">
+            {Math.round(weatherData.current.vis_miles)} mi
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-white/20 p-3 backdrop-blur-xl">
+          <div className="mb-1 flex items-center gap-2">
+            <LuThermometer className="h-4 w-4 text-white/80" />
+            <span className="text-xs text-white/80">FEELS LIKE</span>
+          </div>
+          <div className="text-lg font-medium text-white">
+            {getTemperature(
+              isCelsius,
+              weatherData.current.feelslike_c,
+              weatherData.current.feelslike_f,
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Weather;

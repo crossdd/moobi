@@ -1,11 +1,11 @@
-import {FaGithub, FaLinkedin} from "react-icons/fa6";
-import {BsBrowserChrome, BsFolder, BsTwitterX} from "react-icons/bs";
-import {HistoryType} from "@/types";
-import {IoInformationCircle} from "react-icons/io5";
-import {LuBrain} from "react-icons/lu";
-import {GiSnake} from "react-icons/gi";
-import {FcMusic} from "react-icons/fc";
-import {TiWeatherCloudy} from "react-icons/ti";
+import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { BsBrowserChrome, BsFolder, BsTwitterX } from "react-icons/bs";
+import { HistoryType } from "@/types";
+import { IoInformationCircle } from "react-icons/io5";
+import { LuBrain } from "react-icons/lu";
+import { GiSnake } from "react-icons/gi";
+import { FcMusic } from "react-icons/fc";
+import { TiWeatherCloudy } from "react-icons/ti";
 
 export const techIcons: { [key: string]: string } = {
   react: "/icons/re.svg",
@@ -24,7 +24,7 @@ export const projects = [
     id: "snapgram",
     title: "Snapgram",
     description:
-        "A modern social media web app that lets users share photos, videos, and stories in real time. It mimics the experience of platforms like Instagram with a focus on simplicity and responsiveness. Users can upload content, follow others, and interact through likes and views. It’s designed for creators and social media enthusiasts who want a lightweight, fast, and visually engaging experience.",
+      "A modern social media web app that lets users share photos, videos, and stories in real time. It mimics the experience of platforms like Instagram with a focus on simplicity and responsiveness. Users can upload content, follow others, and interact through likes and views. It’s designed for creators and social media enthusiasts who want a lightweight, fast, and visually engaging experience.",
     thumbnail: "/images/snapgram.png",
     year: "2024",
     technologies: ["React", "Tailwindcss", "Typescript", "Appwrite"],
@@ -50,7 +50,7 @@ export const projects = [
     id: "pixel-care",
     title: "Pixel Care",
     description:
-        "A healthcare management platform tailored for clinics, hospitals, and solo practitioners. It helps medical professionals manage appointments, patient records, and doctor-patient interactions efficiently. It prioritizes ease of use, data security, and speed. The platform serves both healthcare providers and patients looking for organized, digital-first medical experiences",
+      "A healthcare management platform tailored for clinics, hospitals, and solo practitioners. It helps medical professionals manage appointments, patient records, and doctor-patient interactions efficiently. It prioritizes ease of use, data security, and speed. The platform serves both healthcare providers and patients looking for organized, digital-first medical experiences",
     thumbnail: "/images/pixelcare.png",
     year: "2024",
     technologies: ["Next.js", "Tailwindcss", "Typescript", "Appwrite"],
@@ -72,7 +72,7 @@ export const projects = [
     id: "brainwave",
     title: "Brainwave",
     description:
-        "Brainwave is an AI-powered landing page for a fictional product or service that blends cutting-edge animations with modern web design. It demonstrates the power of motion and interactivity in user interfaces. It's aimed at startups and creative agencies seeking to make a bold visual impression with their digital presence.",
+      "Brainwave is an AI-powered landing page for a fictional product or service that blends cutting-edge animations with modern web design. It demonstrates the power of motion and interactivity in user interfaces. It's aimed at startups and creative agencies seeking to make a bold visual impression with their digital presence.",
     thumbnail: "/images/brainwave.png",
     year: "2024",
     technologies: ["React", "Tailwindcss", "Typescript", "GSAP"],
@@ -98,7 +98,7 @@ export const projects = [
     id: "e-library",
     title: "Bookwise",
     description:
-        "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, tracks academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
+      "An online e-library platform that allows students and academic institutions to access digital learning materials with ease. Users can browse categorized books, tracks academic resources, and potentially download or preview them. The platform is built for educational communities aiming to modernize access to knowledge and streamline digital content distribution.",
     thumbnail: "/images/e-library.png",
     year: "2025",
     technologies: ["Next.js", "Tailwindcss", "Typescript", "Prisma", "Redis"],
@@ -120,7 +120,7 @@ export const projects = [
     id: "school-manager",
     title: "SchoolSync",
     description:
-        "SchoolSync is an all-in-one school management application designed to streamline every aspect of school operations. From managing student records, staff profiles, classes, and lesson schedules to handling payments and academic performance, SchoolSync offers a centralized platform for administrators, teachers, parents, and students. With intuitive dashboards and real-time data tracking, it simplifies school-related tasks, enhances communication, and improves overall efficiency.",
+      "SchoolSync is an all-in-one school management application designed to streamline every aspect of school operations. From managing student records, staff profiles, classes, and lesson schedules to handling payments and academic performance, SchoolSync offers a centralized platform for administrators, teachers, parents, and students. With intuitive dashboards and real-time data tracking, it simplifies school-related tasks, enhances communication, and improves overall efficiency.",
     thumbnail: "/images/e-library.png",
     year: "2025",
     technologies: ["Next.js", "Tailwindcss", "Typescript", "Paystack"],
@@ -135,14 +135,14 @@ export const projects = [
 export const testimonials = [
   {
     quote:
-        "Collaborating with Epiphanus was an absolute pleasure. His promptness, and dedication to delivering exceptional results were evident throughout our project.",
+      "Collaborating with Epiphanus was an absolute pleasure. His promptness, and dedication to delivering exceptional results were evident throughout our project.",
     name: "Michael Chen",
     designation: "Product Manager at TechFlow",
     src: "/images/profile.jpg",
   },
   {
     quote:
-        "Epiphanus's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Epiphanus is the ideal partner.",
+      "Epiphanus's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Epiphanus is the ideal partner.",
     name: "Emily Watson",
     designation: "",
     src: "/images/no-img.png",
@@ -225,7 +225,7 @@ export const gallery = [
         date: new Date(),
         isFavorite: true,
       },
-    {
+      {
         id: "may-5",
         type: "photo",
         title: "",
@@ -233,7 +233,7 @@ export const gallery = [
         date: new Date(),
         isFavorite: true,
       },
-    {
+      {
         id: "may-6",
         type: "photo",
         title: "",
@@ -249,35 +249,43 @@ export const browserHistory: HistoryType[] = [
   {
     id: 1,
     query: "GitHub",
-    time: '10:02'
+    time: "10:02",
   },
   {
     id: 2,
     query: "MDN Web Docs",
-    time: "13:45"
+    time: "13:45",
   },
   {
     id: 3,
     query: "Vercel",
-    time: "13:52"
+    time: "13:52",
   },
-]
+];
 
 // Each array is a screen. Each screen is allowed to have only 9 apps. Your app won't be displayed if you don't adhere to that.
 // Screen 1 should have only 6 apps
 export const mobileApps = [
-    [
-      { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
-      { name: "Guess", icon: LuBrain, color: "text-primary bg-white" },
-      { name: "Projects", icon: BsFolder, color: "bg-yellow-300" },
-      { name: "Chrome", icon: BsBrowserChrome, color: "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500" },
-      { name: "Snake", icon: GiSnake, color: "bg-green-600" },
-      { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
-    ],
-    [
-      { name: "Weather", icon: TiWeatherCloudy, color: "bg-blue-400" },
-    ],
-    [
-      // Intentionally left empty for the music player widget. Add your apps in another array
-    ]
-]
+  [
+    { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
+    { name: "Snake", icon: GiSnake, color: "bg-green-600" },
+    { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
+  ],
+  [
+    { name: "Weather", icon: TiWeatherCloudy, color: "bg-blue-500" },
+    { name: "Guess", icon: LuBrain, color: "text-primary bg-white" },
+    { name: "Projects", icon: BsFolder, color: "bg-yellow-300" },
+    { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
+    { name: "Snake", icon: GiSnake, color: "bg-green-600" },
+    { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
+    {
+      name: "Chrome",
+      icon: BsBrowserChrome,
+      color:
+        "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500 text-white",
+    },
+  ],
+  [
+    // Intentionally left empty for the music player widget. Add your apps in another array
+  ],
+];

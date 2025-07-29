@@ -1,13 +1,12 @@
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import "./globals.css";
-import {MediaProvider} from "@/context/MediaContext";
 import React from "react";
-import {MusicProvider} from "@/context/MusicContext";
-import {BrowserProvider} from "@/context/BrowserContext";
+import ProvidersWrapper from "@/components/ProvidersWrapper";
 
 export const metadata: Metadata = {
   title: "Moobi",
-  description: "Moobi is a virtual smartphone experience in your browser — explore apps, play media, browse the web, and more within a simulated mobile interface.",
+  description:
+    "Moobi is a virtual smartphone experience in your browser — explore apps, play media, browse the web, and more within a simulated mobile interface.",
   keywords: [
     "Moobi",
     "virtual phone",
@@ -20,11 +19,12 @@ export const metadata: Metadata = {
     "digital phone interface",
   ],
   icons: {
-    icon: "/images/logo.png"
+    icon: "/images/logo.png",
   },
   openGraph: {
     title: "Moobi",
-    description: "Experience a fully interactive mobile phone inside your browser. Browse, call, text, and launch apps — all in one virtual interface.",
+    description:
+      "Experience a fully interactive mobile phone inside your browser. Browse, call, text, and launch apps — all in one virtual interface.",
     url: "https://epiphanusonyeso.vercel.app",
     siteName: "Moobi",
     images: [
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -46,16 +45,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-black">
-        <MediaProvider>
-          <MusicProvider>
-            <BrowserProvider>
-            {children}
-          {/*<Analytics />*/}
-          {/*<SpeedInsights />*/}
-            </BrowserProvider>
-          </MusicProvider>
-        </MediaProvider>
+      <body className="bg-black antialiased">
+        <ProvidersWrapper>{children}</ProvidersWrapper>
       </body>
     </html>
   );
