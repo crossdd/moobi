@@ -1,55 +1,52 @@
 import type React from "react";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  liveUrl: string;
-  githubUrl: string;
-  technologies: string[];
-  team?: boolean;
-  features: string[];
-  challenges: string[];
-  learnings: string[];
-}
-
-type Skill = "frontend" | "backend" | "tools" | "mobile"
-
-type BrowserScreen = "browser-home" | "browser-history" | "browser-bookmark" | "browser-search-results" | "browser-frame"
-type MusicPlayerScreen = "library" | "search" | "nowPlaying" | "widget"
-
 type ScreenOptions =
   | "boot"
+  | "shutdown"
   | "home"
   | "phone"
   | "mail"
   | "gallery"
-  | "video-player"
-  | "image-view"
-  | "projects"
-  | "project-detail"
   | "chrome"
   | "lock"
   | "info"
   | "snake"
   | "guess"
-  | "shutdown"
   | "itunes"
+  | "calculator"
+  | "clock";
 
-type MediaType = "photo" | "video"
+// Gallery
+type GalleryScreen = "album" | "image-view" | "video-player" | "library";
 
-interface MediaItem {
-  id: string
-  type: MediaType
-  thumbnail: string
-  title?: string
-  date: Date
-  isFavorite: boolean
-  duration?: string
+type MediaType = "photo" | "video";
+
+declare interface GalleryMedia {
+  type: MediaType;
+  url: string;
+  title: string;
 }
 
-interface HistoryType{
+// Browser
+type BrowserScreen =
+  | "browser-home"
+  | "browser-history"
+  | "browser-bookmark"
+  | "browser-search-results"
+  | "browser-frame";
+type MusicPlayerScreen = "library" | "search" | "nowPlaying" | "widget";
+
+interface MediaItem {
+  id: string;
+  type: MediaType;
+  thumbnail: string;
+  title?: string;
+  date: Date;
+  isFavorite: boolean;
+  duration?: string;
+}
+
+interface HistoryType {
   id: number;
   query: string;
   url?: string;
@@ -57,23 +54,23 @@ interface HistoryType{
 }
 
 declare interface BrowserBookmarkProps {
-  setScreen:  React.Dispatch<React.SetStateAction<BrowserScreen>>
-  setProjectId:  React.Dispatch<React.SetStateAction<string>>
+  setScreen: React.Dispatch<React.SetStateAction<BrowserScreen>>;
+  setProjectId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 declare interface Song {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  albumArt: string
-  genre: string
-  streamUrl: string,
-  permalink?: string,
-  playCount?: number,
-  favoriteCount?: number,
-  repostCount?: number,
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  albumArt: string;
+  genre: string;
+  streamUrl: string;
+  permalink?: string;
+  playCount?: number;
+  favoriteCount?: number;
+  repostCount?: number;
 }
 
 interface CustomSearchResultData {
@@ -83,7 +80,7 @@ interface CustomSearchResultData {
   snippet: string;
   formattedUrl: string;
   htmlSnippet: string;
-  pagemap: string
+  pagemap: string;
 }
 
 interface CustomSearchResult {
@@ -101,106 +98,106 @@ interface CustomSearchResult {
 }
 
 interface WeatherCondition {
-  text: string
-  icon: string
-  code: number
+  text: string;
+  icon: string;
+  code: number;
 }
 
 interface CurrentWeather {
-  temp_c: number
-  temp_f: number
-  condition: WeatherCondition
-  wind_mph: number
-  wind_kph: number
-  wind_dir: string
-  pressure_mb: number
-  pressure_in: number
-  precip_mm: number
-  precip_in: number
-  humidity: number
-  cloud: number
-  feelslike_c: number
-  feelslike_f: number
-  vis_km: number
-  vis_miles: number
-  uv: number
-  gust_mph: number
-  gust_kph: number
+  temp_c: number;
+  temp_f: number;
+  condition: WeatherCondition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  vis_km: number;
+  vis_miles: number;
+  uv: number;
+  gust_mph: number;
+  gust_kph: number;
 }
 
 interface HourlyWeather {
-  time_epoch: number
-  time: string
-  temp_c: number
-  temp_f: number
-  is_day: number
-  condition: WeatherCondition
-  wind_mph: number
-  wind_kph: number
-  wind_dir: string
-  pressure_mb: number
-  pressure_in: number
-  precip_mm: number
-  precip_in: number
-  humidity: number
-  cloud: number
-  feelslike_c: number
-  feelslike_f: number
-  chance_of_rain: number
-  chance_of_snow: number
-  vis_km: number
-  vis_miles: number
-  gust_mph: number
-  gust_kph: number
-  uv: number
+  time_epoch: number;
+  time: string;
+  temp_c: number;
+  temp_f: number;
+  is_day: number;
+  condition: WeatherCondition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  chance_of_rain: number;
+  chance_of_snow: number;
+  vis_km: number;
+  vis_miles: number;
+  gust_mph: number;
+  gust_kph: number;
+  uv: number;
 }
 
 interface DailyWeather {
-  date: string
-  date_epoch: number
+  date: string;
+  date_epoch: number;
   day: {
-    maxtemp_c: number
-    maxtemp_f: number
-    mintemp_c: number
-    mintemp_f: number
-    avgtemp_c: number
-    avgtemp_f: number
-    maxwind_mph: number
-    maxwind_kph: number
-    totalprecip_mm: number
-    totalprecip_in: number
-    avghumidity: number
-    daily_will_it_rain: number
-    daily_chance_of_rain: number
-    daily_will_it_snow: number
-    daily_chance_of_snow: number
-    condition: WeatherCondition
-    uv: number
-  }
+    maxtemp_c: number;
+    maxtemp_f: number;
+    mintemp_c: number;
+    mintemp_f: number;
+    avgtemp_c: number;
+    avgtemp_f: number;
+    maxwind_mph: number;
+    maxwind_kph: number;
+    totalprecip_mm: number;
+    totalprecip_in: number;
+    avghumidity: number;
+    daily_will_it_rain: number;
+    daily_chance_of_rain: number;
+    daily_will_it_snow: number;
+    daily_chance_of_snow: number;
+    condition: WeatherCondition;
+    uv: number;
+  };
   astro: {
-    sunrise: string
-    sunset: string
-    moonrise: string
-    moonset: string
-    moon_phase: string
-    moon_illumination: string
-  }
-  hour: HourlyWeather[]
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    moon_phase: string;
+    moon_illumination: string;
+  };
+  hour: HourlyWeather[];
 }
 
 interface WeatherLocation {
-  name: string
-  region: string
-  country: string
-  localtime: string
+  name: string;
+  region: string;
+  country: string;
+  localtime: string;
 }
 
 interface WeatherData {
-  location: WeatherLocation
-  current: CurrentWeather
+  location: WeatherLocation;
+  current: CurrentWeather;
   forecast: {
-    forecastday: DailyWeather[]
-  }
-  alerts: any[]
-  air_quality: any
+    forecastday: DailyWeather[];
+  };
+  alerts: any[];
+  air_quality: any;
 }

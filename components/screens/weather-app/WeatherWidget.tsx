@@ -39,7 +39,7 @@ export default function WeatherWidget({
   if (error || !weatherData) {
     return (
       <div
-        className={` ${size === "small" ? "h-40 w-40" : size === "medium" ? "h-40 w-80" : "h-80 w-80"} flex items-center justify-center rounded-3xl bg-gradient-to-br from-red-400 to-red-600 p-4 shadow-lg`}
+        className={` ${size === "small" ? "col-span-2 row-span-2" : size === "medium" ? "col-span-3 row-span-2" : "col-span-3 row-span-4"} flex items-center justify-center rounded-3xl bg-gradient-to-br from-red-400 to-red-600 p-4 shadow-lg`}
       >
         <div className="text-center text-white">
           <div className="mb-2 text-2xl">⚠️</div>

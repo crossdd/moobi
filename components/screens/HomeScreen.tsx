@@ -1,6 +1,6 @@
 import wallpaper from "@/public/images/wallpaper.jpg";
 import Image from "next/image";
-import { useMedia } from "@/context/MediaContext";
+import { usePhone } from "@/context/PhoneContext";
 import Link from "next/link";
 import { mobileApps, socialMediaPlatforms } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ import MusicPlayerWidget from "@/components/screens/music-player/MusicPlayerWidg
 import { useSwipeable } from "react-swipeable";
 import { FaPhone } from "react-icons/fa6";
 import { TfiEmail, TfiGallery } from "react-icons/tfi";
-import { useState } from "react";
+import React, { useState } from "react";
 import BrowserWidget from "@/components/screens/browser/BrowserWidget";
 import WeatherWidget from "@/components/screens/weather-app/WeatherWidget";
 
@@ -22,7 +22,7 @@ const dockApps = [
 const HomeScreen = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setCurrentScreen } = useMedia();
+  const { setCurrentScreen } = usePhone();
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
@@ -44,7 +44,7 @@ const HomeScreen = () => {
         alt="profile-picture"
         width={300}
         height={500}
-        className="absolute inset-0 z-0 h-full w-full object-cover opacity-25"
+        className="absolute inset-0 z-0 h-full w-full object-cover opacity-35"
         placeholder="blur"
         blurDataURL={wallpaper.blurDataURL}
       />
@@ -60,7 +60,7 @@ const HomeScreen = () => {
           >
             {index === 0 && (
               <>
-                <WeatherWidget />
+                <WeatherWidget size="small" />
 
                 {socialMediaPlatforms.map((platform) => (
                   <button
@@ -119,7 +119,7 @@ const HomeScreen = () => {
       </div>
 
       {/* Dock */}
-      <div className="absolute bottom-0 z-50 ml-2 px-6 pb-3">
+      <div className="absolute bottom-0 z-20 ml-2 px-6 pb-3">
         <div className="rounded-2xl bg-neutral-600/20 p-3 shadow-inner shadow-neutral-900/30 backdrop-blur-md">
           <div className="flex justify-center space-x-6">
             {dockApps.map((app, index) => (

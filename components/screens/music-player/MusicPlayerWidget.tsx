@@ -14,8 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useMusic } from "@/context/MusicContext";
+import { cn } from "@/lib/utils";
 
-const MusicPlayerWidget = () => {
+const MusicPlayerWidget = ({ className }: { className?: string }) => {
   const {
     isPlaying,
     currentSong,
@@ -44,7 +45,7 @@ const MusicPlayerWidget = () => {
   };
 
   return (
-    <div className="col-span-3 px-3 py-5">
+    <div className={cn("px-3 py-5", className)}>
       <div
         className={`rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 ${
           isExpanded ? "p-6" : "p-4"

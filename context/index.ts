@@ -1,15 +1,15 @@
 import { useMusic, MusicProvider } from "@/context/MusicContext";
-import { useMedia, MediaProvider } from "@/context/MediaContext";
+import { usePhone, PhoneProvider } from "@/context/PhoneContext";
 import { useBrowser, BrowserProvider } from "@/context/BrowserContext";
 import { useWeather, WeatherProvider } from "@/context/WeatherContext";
 
 export {
   useWeather,
-  useMedia,
+  usePhone,
   useBrowser,
   useMusic,
   MusicProvider,
-  MediaProvider,
+  PhoneProvider,
   BrowserProvider,
   WeatherProvider,
 };

@@ -1,5 +1,3 @@
-import {skills} from "@/constants";
-
 const infos = [
     {
         label: "Name",
@@ -36,7 +34,6 @@ const infos = [
 ]
 
 const InfoScreen = () => {
-    const stacks = Object.keys(skills)
 
     return (
         <div className="relative w-full h-full mt-10 px-3 overflow-y-scroll no-visible-scrollbar pb-24">
@@ -51,18 +48,6 @@ const InfoScreen = () => {
                     <li key={info.label} className="text-white flex items-center justify-between w-full">
                         <p className="text-gray-400 text-base w-[60%]">{info.label}</p>
                         <p className="text-gray-200 text-base font-serif w-[40%]">{info.value}</p>
-                    </li>
-                ))}
-
-                <h3 className="text-lg font-bold text-gray-300 border-b pb-2 rounded-b-md mt-4">Technologies Used</h3>
-
-                {stacks.map(stack => (
-                    <li key={stack} className="text-white flex flex-col gap-1 w-full">
-                        <p className="text-gray-300 text-base capitalize w-[60%]">{stack}</p>
-
-                       <p className="text-sm text-gray-400">
-                           {skills[stack].join(", ")}
-                       </p>
                     </li>
                 ))}
             </ul>

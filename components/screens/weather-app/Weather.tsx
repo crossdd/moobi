@@ -15,11 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { useWeather } from "@/context/WeatherContext";
 import { getTemperature, getWeatherBackground } from "@/lib/utils";
-import { useMedia } from "@/context";
+import { usePhone } from "@/context";
 
 const Weather = () => {
   const { fetchWeather, error, isLoading, weatherData } = useWeather();
-  const { setCurrentScreen } = useMedia();
+  const { setCurrentScreen } = usePhone();
 
   const [searchLocation, setSearchLocation] = useState("");
   const [isSearching, setIsSearching] = useState(false);

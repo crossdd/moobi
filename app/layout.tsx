@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
 import ProvidersWrapper from "@/components/ProvidersWrapper";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Moobi",
@@ -46,7 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black antialiased">
-        <ProvidersWrapper>{children}</ProvidersWrapper>
+        <ProvidersWrapper>
+          <Analytics />
+          <SpeedInsights />
+          {children}
+        </ProvidersWrapper>
       </body>
     </html>
   );

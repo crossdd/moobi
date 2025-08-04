@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  MediaProvider,
+  PhoneProvider,
   MusicProvider,
   WeatherProvider,
   BrowserProvider,
@@ -8,13 +8,13 @@ import {
 
 const ProvidersWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <MediaProvider>
+    <PhoneProvider>
       <MusicProvider>
         <WeatherProvider>
           <BrowserProvider>{children}</BrowserProvider>
         </WeatherProvider>
       </MusicProvider>
-    </MediaProvider>
+    </PhoneProvider>
   );
 };
 export default ProvidersWrapper;
