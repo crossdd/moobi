@@ -93,7 +93,7 @@ const HomeScreen = () => {
 
             {index === 1 && <BrowserWidget />}
 
-            {index === 2 && <MusicPlayerWidget />}
+            {index === 2 && <MusicPlayerWidget className="col-span-3" />}
 
             {apps.map((app, idx) => (
               <button

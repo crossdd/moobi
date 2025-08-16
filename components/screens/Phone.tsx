@@ -50,6 +50,9 @@ const Calculator = dynamic(
     loading: () => <Loader />,
   },
 );
+const Clock = dynamic(() => import("@/components/screens/clock/Clock"), {
+  loading: () => <Loader />,
+});
 
 const Phone = () => {
   const { currentScreen } = usePhone();
@@ -69,6 +72,7 @@ const Phone = () => {
     lock: <LockScreen />,
     weather: <WeatherApp />,
     calculator: <Calculator />,
+    clock: <Clock />,
   };
 
   return (

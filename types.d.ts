@@ -35,6 +35,7 @@ type BrowserScreen =
   | "browser-search-results"
   | "browser-frame";
 type MusicPlayerScreen = "library" | "search" | "nowPlaying" | "widget";
+type ClockScreen = "world" | "alarm" | "timer" | "stopwatch";
 
 interface MediaItem {
   id: string;
@@ -200,4 +201,20 @@ interface WeatherData {
   };
   alerts: any[];
   air_quality: any;
+}
+
+interface Timezone {
+  timezone: string;
+  localTime: string;
+  utcOffset: string;
+}
+
+interface Alarm {
+  id: number;
+  time: string;
+  label: string | null;
+  enabled: boolean;
+  repeatMode: "once" | "daily" | "weekday";
+  lastTriggerKey?: string;
+  snoozeUntil?: number;
 }

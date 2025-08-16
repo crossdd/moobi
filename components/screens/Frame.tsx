@@ -9,6 +9,8 @@ import { useBrowser } from "@/context/BrowserContext";
 import { useMusic } from "@/context/MusicContext";
 import { MusicPlayerScreen } from "@/types";
 import ControlCenter from "@/components/screens/control-center/ControlCenter";
+import { useClock } from "@/context/ClockContext";
+import AlarmRingOverlay from "@/components/screens/clock/AlarmRingOverlay";
 
 const Frame = ({ children }: { children: React.ReactNode }) => {
   const [isOn, setIsOn] = useState(true);
@@ -21,6 +23,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
   } = usePhone();
   const { currentBrowserScreen, setCurrentBrowserScreen } = useBrowser();
   const { currentPlayerScreen, setCurrentPlayerScreen } = useMusic();
+  const { ringingAlarmId } = useClock();
 
   let pressTimer: NodeJS.Timeout;
 
@@ -41,6 +44,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
 
     toggleScreenOnOff();
   };
+
   const toggleScreenOnOff = () => {
     if (isOn) {
       if (currentScreen !== "lock") {
@@ -129,6 +133,8 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
             <div className="relative h-full w-full overflow-hidden">
               {showControlCenter && <ControlCenter />}
               {children}
+
+              {ringingAlarmId && <AlarmRingOverlay />}
             </div>
           )}
 
@@ -146,7 +152,6 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
           onMouseLeave={handlePressEnd}
           onTouchEnd={handlePressEnd}
           onClick={handleClick}
-          // onClick={togglePhoneState}
           className="rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700"
         >
           {isCurrentlyOn ? <LuPowerOff size={19} /> : <LuPower size={19} />}

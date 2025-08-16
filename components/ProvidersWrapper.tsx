@@ -5,13 +5,16 @@ import {
   WeatherProvider,
   BrowserProvider,
 } from "@/context";
+import { ClockProvider } from "@/context/ClockContext";
 
 const ProvidersWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <PhoneProvider>
       <MusicProvider>
         <WeatherProvider>
-          <BrowserProvider>{children}</BrowserProvider>
+          <BrowserProvider>
+            <ClockProvider>{children}</ClockProvider>
+          </BrowserProvider>
         </WeatherProvider>
       </MusicProvider>
     </PhoneProvider>
