@@ -11,6 +11,7 @@ import { MusicPlayerScreen } from "@/types";
 import ControlCenter from "@/components/screens/control-center/ControlCenter";
 import { useClock } from "@/context/ClockContext";
 import AlarmRingOverlay from "@/components/screens/clock/AlarmRingOverlay";
+import HomeIndicator from "@/components/screens/HomeIndicator";
 
 const Frame = ({ children }: { children: React.ReactNode }) => {
   const [isOn, setIsOn] = useState(true);
@@ -138,8 +139,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
             </div>
           )}
 
-          {/* Home Indicator */}
-          <div className="absolute bottom-2 left-1/2 h-1 w-32 -translate-x-1/2 transform rounded-full bg-white bg-opacity-60"></div>
+          <HomeIndicator />
         </div>
       </div>
 

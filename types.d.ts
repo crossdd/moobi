@@ -9,6 +9,7 @@ type ScreenOptions =
   | "gallery"
   | "chrome"
   | "lock"
+  | "weather"
   | "info"
   | "snake"
   | "guess"
@@ -221,7 +222,12 @@ interface Alarm {
 
 type CalendarScreen = "home" | "event" | "add-edit";
 
-type CalendarEventCategory = "event" | "birthday" | "anniversary" | "other";
+type CalendarEventCategory =
+  | "event"
+  | "birthday"
+  | "anniversary"
+  | "holiday"
+  | "other";
 
 interface CalendarEvent {
   id: string;

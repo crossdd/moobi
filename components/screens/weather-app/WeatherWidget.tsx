@@ -1,7 +1,7 @@
 "use client";
 
 import { LuDroplets, LuLoader, LuMapPin, LuWind } from "react-icons/lu";
-import { useWeather } from "@/context";
+import { usePhone, useWeather } from "@/context";
 import { getTemperature, getWeatherBackground } from "@/lib/utils";
 
 interface WeatherWidgetProps {
@@ -14,6 +14,7 @@ export default function WeatherWidget({
   isCelsius = true,
 }: WeatherWidgetProps) {
   const { isLoading, weatherData, error } = useWeather();
+  const { setCurrentScreen } = usePhone();
 
   const formatTime = () => {
     return new Date().toLocaleTimeString("en-US", {
@@ -21,6 +22,10 @@ export default function WeatherWidget({
       minute: "2-digit",
       hour12: true,
     });
+  };
+
+  const handleClick = () => {
+    setCurrentScreen("weather");
   };
 
   if (isLoading) {
@@ -57,6 +62,7 @@ export default function WeatherWidget({
         style={{
           background: getWeatherBackground(weatherData.current.condition.text),
         }}
+        onClick={handleClick}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -118,6 +124,7 @@ export default function WeatherWidget({
         style={{
           background: getWeatherBackground(weatherData.current.condition.text),
         }}
+        onClick={handleClick}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -194,6 +201,7 @@ export default function WeatherWidget({
       style={{
         background: getWeatherBackground(weatherData.current.condition.text),
       }}
+      onClick={handleClick}
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">

@@ -12,6 +12,7 @@ export const CATEGORY_COLORS: Record<CalendarEventCategory, string> = {
   event: "bg-blue-500",
   birthday: "bg-orange-500",
   anniversary: "bg-yellow-500",
+  holiday: "bg-orange-700",
   other: "bg-gray-500",
 };
 

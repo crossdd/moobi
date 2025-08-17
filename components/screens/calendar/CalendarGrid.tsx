@@ -1,5 +1,6 @@
 import { CalendarEvent } from "@/types";
 import { Dispatch, SetStateAction } from "react";
+import { cn } from "@/lib/utils";
 
 interface CalendarGridProps {
   currentDate: Date;
@@ -67,15 +68,16 @@ const CalendarGrid = ({
             <button
               key={index}
               onClick={() => handleDateClick(day)}
-              className={`relative aspect-square rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={cn(
+                "relative aspect-square rounded-lg text-sm font-medium transition-all duration-200",
                 isCurrentMonth
-                  ? isToday
+                  ? isToday && !isSelected
                     ? "text-blue-500 shadow-lg"
                     : isSelected
                       ? "bg-blue-500 py-px text-white"
                       : "text-white hover:bg-white/20"
-                  : "text-white/40"
-              } `}
+                  : "text-white/40",
+              )}
             >
               {day.getDate()}
               {hasEvents && (
