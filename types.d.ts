@@ -218,3 +218,17 @@ interface Alarm {
   lastTriggerKey?: string;
   snoozeUntil?: number;
 }
+
+type CalendarScreen = "home" | "event" | "add-edit";
+
+type CalendarEventCategory = "event" | "birthday" | "anniversary" | "other";
+
+interface CalendarEvent {
+  id: string;
+  title: string;
+  date: string;
+  category: CalendarEventCategory;
+  description?: string;
+  time?: string;
+  isGlobal: boolean;
+}
