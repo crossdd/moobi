@@ -25,7 +25,7 @@ const CalendarEventForm = ({
 }: CalendarEventModalProps) => {
   const [newEvent, setNewEvent] = useState<Partial<CalendarEvent>>({
     title: eventToEdit?.title ?? "",
-    category: eventToEdit?.category ?? "personal",
+    category: eventToEdit?.category ?? "event",
     description: eventToEdit?.description ?? "",
     time: eventToEdit?.time ?? "",
   });
@@ -37,7 +37,7 @@ const CalendarEventForm = ({
       id: uid(),
       title: newEvent.title.trim(),
       date: selectedDate,
-      category: newEvent.category || "personal",
+      category: newEvent.category || "event",
       description: newEvent.description?.trim() || undefined,
       time: newEvent.time?.trim() || undefined,
       isGlobal: false,
@@ -50,7 +50,7 @@ const CalendarEventForm = ({
   const closeModal = () => {
     setScreen("home");
     setEventToEdit(null);
-    setNewEvent({ title: "", category: "personal", description: "", time: "" });
+    setNewEvent({ title: "", category: "event", description: "", time: "" });
   };
 
   const handleUpdateEvent = () => {
@@ -62,7 +62,7 @@ const CalendarEventForm = ({
           ? {
               ...event,
               title: newEvent.title!.trim(),
-              category: newEvent.category || "personal",
+              category: newEvent.category || "event",
               description: newEvent.description?.trim() || undefined,
               time: newEvent.time?.trim() || undefined,
             }
