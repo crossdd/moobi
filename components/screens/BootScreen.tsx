@@ -15,7 +15,7 @@ const BootScreen = () => {
     const bootSequence = async () => {
       setIsShutDown(false);
 
-      const isBootScreen = currentScreen === "boot";
+      const isBootScreen = currentScreen === "screen-boot";
 
       await new Promise((resolve) =>
         setTimeout(resolve, isBootScreen ? 1000 : 300),
@@ -33,8 +33,8 @@ const BootScreen = () => {
 
       setBootStage("complete");
 
-      if (currentScreen === "boot") {
-        setCurrentScreen("lock");
+      if (currentScreen === "screen-boot") {
+        setCurrentScreen("screen-lock");
       } else {
         setIsShutDown(true);
       }

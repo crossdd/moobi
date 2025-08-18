@@ -1,21 +1,23 @@
 import type React from "react";
 
 type ScreenOptions =
-  | "boot"
-  | "shutdown"
+  | "screen-boot"
+  | "screen-shutdown"
+  | "screen-lock"
   | "home"
-  | "phone"
-  | "mail"
+  | "phone-dialer"
+  | "mail-composer"
   | "gallery"
-  | "chrome"
-  | "lock"
+  | "chrome-browser"
   | "weather"
   | "info"
   | "snake"
   | "guess"
-  | "itunes"
+  | "music-player"
   | "calculator"
-  | "clock";
+  | "file-manager"
+  | "clock"
+  | "notes";
 
 // Gallery
 type GalleryScreen = "album" | "image-view" | "video-player" | "library";
@@ -237,4 +239,29 @@ interface CalendarEvent {
   description?: string;
   time?: string;
   isGlobal: boolean;
+}
+
+// NOTES
+type ToDoPriority = "low" | "medium" | "high";
+type NoteType = "note" | "todo";
+
+interface TodoItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  priority: ToDoPriority;
+  dueDate?: string;
+}
+
+interface Note {
+  id: string;
+  title: string;
+  content?: string;
+  type: NoteType;
+  createdAt: string;
+  updatedAt: string;
+  isPinned: boolean;
+  isArchived: boolean;
+  todos?: TodoItem[];
+  color?: string;
 }

@@ -59,27 +59,31 @@ const Calendar = dynamic(
     loading: () => <Loader />,
   },
 );
+const Notes = dynamic(() => import("@/components/screens/notes/NotesApp"), {
+  loading: () => <Loader />,
+});
 
 const Phone = () => {
   const { currentScreen } = usePhone();
 
   const screen: { [key: string]: React.JSX.Element } = {
     gallery: <Gallery />,
-    phone: <PhoneDialer />,
-    mail: <MailCompose />,
+    "phone-dialer": <PhoneDialer />,
+    "mail-composer": <MailCompose />,
     info: <About />,
     home: <HomeScreen />,
     snake: <SnakeGame />,
     guess: <GuessGame />,
-    boot: <BootScreen />,
-    shutdown: <BootScreen />,
-    chrome: <Browser />,
-    itunes: <MusicPlayer />,
-    lock: <LockScreen />,
+    "screen-boot": <BootScreen />,
+    "screen-shutdown": <BootScreen />,
+    "screen-lock": <LockScreen />,
+    "chrome-browser": <Browser />,
+    "music-player": <MusicPlayer />,
     weather: <WeatherApp />,
     calculator: <Calculator />,
     clock: <Clock />,
     calendar: <Calendar />,
+    notes: <Notes />,
   };
 
   return (

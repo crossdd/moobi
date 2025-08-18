@@ -7,12 +7,13 @@ import {
   BsFolder,
   BsTwitterX,
 } from "react-icons/bs";
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa6";
 import { FcMusic } from "react-icons/fc";
 import { GiSnake } from "react-icons/gi";
 import { IoInformationCircle } from "react-icons/io5";
-import { LuBrain } from "react-icons/lu";
-import { TiWeatherCloudy } from "react-icons/ti";
+import { LuBrain, LuListTodo } from "react-icons/lu";
+import { TiWeatherDownpour } from "react-icons/ti";
+import { TfiEmail, TfiGallery } from "react-icons/tfi";
 
 export const socialMediaPlatforms = [
   {
@@ -377,22 +378,77 @@ export const globalEvents: CalendarEvent[] = [
 // Screen 1 should have only 6 apps
 export const mobileApps = [
   [
-    { name: "Info", icon: IoInformationCircle, color: "bg-gray-400" },
-    { name: "Snake", icon: GiSnake, color: "text-green-600" },
-    { name: "Calculator", icon: BiCalculator, color: "text-yellow-600" },
-    { name: "Clock", icon: BsClockFill, color: "text-gray-400" },
-    { name: "Calendar", icon: BsCalendar3, color: "text-blue-500" },
-  ],
-  [
-    { name: "Weather", icon: TiWeatherCloudy, color: "bg-blue-500" },
-    { name: "Guess", icon: LuBrain, color: "text-primary bg-white" },
-    { name: "iTunes", icon: FcMusic, color: "bg-red-200" },
-    { name: "Projects", icon: BsFolder, color: "bg-yellow-300" },
+    {
+      name: "Info",
+      slur: "info",
+      icon: IoInformationCircle,
+      color: "bg-gray-400",
+    },
+    { name: "Snake", slur: "snake", icon: GiSnake, color: "text-green-600" },
+    {
+      name: "Calculator",
+      slur: "calculator",
+      icon: BiCalculator,
+      color: "text-orange-500",
+    },
+    { name: "Clock", slur: "clock", icon: BsClockFill, color: "text-gray-400" },
     {
       name: "Chrome",
+      slur: "chrome-browser",
       icon: BsBrowserChrome,
       color:
         "bg-gradient-to-br from-red-500 via-yellow-500 to-green-500 text-white",
+    },
+  ],
+  [
+    {
+      name: "gallery",
+      slur: "gallery",
+      icon: TfiGallery,
+      color: "bg-blue-300",
+    },
+    {
+      name: "Calendar",
+      slur: "calendar",
+      icon: BsCalendar3,
+      color: "text-blue-500",
+    },
+    {
+      name: "Weather",
+      slur: "weather",
+      icon: TiWeatherDownpour,
+      color: "bg-blue-500",
+    },
+    {
+      name: "Guess",
+      slur: "guess",
+      icon: LuBrain,
+      color: "text-primary bg-white",
+    },
+    {
+      name: "mail",
+      slur: "mail-composer",
+      icon: TfiEmail,
+      color: "bg-blue-500",
+    },
+    {
+      name: "iTunes",
+      slur: "music-player",
+      icon: FcMusic,
+      color: "bg-red-200",
+    },
+    { name: "Notes", slur: "notes", icon: LuListTodo, color: "bg-yellow-300" },
+    {
+      name: "File Manager",
+      slur: "file-manager",
+      icon: BsFolder,
+      color: "bg-yellow-300",
+    },
+    {
+      name: "phone",
+      slur: "phone-dialer",
+      icon: FaPhone,
+      color: "bg-green-600",
     },
   ],
   [

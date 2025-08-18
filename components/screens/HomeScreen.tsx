@@ -14,9 +14,9 @@ import BrowserWidget from "@/components/screens/browser/BrowserWidget";
 import WeatherWidget from "@/components/screens/weather-app/WeatherWidget";
 
 const dockApps = [
-  { name: "phone", icon: FaPhone, color: "bg-green-600" },
-  { name: "mail", icon: TfiEmail, color: "bg-blue-500" },
-  { name: "gallery", icon: TfiGallery, color: "bg-blue-300" },
+  { name: "phone", slur: "phone-dialer", icon: FaPhone, color: "bg-green-600" },
+  { name: "mail", slur: "mail-composer", icon: TfiEmail, color: "bg-blue-500" },
+  { name: "gallery", slur: "gallery", icon: TfiGallery, color: "bg-blue-300" },
 ];
 
 const HomeScreen = () => {
@@ -99,9 +99,7 @@ const HomeScreen = () => {
               <button
                 key={idx}
                 className="flex flex-col items-center"
-                onClick={() =>
-                  setCurrentScreen(app.name.toLowerCase() as ScreenOptions)
-                }
+                onClick={() => setCurrentScreen(app.slur as ScreenOptions)}
               >
                 <div
                   className={cn(
@@ -126,7 +124,7 @@ const HomeScreen = () => {
               <button
                 key={index}
                 className="flex flex-col items-center"
-                onClick={() => setCurrentScreen(app.name as ScreenOptions)}
+                onClick={() => setCurrentScreen(app.slur as ScreenOptions)}
               >
                 <div
                   className={`h-14 w-14 ${app.color} flex items-center justify-center rounded-2xl text-2xl shadow-lg`}

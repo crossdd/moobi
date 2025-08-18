@@ -25,7 +25,8 @@ const StatusBar = () => {
     delta: 10,
   });
 
-  if (currentScreen === "boot" || currentScreen === "shutdown") return null;
+  if (currentScreen === "screen-boot" || currentScreen === "screen-shutdown")
+    return null;
 
   const customClassName: { [key: string]: string } = {
     guess: "text-black",
@@ -44,7 +45,7 @@ const StatusBar = () => {
       <div
         className={cn(
           "pl-8 font-medium",
-          currentScreen === "lock" && "opacity-0",
+          currentScreen === "screen-lock" && "opacity-0",
         )}
       >
         {currentTime.toLocaleTimeString("en-US", {
@@ -66,10 +67,10 @@ const StatusBar = () => {
           ))}
         </div>
         <span className="text-xs">📶</span>
-        <div className="flex-center relative h-2 w-6 border rounded-r-[3px] border-neutral-800">
+        <div className="flex-center relative h-2 w-6 rounded-r-[3px] border border-neutral-800">
           <div className="absolute left-0 top-0 h-1.5 w-4 bg-gray-50"></div>
-          <div className="z-10 bg-y">
-            <BsLightningChargeFill className="text-green-400 h-4" />
+          <div className="bg-y z-10">
+            <BsLightningChargeFill className="h-4 text-green-400" />
           </div>
         </div>
       </div>

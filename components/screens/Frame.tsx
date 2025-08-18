@@ -41,40 +41,41 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
   const handleClick = () => {
     clearTimeout(pressTimer);
 
-    if (currentScreen === "shutdown" || currentScreen === "boot") return;
+    if (currentScreen === "screen-shutdown" || currentScreen === "screen-boot")
+      return;
 
     toggleScreenOnOff();
   };
 
   const toggleScreenOnOff = () => {
     if (isOn) {
-      if (currentScreen !== "lock") {
+      if (currentScreen !== "screen-lock") {
         setLastScreen(currentScreen);
       }
 
       setIsOn(false);
     } else {
       setIsOn(true);
-      setCurrentScreen("lock");
+      setCurrentScreen("screen-lock");
     }
   };
 
   const togglePhoneState = () => {
-    if (currentScreen !== "shutdown") {
+    if (currentScreen !== "screen-shutdown") {
       setLastScreen("home");
-      setCurrentScreen("shutdown");
+      setCurrentScreen("screen-shutdown");
     } else {
-      setCurrentScreen("boot");
+      setCurrentScreen("screen-boot");
     }
   };
 
-  const isCurrentlyOn = currentScreen !== "shutdown" && isOn;
+  const isCurrentlyOn = currentScreen !== "screen-shutdown" && isOn;
 
   const backAction = () => {
     switch (currentScreen) {
       case "home":
         break;
-      case "chrome":
+      case "chrome-browser":
         if (currentBrowserScreen === "browser-frame") {
           setCurrentBrowserScreen("browser-search-results");
         } else if (currentBrowserScreen !== "browser-home") {
@@ -83,7 +84,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
           setCurrentScreen("home");
         }
         break;
-      case "itunes":
+      case "music-player":
         if (currentPlayerScreen === "nowPlaying") {
           setCurrentPlayerScreen(lastScreen as MusicPlayerScreen);
         } else {
@@ -169,9 +170,9 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
           disabled={
             !isOn ||
             currentScreen === "home" ||
-            currentScreen === "lock" ||
-            currentScreen === "shutdown" ||
-            currentScreen === "boot"
+            currentScreen === "screen-lock" ||
+            currentScreen === "screen-shutdown" ||
+            currentScreen === "screen-boot"
           }
           onClick={backAction}
           className="-rotate-90 rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700 disabled:text-gray-400 disabled:hover:bg-transparent"

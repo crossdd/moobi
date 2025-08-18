@@ -19,20 +19,12 @@ interface ContextType {
   setShowControlCenter: Dispatch<SetStateAction<boolean>>;
 }
 
-const INIT_STATE: ContextType = {
-  currentScreen: "boot",
-  setCurrentScreen: () => {},
-  lastScreen: "lock",
-  setLastScreen: () => {},
-  showControlCenter: false,
-  setShowControlCenter: () => {},
-};
-
-const PhoneContext = createContext<ContextType>(INIT_STATE);
+const PhoneContext = createContext<ContextType | undefined>(undefined);
 
 const PhoneProvider = ({ children }: { children: ReactNode }) => {
   const [lastScreen, setLastScreen] = useState<ScreenOptions>("home");
-  const [currentScreen, setCurrentScreen] = useState<ScreenOptions>("boot");
+  const [currentScreen, setCurrentScreen] =
+    useState<ScreenOptions>("screen-boot");
   const [showControlCenter, setShowControlCenter] = useState(false);
 
   return (
@@ -51,6 +43,14 @@ const PhoneProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const usePhone = () => useContext(PhoneContext);
+const usePhone = () => {
+  const context = useContext(PhoneContext);
+
+  if (context === undefined) {
+    throw new Error("usePhone must be used within a Phone Provider");
+  }
+
+  return context;
+};
 
 export { PhoneProvider, usePhone };
