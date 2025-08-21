@@ -18,6 +18,7 @@ const StatusBar = () => {
 
   const swipeHandlers = useSwipeable({
     onSwipedDown: () => {
+      if (currentScreen === "screen-lock") return;
       setShowControlCenter(true);
     },
     preventScrollOnSwipe: true,

@@ -15,15 +15,15 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useMusic } from "@/context/MusicContext";
 import { cn } from "@/lib/utils";
+import { usePhone } from "@/context";
 
 const MusicPlayerWidget = ({ className }: { className?: string }) => {
+  const { volume, setVolume } = usePhone();
   const {
     isPlaying,
     currentSong,
     progress,
-    volume,
     setProgress,
-    setVolume,
     playPause,
     skipForward,
     skipBackward,

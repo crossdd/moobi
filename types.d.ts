@@ -17,7 +17,8 @@ type ScreenOptions =
   | "calculator"
   | "file-manager"
   | "clock"
-  | "notes";
+  | "notes"
+  | "app-store";
 
 // Gallery
 type GalleryScreen = "album" | "image-view" | "video-player" | "library";
@@ -264,4 +265,60 @@ interface Note {
   isArchived: boolean;
   todos?: TodoItem[];
   color?: string;
+}
+
+// Mi Store
+type StoreScreen = "games" | "apps" | "search" | "categories" | "app-details";
+
+interface AppReview {
+  id: string;
+  userName: string;
+  rating: number;
+  title: string;
+  comment: string;
+  date: string;
+  helpful: number;
+}
+
+interface AppScreenshot {
+  url: string;
+  caption?: string;
+}
+
+type AppCategory =
+  | "games"
+  | "productivity"
+  | "social"
+  | "entertainment"
+  | "utilities"
+  | "health"
+  | "education"
+  | "business"
+  | "lifestyle"
+  | "travel";
+
+interface App {
+  id: string;
+  name: string;
+  developer: string;
+  category: AppCategory;
+  price: number; // 0 for free
+  rating: number;
+  reviewCount: number;
+  size: string;
+  version: string;
+  description: string;
+  longDescription: string;
+  screenshots: AppScreenshot[];
+  icon: string;
+  features: string[];
+  requirements: string;
+  releaseNotes: string;
+  reviews: AppReview[];
+  isInstalled?: boolean;
+  isFeatured?: boolean;
+  isEditorChoice?: boolean;
+  ageRating: string;
+  languages: string[];
+  inAppPurchases?: boolean;
 }

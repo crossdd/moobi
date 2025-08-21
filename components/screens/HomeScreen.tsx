@@ -14,9 +14,14 @@ import BrowserWidget from "@/components/screens/browser/BrowserWidget";
 import WeatherWidget from "@/components/screens/weather-app/WeatherWidget";
 
 const dockApps = [
-  { name: "phone", slur: "phone-dialer", icon: FaPhone, color: "bg-green-600" },
-  { name: "mail", slur: "mail-composer", icon: TfiEmail, color: "bg-blue-500" },
-  { name: "gallery", slur: "gallery", icon: TfiGallery, color: "bg-blue-300" },
+  { name: "Phone", slur: "phone-dialer", icon: FaPhone, color: "bg-green-600" },
+  {
+    name: "Gmail",
+    slur: "mail-composer",
+    icon: TfiEmail,
+    color: "bg-blue-500",
+  },
+  { name: "Gallery", slur: "gallery", icon: TfiGallery, color: "bg-blue-300" },
 ];
 
 const HomeScreen = () => {
@@ -93,8 +98,6 @@ const HomeScreen = () => {
 
             {index === 1 && <BrowserWidget />}
 
-            {index === 2 && <MusicPlayerWidget className="col-span-3" />}
-
             {apps.map((app, idx) => (
               <button
                 key={idx}
@@ -112,6 +115,10 @@ const HomeScreen = () => {
                 <p className="text-sm font-light text-gray-200">{app.name}</p>
               </button>
             ))}
+
+            {index === 2 && (
+              <MusicPlayerWidget className="col-span-3 row-span-2" />
+            )}
           </div>
         ))}
       </div>

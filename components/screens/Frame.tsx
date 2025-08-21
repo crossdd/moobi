@@ -21,6 +21,8 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
     lastScreen,
     setLastScreen,
     showControlCenter,
+    brightness,
+    setShowControlCenter,
   } = usePhone();
   const { currentBrowserScreen, setCurrentBrowserScreen } = useBrowser();
   const { currentPlayerScreen, setCurrentPlayerScreen } = useMusic();
@@ -53,6 +55,10 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
         setLastScreen(currentScreen);
       }
 
+      if (showControlCenter) {
+        setShowControlCenter(false);
+      }
+
       setIsOn(false);
     } else {
       setIsOn(true);
@@ -70,6 +76,8 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
   };
 
   const isCurrentlyOn = currentScreen !== "screen-shutdown" && isOn;
+
+  const brightnessValue = 0.3 + (brightness[0] / 100) * 0.9;
 
   const backAction = () => {
     switch (currentScreen) {
@@ -113,7 +121,11 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
 
         {/* Screen */}
         <div
-          className={`relative h-full w-full overflow-hidden rounded-[2.5rem] bg-black transition-all duration-300`}
+          className={`relative h-full w-full overflow-hidden rounded-[2.5rem] bg-walnut-50 transition-all duration-300 dark:bg-black`}
+          style={{
+            transition: "filter 0.3s ease",
+            filter: `brightness(${brightnessValue})`,
+          }}
         >
           {/* Status Bar */}
           {isOn && (
@@ -123,10 +135,10 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
           )}
 
           {/* Dynamic Island */}
-          <div className="absolute left-1/2 top-2 z-50 flex h-8 w-32 -translate-x-1/2 transform items-center justify-center rounded-full bg-black">
+          <div className="flex-center absolute left-1/2 top-6 z-50 h-8 w-32 -translate-x-1/2 transform rounded-full bg-white/5 backdrop-blur-lg">
             <div className="flex items-center space-x-2">
-              <div className="h-2 w-2 rounded-full bg-gray-800"></div>
-              <div className="h-3 w-3 rounded-full bg-gray-800"></div>
+              <div className="h-2 w-2 rounded-full bg-gray-600"></div>
+              <div className="h-3 w-3 rounded-full bg-gray-600"></div>
             </div>
           </div>
 
@@ -160,8 +172,10 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
 
         <button
           onClick={() => setCurrentScreen("home")}
-          disabled={!isOn || currentScreen === "home"}
-          className="rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700"
+          disabled={
+            !isOn || currentScreen === "home" || currentScreen === "screen-lock"
+          }
+          className="rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           <TbSmartHome size={19} />
         </button>

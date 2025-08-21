@@ -17,6 +17,10 @@ interface ContextType {
   setLastScreen: Dispatch<SetStateAction<ScreenOptions>>;
   showControlCenter: boolean;
   setShowControlCenter: Dispatch<SetStateAction<boolean>>;
+  brightness: number[];
+  setBrightness: Dispatch<SetStateAction<number[]>>;
+  volume: number[];
+  setVolume: Dispatch<SetStateAction<number[]>>;
 }
 
 const PhoneContext = createContext<ContextType | undefined>(undefined);
@@ -26,6 +30,8 @@ const PhoneProvider = ({ children }: { children: ReactNode }) => {
   const [currentScreen, setCurrentScreen] =
     useState<ScreenOptions>("screen-boot");
   const [showControlCenter, setShowControlCenter] = useState(false);
+  const [brightness, setBrightness] = useState([75]);
+  const [volume, setVolume] = useState([60]);
 
   return (
     <PhoneContext.Provider
@@ -36,6 +42,10 @@ const PhoneProvider = ({ children }: { children: ReactNode }) => {
         setLastScreen,
         showControlCenter,
         setShowControlCenter,
+        brightness,
+        setBrightness,
+        volume,
+        setVolume,
       }}
     >
       {children}

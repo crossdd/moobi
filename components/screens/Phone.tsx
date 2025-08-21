@@ -62,6 +62,12 @@ const Calendar = dynamic(
 const Notes = dynamic(() => import("@/components/screens/notes/NotesApp"), {
   loading: () => <Loader />,
 });
+const AppStore = dynamic(
+  () => import("@/components/screens/app-store/MiStore"),
+  {
+    loading: () => <Loader />,
+  },
+);
 
 const Phone = () => {
   const { currentScreen } = usePhone();
@@ -84,6 +90,7 @@ const Phone = () => {
     clock: <Clock />,
     calendar: <Calendar />,
     notes: <Notes />,
+    "app-store": <AppStore />,
   };
 
   return (
