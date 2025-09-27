@@ -7,7 +7,7 @@ import {
   BsFolder,
   BsTwitterX,
 } from "react-icons/bs";
-import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa6";
+import { FaChessQueen, FaGithub, FaLinkedin, FaPhone } from "react-icons/fa6";
 import { FcMusic } from "react-icons/fc";
 import { GiSnake } from "react-icons/gi";
 import { IoInformationCircle, IoLogoAppleAppstore } from "react-icons/io5";
@@ -15,6 +15,7 @@ import {
   LuBookOpen,
   LuBrain,
   LuBriefcase,
+  LuCamera,
   LuGamepad2,
   LuHeart,
   LuListTodo,
@@ -772,6 +773,12 @@ export const mobileApps = [
       color: "text-blue-500",
     },
     {
+      name: "Camera",
+      slur: "camera",
+      icon: LuCamera,
+      color: "bg-white text-black",
+    },
+    {
       name: "Weather",
       slur: "weather",
       icon: TiWeatherDownpour,
@@ -802,19 +809,25 @@ export const mobileApps = [
       icon: BsFolder,
       color: "bg-yellow-300",
     },
+  ],
+  [
     {
       name: "Mi Store",
       slur: "app-store",
       icon: IoLogoAppleAppstore,
       color: "",
     },
-  ],
-  [
     {
       name: "Phone",
       slur: "phone-dialer",
       icon: FaPhone,
       color: "bg-green-600",
+    },
+    {
+      name: "Chess",
+      slur: "chess",
+      icon: FaChessQueen,
+      color: "bg-yellow-200",
     },
     // Intentionally left empty for the music player widget. Add your apps in another array
   ],

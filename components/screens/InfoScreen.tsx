@@ -50,7 +50,8 @@ const developerInfo = [
   },
   {
     label: "Philosophy",
-    value: "Simple • Flashy • Antique • Modern",
+    value:
+      "Craftsmanship over shortcuts, clarity over chaos, and beauty over 'just functional'",
   },
 ];
 

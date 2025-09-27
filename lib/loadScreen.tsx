@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 const screenPaths: Record<string, string> = {
   phone: "PhoneDialer",
   mail: "MailCompose",
-  gallery: "gallery/Gallery",
+  gallery: "gallery/CameraGallery",
   info: "InfoScreen",
   home: "HomeScreen",
   snake: "SnakeGame",

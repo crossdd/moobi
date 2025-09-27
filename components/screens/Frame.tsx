@@ -135,7 +135,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
           )}
 
           {/* Dynamic Island */}
-          <div className="flex-center absolute left-1/2 top-6 z-50 h-8 w-32 -translate-x-1/2 transform rounded-full bg-white/5 backdrop-blur-lg">
+          <div className="flex-center absolute left-1/2 top-4 z-50 h-8 w-32 -translate-x-1/2 transform rounded-full bg-white/5 backdrop-blur-lg">
             <div className="flex items-center space-x-2">
               <div className="h-2 w-2 rounded-full bg-gray-600"></div>
               <div className="h-3 w-3 rounded-full bg-gray-600"></div>

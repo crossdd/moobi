@@ -20,7 +20,7 @@ type ScreenOptions =
   | "notes"
   | "app-store";
 
-// Gallery
+// CameraGallery
 type GalleryScreen = "album" | "image-view" | "video-player" | "library";
 
 type MediaType = "photo" | "video";

@@ -68,6 +68,9 @@ const AppStore = dynamic(
     loading: () => <Loader />,
   },
 );
+const Chess = dynamic(() => import("@/components/screens/chess/Home"), {
+  loading: () => <Loader />,
+});
 
 const Phone = () => {
   const { currentScreen } = usePhone();
@@ -91,6 +94,9 @@ const Phone = () => {
     calendar: <Calendar />,
     notes: <Notes />,
     "app-store": <AppStore />,
+    camera: <HomeScreen />,
+    // camera: <Camera />,
+    chess: <Chess />,
   };
 
   return (

@@ -78,7 +78,7 @@ const AllMedia = ({
         </div>
       </div>
 
-      {/* Photo Gallery */}
+      {/* Photo CameraGallery */}
       <div className="no-visible-scrollbar flex-1 overflow-y-scroll px-2 pb-16">
         {gallery.map((group) => (
           <div key={group.title} className="mb-4">
