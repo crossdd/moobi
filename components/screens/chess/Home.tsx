@@ -1,18 +1,18 @@
 import { useChessGame } from "@/hooks/useChessGame";
 import { Chessboard } from "react-chessboard";
+import { IoIosOptions } from "react-icons/io";
+import Controls from "./Controls";
+import GameOver from "./GameOver";
 import { useThreeDPieces } from "./ThreeDPieces";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { LuRefreshCcw } from "react-icons/lu";
+import CapturedPieces from "./CapturedPieces";
 
 const ChessHome = () => {
     const threeDPieces = useThreeDPieces();
-    const { restartGame, gameOver, capturedBlack, capturedWhite, onSquareClick, position, optionSquares, onPieceDrop } = useChessGame()
+    const { capturedBlack, capturedWhite, onSquareClick, position, optionSquares, onPieceDrop, moveHistory, replayIndex, isReplaying, handleReplayMove } = useChessGame()
 
-    // set the chessboard options
     const chessboardOptions = {
-        onPieceDrop,
-        onSquareClick,
+        onPieceDrop: isReplaying ? () => false : onPieceDrop,
+        onSquareClick: isReplaying ? () => { } : onSquareClick,
         allowDragOffBoard: false,
         position,
         squareStyles: optionSquares,
@@ -52,44 +52,24 @@ const ChessHome = () => {
     };
 
     return (
-        <div className="relative h-full w-full flex flex-col bg-[url('/chess/wood-pattern.png')] bg-cover bg-center bg-no-repeat items-center gap-12">
-            {gameOver && (
-                <Alert className="absolute inset-0 top-1/2 -translate-y-1/2 transform z-[9999] flex-center flex-col h-32">
-                    <AlertTitle className="capitalize text-2xl">{gameOver.winner === "white" ? "White wins" : gameOver.winner === "black" ? "Black wins" : "Draw"}</AlertTitle>
-                    <AlertDescription className="block mt-1">
-                        {gameOver.result === "checkmate" && `${gameOver.winner} has delivered a checkmate!`}
-                        {gameOver.result === "stalemate" && "The game is a stalemate."}
-                        {gameOver.result === "insufficient material" && "The game is a draw due to insufficient material."}
-                        {gameOver.result === "threefold repetition" && "The game is a draw by threefold repetition."}
-                        {gameOver.result === "draw" && "The game is a draw."}
-                    </AlertDescription>
+        <div className="relative h-full w-full flex flex-col bg-[url('/chess/wood-pattern.png')] bg-cover bg-center bg-no-repeat items-center gap-12 px-2">
 
-                    <Button className="bg-[#e0c094] hover:bg-[#e0c094] focus:bg-[#e0c094] mt-6 mb-3 text-black" onClick={restartGame}>Play Again</Button>
-                </Alert>
-            )}
+            <GameOver />
 
-            <div className="flex items-center justify-between w-full mt-12 pt-5 px-2">
+            <div className="flex items-center justify-between w-full mt-12 pt-2">
                 <h1 className="text-2xl text-white text-center font-serif italic">Chess Mogul</h1>
 
-                <Button className="bg-[#e0c094] hover:bg-[#e0c094] focus:bg-[#e0c094]" onClick={restartGame}><LuRefreshCcw className="text-black" /></Button>
+                <IoIosOptions />
             </div>
-            <div className="max-w-[320px] w-full max-h-[420px] flex flex-col">
-                <div className="flex items-center justify-end flex-wrap">
-                    {capturedWhite.map((p, idx) => {
-                        const PieceIcon = threeDPieces["w" + p.toUpperCase()];
-                        return <PieceIcon key={idx} />;
-                    })}
-                </div>
+            <div className="w-full max-h-[340px] flex flex-col -space-y-3">
+                <CapturedPieces color="w" pieces={capturedWhite} />
 
                 <Chessboard options={chessboardOptions} />
 
-                <div className="flex items-center justify-end flex-wrap">
-                    {capturedBlack.map((p, idx) => {
-                        const PieceIcon = threeDPieces["b" + p.toUpperCase()];
-                        return <PieceIcon key={idx} />;
-                    })}
-                </div>
+                <CapturedPieces color="b" pieces={capturedBlack} />
             </div>
+
+            <Controls onReplay={handleReplayMove} replayIndex={replayIndex} moveHistory={moveHistory} />
         </div>
     )
 }

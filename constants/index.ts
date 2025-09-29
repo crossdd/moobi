@@ -791,7 +791,7 @@ export const mobileApps = [
       color: "text-primary bg-white",
     },
     {
-      name: "Gmail",
+      name: "Mail",
       slur: "mail-composer",
       icon: TfiEmail,
       color: "bg-blue-500",

@@ -8,7 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   title: "Moobi",
   description:
-    "Moobi is a virtual smartphone experience in your browser — explore apps, play media, browse the web, and more within a simulated mobile interface.",
+    "Experience a fully interactive mobile phone inside your browser. Browse, call, text, and launch apps — all in one virtual interface.",
   keywords: [
     "Moobi",
     "virtual phone",
@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     siteName: "Moobi",
     images: [
       {
-        url: "https://epiphanusonyeso.vercel.app/images/logo.png",
+        url: "https://moobi.vercel.app/images/logo.png",
         width: 650,
         height: 300,
-        alt: "Moobi logo",
+        alt: "Moobi",
       },
     ],
   },

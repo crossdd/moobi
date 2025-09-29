@@ -3,7 +3,7 @@ import { JSX, useLayoutEffect, useMemo, useState } from 'react'
 
 type PieceMap = Record<string, () => JSX.Element>
 
-export const useThreeDPieces = () => {
+export const useThreeDPieces = (scaleOverride?: number) => {
     const [squareWidth, setSquareWidth] = useState(0)
 
     useLayoutEffect(() => {
@@ -35,8 +35,9 @@ export const useThreeDPieces = () => {
 
     return useMemo(() => {
         const pieces: PieceMap = {};
-        const scale = squareWidth < 50 ? 0.85 : 1
-        const newSquareWidth = squareWidth * scale;
+        const effectiveScale = scaleOverride ?? (squareWidth < 50 ? 0.85 : 1);
+
+        const newSquareWidth = squareWidth * effectiveScale;
 
         pieceDefs.forEach(({ piece, pieceHeight }) => {
             pieces[piece] = () => {
@@ -61,7 +62,9 @@ export const useThreeDPieces = () => {
                             style={{
                                 position: "absolute",
                                 bottom: `${0.1 * squareWidth}px`,
-                                objectFit: "contain"
+                                objectFit: "contain",
+                                width: "auto",
+                                height: "auto",
                             }}
                         />
                     </div>

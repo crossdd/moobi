@@ -105,6 +105,8 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const indicatorInvisible = ["screen-lock", "screen-shutdown", "screen-boot"]
+
   return (
     <div className="flex-center relative h-full gap-4">
       {/* iPhone 16 Body */}
@@ -152,7 +154,9 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
             </div>
           )}
 
-          <HomeIndicator />
+          {isOn && !indicatorInvisible.includes(currentScreen) && (
+            <HomeIndicator />
+          )}
         </div>
       </div>
 
