@@ -1,4 +1,4 @@
-const stockfish = new Worker("/chess/stockfish/stockfish.wasm.js");
+let stockfishWorker: Worker | null = null;
 
 export type EngineMessage = {
   uciMessage: string;
@@ -16,20 +16,31 @@ export type EngineMessage = {
 };
 
 export default class Engine {
-  stockfish: Worker;
+  stockfish: Worker | null;
   onMessage: (callback: (messageData: EngineMessage) => void) => void;
   isReady: boolean;
 
   constructor() {
-    this.stockfish = stockfish;
+    if (typeof window !== "undefined") {
+      if (!stockfishWorker) {
+        stockfishWorker = new Worker("/chess/stockfish/stockfish.wasm.js");
+      }
+      this.stockfish = stockfishWorker;
+    } else {
+      this.stockfish = null;
+    }
     this.isReady = false;
     this.onMessage = (callback) => {
+      if (!this.stockfish) return;
+
       this.stockfish.addEventListener("message", (e) => {
         callback(this.transformSFMessageData(e));
       });
     };
 
-    this.init();
+    if (this.stockfish) {
+      this.init();
+    }
   }
 
   private transformSFMessageData(e: MessageEvent<string>) {
@@ -47,6 +58,8 @@ export default class Engine {
   }
 
   init() {
+    if (!this.stockfish) return;
+
     this.stockfish.postMessage("uci");
     this.stockfish.postMessage("isready");
     this.onMessage(({ uciMessage }) => {
@@ -65,6 +78,7 @@ export default class Engine {
   }
 
   evaluatePosition(fen: string, depth = 12) {
+    if (!this.stockfish) return;
     if (depth > 24) depth = 24;
 
     this.stockfish.postMessage(`position fen ${fen}`);
@@ -72,10 +86,13 @@ export default class Engine {
   }
 
   stop() {
-    this.stockfish.postMessage("stop"); // Run when searching takes too long time and stockfish will return you the best move of the deep it has reached
+    if (!this.stockfish) return;
+    this.stockfish.postMessage("stop"); // Run when searching takes too long time and stockfish will return you the best move of the depth it has reached
   }
 
   terminate() {
+    if (!this.stockfish) return;
+
     this.isReady = false;
     this.stockfish.postMessage("quit"); // Run this before chessboard unmounting.
   }

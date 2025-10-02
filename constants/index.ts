@@ -31,7 +31,7 @@ export const socialMediaPlatforms = [
   {
     title: "LinkedIn",
     icon: FaLinkedin,
-    href: "https://www.linkedin.com/in/onyeso-epiphanus-8651b1284",
+    href: "https://www.linkedin.com/in/onyeso-epiphanus",
   },
   {
     title: "Twitter",
@@ -41,7 +41,7 @@ export const socialMediaPlatforms = [
   {
     title: "GitHub",
     icon: FaGithub,
-    href: "https://github.com/patroncodes",
+    href: "https://github.com/crossdd",
   },
 ];
 
@@ -752,7 +752,7 @@ export const mobileApps = [
     },
     { name: "Clock", slur: "clock", icon: BsClockFill, color: "text-gray-400" },
     {
-      name: "Chrome",
+      name: "Mo Browser",
       slur: "chrome-browser",
       icon: BsBrowserChrome,
       color:

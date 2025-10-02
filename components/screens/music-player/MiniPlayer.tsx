@@ -1,16 +1,16 @@
 import React from 'react'
-import {LuMusic, LuPause, LuPlay} from "react-icons/lu";
-import {Button} from "@/components/ui/button";
-import {useMusic} from "@/context/MusicContext";
+import { LuMusic, LuPause, LuPlay } from "react-icons/lu";
+import { Button } from "@/components/ui/button";
+import { useMusic } from "@/context/MusicContext";
 
 const MiniPlayer = () => {
-    const {currentSong, setCurrentPlayerScreen, playPause, isPlaying} = useMusic()
+    const { currentSong, setCurrentPlayerScreen, playPause, isPlaying } = useMusic()
 
-    if(!currentSong) return null
+    if (!currentSong) return null
 
     return (
         <div
-            className="sticky bottom-0 w-full bg-gray-900 border-t border-gray-200 rounded-t-lg py-4 px-2.5 flex items-center justify-between gap-3 cursor-pointer"
+            className="absolute bottom-0 w-full bg-gray-900 border-t border-gray-200 rounded-t-lg py-4 px-2.5 flex items-center justify-between gap-3 cursor-pointer"
             onClick={() => setCurrentPlayerScreen("nowPlaying")}
         >
             <div className="flex items-center gap-3">

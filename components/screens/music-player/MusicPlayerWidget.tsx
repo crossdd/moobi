@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { usePhone } from "@/context";
 
 const MusicPlayerWidget = ({ className }: { className?: string }) => {
-  const { volume, setVolume } = usePhone();
+  const { volume, setVolume, setCurrentScreen } = usePhone();
   const {
     isPlaying,
     currentSong,
@@ -28,6 +28,7 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
     skipForward,
     skipBackward,
     isLoading,
+    setCurrentPlayerScreen
   } = useMusic();
 
   const [isLiked, setIsLiked] = useState(false);
@@ -47,9 +48,8 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
   return (
     <div className={cn("px-3 py-5", className)}>
       <div
-        className={`rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 ${
-          isExpanded ? "p-6" : "p-4"
-        }`}
+        className={`rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 ${isExpanded ? "p-6" : "p-4"
+          }`}
         onClick={toggleExpanded}
       >
         {/* Compact View */}
@@ -120,7 +120,13 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
           <div className="space-y-4">
             {/* Header */}
             <div className="flex items-center gap-4">
-              <div className="from-purple-400 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br to-pink-400 shadow-lg">
+              <div className="from-purple-400 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br to-pink-400 shadow-lg" onClick={(e) => {
+                e.stopPropagation()
+                if (!currentSong) return;
+
+                setCurrentScreen("music-player")
+                setCurrentPlayerScreen("nowPlaying")
+              }}>
                 {currentSong?.albumArt ? (
                   <img
                     src={currentSong.albumArt}
@@ -144,11 +150,10 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
                   e.stopPropagation();
                   setIsLiked(!isLiked);
                 }}
-                className={`h-10 w-10 rounded-full border-0 p-0 ${
-                  isLiked
-                    ? "bg-red-500/20 text-red-400"
-                    : "bg-white/10 text-white/70"
-                }`}
+                className={`h-10 w-10 rounded-full border-0 p-0 ${isLiked
+                  ? "bg-red-500/20 text-red-400"
+                  : "bg-white/10 text-white/70"
+                  }`}
               >
                 <LuHeart
                   className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`}

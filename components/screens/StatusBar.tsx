@@ -1,7 +1,7 @@
 import { usePhone } from "@/context/PhoneContext";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { BsLightningChargeFill } from "react-icons/bs";
+import { BsLightningChargeFill, BsWhatsapp } from "react-icons/bs";
 import { useSwipeable } from "react-swipeable";
 
 const StatusBar = () => {
@@ -45,7 +45,7 @@ const StatusBar = () => {
     >
       <div
         className={cn(
-          "pl-8 font-medium",
+          "pl-5 font-medium flex items-center gap-2",
           currentScreen === "screen-lock" && "opacity-0",
         )}
       >
@@ -54,6 +54,8 @@ const StatusBar = () => {
           minute: "2-digit",
           hour12: false,
         })}
+
+        <BsWhatsapp className="w-3 h-3 fill-green-500" />
       </div>
       <div className="mr-2 flex items-center space-x-1 pr-0.5">
         <div className="flex space-x-1">

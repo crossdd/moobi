@@ -4,17 +4,25 @@ import { JSX, useLayoutEffect, useMemo, useState } from 'react'
 type PieceMap = Record<string, () => JSX.Element>
 
 export const useThreeDPieces = (scaleOverride?: number) => {
-    const [squareWidth, setSquareWidth] = useState(0)
+    const [squareWidth, setSquareWidth] = useState(40)
 
     useLayoutEffect(() => {
         const updateSize = () => {
             const el = document.querySelector('[data-column="a"][data-row="1"]') as HTMLElement | null;
-            if (el) setSquareWidth(el.getBoundingClientRect().width);
+
+            if (el) {
+                setSquareWidth(el.getBoundingClientRect().width)
+                return true;
+            };
+            return false
         }
 
-        updateSize();
-        window.addEventListener("resize", updateSize);
+        if (!updateSize()) {
+            const id = setTimeout(updateSize, 100);
+            return () => clearTimeout(id);
+        }
 
+        window.addEventListener("resize", updateSize);
         return () => window.removeEventListener("resize", updateSize);
     }, []);
 
@@ -63,9 +71,8 @@ export const useThreeDPieces = (scaleOverride?: number) => {
                                 position: "absolute",
                                 bottom: `${0.1 * squareWidth}px`,
                                 objectFit: "contain",
-                                width: "auto",
-                                height: "auto",
                             }}
+                            priority
                         />
                     </div>
                 );
@@ -73,5 +80,5 @@ export const useThreeDPieces = (scaleOverride?: number) => {
         });
 
         return pieces;
-    }, [squareWidth]);
+    }, [squareWidth, scaleOverride]);
 }

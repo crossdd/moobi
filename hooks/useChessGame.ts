@@ -1,6 +1,6 @@
 import Engine from "@/stockfish/engine";
 import { Chess, Move, Square } from "chess.js";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
 
 type GameStatus = {
@@ -9,14 +9,33 @@ type GameStatus = {
   winner?: string;
 } | null;
 
+type Screen = "menu" | "playing";
+
 export function useChessGame() {
-  const engine = useMemo(() => new Engine(), []);
+  const engineRef = useRef<Engine | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !engineRef.current) {
+      engineRef.current = new Engine();
+    }
+
+    return () => {
+      engineRef.current?.terminate();
+    };
+  }, []);
+
   const chessRef = useRef(new Chess());
   const chess = chessRef.current;
 
   const [position, setPosition] = useState(chess.fen());
   const [moveFrom, setMoveFrom] = useState("");
   const [optionSquares, setOptionSquares] = useState({});
+
+  const [screen, setScreen] = useState<Screen>("menu");
+
+  const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">(
+    "hard",
+  );
   const [gameOver, setGameOver] = useState<GameStatus>(null);
   const [capturedWhite, setCapturedWhite] = useState<string[]>([]);
   const [capturedBlack, setCapturedBlack] = useState<string[]>([]);
@@ -27,8 +46,14 @@ export function useChessGame() {
   const [isReplaying, setIsReplaying] = useState(false);
 
   const findBestMove = () => {
+    const engine = engineRef.current;
+    if (!engine) return;
+
+    const depth =
+      difficulty === "easy" ? 10 : difficulty === "medium" ? 15 : 20;
+
     const fen = chess.fen();
-    engine.evaluatePosition(fen, 18);
+    engine.evaluatePosition(fen, depth);
 
     engine.onMessage(({ pv, depth }) => {
       if (!pv || !depth || depth < 10) {
@@ -37,13 +62,11 @@ export function useChessGame() {
 
       const from = pv.slice(0, 2) as Square;
       const to = pv.slice(2, 4) as Square;
-      const move = { from, to, promotion: "q" };
 
       const legalMoves = chess.moves({ verbose: true });
       const isLegal = legalMoves.some((m) => m.from === from && m.to === to);
 
       if (!isLegal) {
-        console.warn("Engine suggested illegal move, skipping:", move, fen);
         return false;
       } else {
         attemptMove(from, to, false);
@@ -90,6 +113,9 @@ export function useChessGame() {
   };
 
   const attemptMove = (from: Square, to: Square, isPlayer = true) => {
+    const engine = engineRef.current;
+    if (!engine) return;
+
     if (isReplaying) return false;
 
     const move = chess.move({ from, to, promotion: "q" });
@@ -153,20 +179,42 @@ export function useChessGame() {
 
     if (currentTurn === "b") return false;
 
-    return attemptMove(sourceSquare as Square, targetSquare as Square);
+    const result = attemptMove(sourceSquare as Square, targetSquare as Square);
+
+    if (!result) {
+      return false;
+    } else {
+      return result;
+    }
+  };
+
+  const startGame = (level: "easy" | "medium" | "hard") => {
+    setDifficulty(level);
+    setScreen("playing");
   };
 
   const restartGame = () => {
+    const engine = engineRef.current;
+    if (!engine) return;
+
+    engine.stop();
     chess.reset();
 
     setPosition(chess.fen());
     setFenHistory([chess.fen()]);
+
     setOptionSquares({});
     setGameOver(null);
     setMoveHistory([]);
     setCapturedWhite([]);
     setCapturedBlack([]);
     setMoveFrom("");
+  };
+
+  const forfeitGame = () => {
+    if (gameOver) return;
+
+    setGameOver({ gameOver: true, result: "forfeit", winner: "Black" });
   };
 
   const handleReplayMove = (direction: "forward" | "back") => {
@@ -199,6 +247,11 @@ export function useChessGame() {
     }
   };
 
+  const navigateToMenu = () => {
+    restartGame();
+    setScreen("menu");
+  };
+
   return {
     position,
     optionSquares,
@@ -209,8 +262,12 @@ export function useChessGame() {
     isReplaying,
     replayIndex,
     restartGame,
+    forfeitGame,
     onPieceDrop,
     onSquareClick,
     handleReplayMove,
+    screen,
+    startGame,
+    navigateToMenu,
   };
 }

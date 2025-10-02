@@ -18,7 +18,10 @@ type ScreenOptions =
   | "file-manager"
   | "clock"
   | "notes"
-  | "app-store";
+  | "app-store"
+  | "calendar"
+  | "camera"
+  | "chess";
 
 // CameraGallery
 type GalleryScreen = "album" | "image-view" | "video-player" | "library";

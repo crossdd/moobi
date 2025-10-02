@@ -75,7 +75,7 @@ const NowPlaying = () => {
   };
 
   return (
-    <div className="from-purple-100 relative flex h-full w-full flex-col gap-5 overflow-hidden bg-gradient-to-b to-pink-100 py-2">
+    <div className="from-purple-100 relative flex h-full w-full flex-col gap-5 overflow-hidden bg-gradient-to-b to-pink-100 pt-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <Button
@@ -86,12 +86,8 @@ const NowPlaying = () => {
         >
           <LuChevronDown className="h-5 w-5" />
         </Button>
-        <div className="text-center">
-          <div className="text-sm font-medium text-gray-800">
-            Playing from Audius
-          </div>
-        </div>
-        <Button variant="ghost" size="sm" className="p-2">
+
+        <Button variant="ghost" size="sm" className="p-2 cursor-default">
           <FiMoreHorizontal className="h-5 w-5" />
         </Button>
       </div>

@@ -1,14 +1,19 @@
-import { useChessGame } from "@/hooks/useChessGame";
 import { Chessboard } from "react-chessboard";
 import { IoIosOptions } from "react-icons/io";
-import Controls from "./Controls";
-import GameOver from "./GameOver";
-import { useThreeDPieces } from "./ThreeDPieces";
 import CapturedPieces from "./CapturedPieces";
+import Controls from "./Controls";
+import { useGame } from "./GameContext";
+import GameOver from "./GameOver";
+import SplashScreen from "./SplashScreen";
+import { useThreeDPieces } from "./ThreeDPieces";
+
+console.log("Component file loaded")
 
 const ChessHome = () => {
     const threeDPieces = useThreeDPieces();
-    const { capturedBlack, capturedWhite, onSquareClick, position, optionSquares, onPieceDrop, moveHistory, replayIndex, isReplaying, handleReplayMove } = useChessGame()
+    const { onSquareClick, position, optionSquares, onPieceDrop, isReplaying, screen, gameOver } = useGame()
+
+    // const [showModal, setShowModal] = useState(false)
 
     const chessboardOptions = {
         onPieceDrop: isReplaying ? () => false : onPieceDrop,
@@ -54,22 +59,32 @@ const ChessHome = () => {
     return (
         <div className="relative h-full w-full flex flex-col bg-[url('/chess/wood-pattern.png')] bg-cover bg-center bg-no-repeat items-center gap-12 px-2">
 
-            <GameOver />
+            {screen === "menu" && (
+                <SplashScreen />
+            )}
 
-            <div className="flex items-center justify-between w-full mt-12 pt-2">
-                <h1 className="text-2xl text-white text-center font-serif italic">Chess Mogul</h1>
+            {screen === 'playing' && (
+                <>
+                    {gameOver && (
+                        <GameOver gameOver={gameOver} />
+                    )}
 
-                <IoIosOptions />
-            </div>
-            <div className="w-full max-h-[340px] flex flex-col -space-y-3">
-                <CapturedPieces color="w" pieces={capturedWhite} />
+                    <div className="flex items-center justify-between w-full mt-12 pt-2">
+                        <h1 className="text-2xl text-white text-center font-serif italic">Chess Mogul</h1>
 
-                <Chessboard options={chessboardOptions} />
+                        <IoIosOptions />
+                    </div>
+                    <div className="w-full max-h-[340px] flex flex-col -space-y-3">
+                        <CapturedPieces color="white" />
 
-                <CapturedPieces color="b" pieces={capturedBlack} />
-            </div>
+                        <Chessboard options={chessboardOptions} />
 
-            <Controls onReplay={handleReplayMove} replayIndex={replayIndex} moveHistory={moveHistory} />
+                        <CapturedPieces color="black" />
+                    </div>
+
+                    <Controls />
+                </>
+            )}
         </div>
     )
 }

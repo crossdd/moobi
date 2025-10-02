@@ -1,27 +1,96 @@
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { useChessGame } from '@/hooks/useChessGame'
+import { Button } from '@/components/ui/button';
+import { useGame } from './GameContext';
 
-const GameOver = () => {
-    const { restartGame, gameOver } = useChessGame()
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from 'react';
 
-    if (!gameOver) return null;
+type GameStatus = {
+    gameOver: boolean;
+    result?: string;
+    winner?: string;
+}
+
+const GameOver = ({ gameOver }: { gameOver: GameStatus }) => {
+    const { restartGame, navigateToMenu } = useGame()
+    const [open, setOpen] = useState(gameOver ? true : false)
+
+    if (!gameOver || !gameOver.gameOver) return null
+
+    let gameDetails;
+
+    console.log(gameOver)
+
+    switch (gameOver.result) {
+        case "checkmate":
+            gameDetails = {
+                title: gameOver.winner === "White" ? "You Win" : "You Loose",
+                description: `${gameOver.winner === "White" ? "You have delivered a magnificent checkmate. Congratulations" : "That was a close one. Try again and show em who's the boss."}`
+            }
+            break;
+        case "forfeit":
+            gameDetails = {
+                title: "You Loose",
+                description: "You forfeited the game. Play continuously to sharpen your spider🕷 senses."
+            }
+            break;
+        case "stalemate":
+            gameDetails = {
+                title: "Stalemate",
+                description: "Whoops!! What a game. Game has ended in a stalemate."
+            }
+            break;
+        case "insufficient material":
+            gameDetails = {
+                title: "Draw",
+                description: "There are not enough pieces on the board to continue the game"
+            }
+            break;
+        case "threefold repetition":
+            gameDetails = {
+                title: "Draw",
+                description: "You have repeated the same moves consecutively. Game has ended due to threefold repetition!"
+            }
+            break;
+        case "draw":
+            gameDetails = {
+                title: "Draw",
+                description: "Game has ended in a draw"
+            }
+        default:
+            break;
+    }
 
     return (
-        <div className="absolute inset-0 top-1/2 -translate-y-1/2 transform z-[999] px-4 flex-center">
-            <Alert className="flex-center flex-col bg-white/40 backdrop-blur-sm text-black rounded-lg shadow-lg py-2">
-                <AlertTitle className="capitalize text-2xl">{gameOver.winner === "white" ? "White wins" : gameOver.winner === "black" ? "Black wins" : "Draw"}</AlertTitle>
-                <AlertDescription className="block mt-1">
-                    {gameOver.result === "checkmate" && `${gameOver.winner} has delivered a checkmate!`}
-                    {gameOver.result === "stalemate" && "The game is a stalemate."}
-                    {gameOver.result === "insufficient material" && "The game is a draw due to insufficient material."}
-                    {gameOver.result === "threefold repetition" && "The game is a draw by threefold repetition."}
-                    {gameOver.result === "draw" && "The game is a draw."}
-                </AlertDescription>
+        <Dialog open={open} onOpenChange={() => setOpen(!open)}>
+            <DialogContent className=' bg-black/50'>
+                <DialogHeader>
+                    <DialogTitle>{gameDetails?.title}</DialogTitle>
+                    <DialogDescription>
+                        {gameDetails?.description}
+                    </DialogDescription>
+                </DialogHeader>
 
-                <Button className="bg-[#e0c094] hover:bg-[#e0c094] focus:bg-[#e0c094] mt-6 mb-3 text-black" onClick={restartGame}>Play Again</Button>
-            </Alert>
-        </div>
+                <DialogFooter className='flex flex-row gap-5 justify-between items-center'>
+                    <DialogClose
+                        className="cursor-pointer"
+                        onClick={navigateToMenu}
+                    >
+                        Menu
+                    </DialogClose>
+
+                    <Button
+                        type="button"
+                        className="cursor-pointer bg-transparent hover:bg-transparent text-base text-green-400 font-bold"
+                        onClick={() => {
+                            setOpen(false);
+                            restartGame()
+                        }}
+                    >
+                        Play again
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }
 

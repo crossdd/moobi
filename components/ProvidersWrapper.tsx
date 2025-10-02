@@ -7,6 +7,7 @@ import {
 } from "@/context";
 import { ClockProvider } from "@/context/ClockContext";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ChessGameProvider } from "./screens/chess/GameContext";
 
 const ProvidersWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -20,7 +21,11 @@ const ProvidersWrapper = ({ children }: { children: React.ReactNode }) => {
         <MusicProvider>
           <WeatherProvider>
             <BrowserProvider>
-              <ClockProvider>{children}</ClockProvider>
+              <ClockProvider>
+                <ChessGameProvider>
+                  {children}
+                </ChessGameProvider>
+              </ClockProvider>
             </BrowserProvider>
           </WeatherProvider>
         </MusicProvider>

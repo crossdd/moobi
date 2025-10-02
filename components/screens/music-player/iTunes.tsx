@@ -3,17 +3,17 @@
 import Library from "@/components/screens/music-player/Library";
 import Search from "@/components/screens/music-player/Search";
 import NowPlaying from "@/components/screens/music-player/NowPlaying";
-import {useMusic} from "@/context/MusicContext";
+import { useMusic } from "@/context/MusicContext";
 import MiniPlayer from "@/components/screens/music-player/MiniPlayer";
 
 const MusicPlayer = () => {
-    const {currentPlayerScreen, currentSong} = useMusic()
+    const { currentPlayerScreen, currentSong } = useMusic()
 
     return (
-        <div className="relative w-full h-full overflow-y-scroll overflow-x-hidden no-visible-scrollbar pt-7">
+        <div className="relative w-full h-full overflow-x-hidden no-visible-scrollbar bg-black">
             {/* Library View */}
             {currentPlayerScreen === "library" && (
-               <Library  />
+                <Library />
             )}
 
             {/* Search View */}
@@ -23,10 +23,10 @@ const MusicPlayer = () => {
 
             {/* Now Playing View */}
             {currentPlayerScreen === "nowPlaying" && currentSong && (
-               <NowPlaying />
+                <NowPlaying />
             )}
 
-            {/* Mini Player (when not in now playing view) */}
+            {/* Mini Player */}
             {currentSong && currentPlayerScreen !== "nowPlaying" && (
                 <MiniPlayer />
             )}

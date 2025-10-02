@@ -146,7 +146,7 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
 
           {/* Screen Content */}
           {isOn && (
-            <div className="relative h-full w-full overflow-hidden">
+            <div id="phone-frame" className="relative h-full w-full overflow-hidden">
               {showControlCenter && <ControlCenter />}
               {children}
 

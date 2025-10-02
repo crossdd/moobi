@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-import dynamic from "next/dynamic";
 import Loader from "@/components/Loader";
-import { usePhone } from "@/context/PhoneContext";
-import LockScreen from "@/components/screens/LockScreen";
-import Frame from "@/components/screens/Frame";
 import BootScreen from "@/components/screens/BootScreen";
+import Frame from "@/components/screens/Frame";
+import LockScreen from "@/components/screens/LockScreen";
+import { usePhone } from "@/context/PhoneContext";
+import dynamic from "next/dynamic";
+import React from "react";
 
 const HomeScreen = dynamic(() => import("@/components/screens/HomeScreen"), {
   loading: () => <Loader />,
@@ -75,33 +75,60 @@ const Chess = dynamic(() => import("@/components/screens/chess/Home"), {
 const Phone = () => {
   const { currentScreen } = usePhone();
 
-  const screen: { [key: string]: React.JSX.Element } = {
-    gallery: <Gallery />,
-    "phone-dialer": <PhoneDialer />,
-    "mail-composer": <MailCompose />,
-    info: <About />,
-    home: <HomeScreen />,
-    snake: <SnakeGame />,
-    guess: <GuessGame />,
-    "screen-boot": <BootScreen />,
-    "screen-shutdown": <BootScreen />,
-    "screen-lock": <LockScreen />,
-    "chrome-browser": <Browser />,
-    "music-player": <MusicPlayer />,
-    weather: <WeatherApp />,
-    calculator: <Calculator />,
-    clock: <Clock />,
-    calendar: <Calendar />,
-    notes: <Notes />,
-    "app-store": <AppStore />,
-    camera: <HomeScreen />,
-    // camera: <Camera />,
-    chess: <Chess />,
-  };
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case "gallery": return <Gallery />;
+      case "phone-dialer": return <PhoneDialer />;
+      case "mail-composer": return <MailCompose />;
+      case "info": return <About />;
+      case "home": return <HomeScreen />;
+      case "snake": return <SnakeGame />;
+      case "guess": return <GuessGame />;
+      case "screen-boot":
+      case "screen-shutdown":
+        return <BootScreen />;
+      case "screen-lock": return <LockScreen />;
+      case "chrome-browser": return <Browser />;
+      case "music-player": return <MusicPlayer />;
+      case "weather": return <WeatherApp />;
+      case "calculator": return <Calculator />;
+      case "clock": return <Clock />;
+      case "calendar": return <Calendar />;
+      case "notes": return <Notes />;
+      case "app-store": return <AppStore />;
+      case "camera": return <HomeScreen />;
+      case "chess": return <Chess />
+      case "chess": return <Chess />;
+    }
+  }
+
+  // const screen: { [key: string]: React.JSX.Element } = {
+  //   gallery: <Gallery />,
+  //   "phone-dialer": <PhoneDialer />,
+  //   "mail-composer": <MailCompose />,
+  //   info: <About />,
+  //   home: <HomeScreen />,
+  //   snake: <SnakeGame />,
+  //   guess: <GuessGame />,
+  //   "screen-boot": <BootScreen />,
+  //   "screen-shutdown": <BootScreen />,
+  //   "screen-lock": <LockScreen />,
+  //   "chrome-browser": <Browser />,
+  //   "music-player": <MusicPlayer />,
+  //   weather: <WeatherApp />,
+  //   calculator: <Calculator />,
+  //   clock: <Clock />,
+  //   calendar: <Calendar />,
+  //   notes: <Notes />,
+  //   "app-store": <AppStore />,
+  //   camera: <HomeScreen />,
+  //   // camera: <Camera />,
+  //   chess: <Chess />
+  // };
 
   return (
     <div className="flex-center h-full flex-1 py-2">
-      <Frame>{screen[currentScreen]}</Frame>
+      <Frame>{renderScreen()}</Frame>
     </div>
   );
 };

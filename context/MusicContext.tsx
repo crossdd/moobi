@@ -10,6 +10,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useCallback,
 } from "react";
 import { type MusicPlayerScreen, Song } from "@/types";
 import { usePhone } from "@/context/PhoneContext";
@@ -40,14 +41,13 @@ interface ContextType {
   isShuffled: boolean;
   setIsShuffled: Dispatch<SetStateAction<boolean>>;
 }
+
 const MusicContext = createContext<ContextType | undefined>(undefined);
 
 const MusicProvider = ({ children }: { children: ReactNode }) => {
   const { volume, setVolume } = usePhone();
-  const [currentPlayerScreen, setCurrentPlayerScreen] =
-    useState<MusicPlayerScreen>("library");
-  const [lastPlayerScreen, setLastPlayerScreen] =
-    useState<MusicPlayerScreen>("library");
+  const [currentPlayerScreen, setCurrentPlayerScreen] = useState<MusicPlayerScreen>("library");
+  const [lastPlayerScreen, setLastPlayerScreen] = useState<MusicPlayerScreen>("library");
 
   const [queue, setQueue] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
@@ -60,21 +60,39 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const skipForward = useCallback(() => {
+    if (!currentSong) return;
+
+    const currentIndex = queue.findIndex((song) => song.id === currentSong.id);
+    if (currentIndex === -1) return;
+
+    const nextIndex = (currentIndex + 1) % queue.length;
+    playSong(queue[nextIndex]);
+  }, [currentSong, queue]);
+
+  const skipBackward = useCallback(() => {
+    if (!currentSong) return;
+
+    const currentIndex = queue.findIndex((song) => song.id === currentSong.id);
+    if (currentIndex === -1) return;
+
+    const prevIndex = currentIndex === 0 ? queue.length - 1 : currentIndex - 1;
+    playSong(queue[prevIndex]);
+  }, [currentSong, queue]);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const updateProgress = () => {
-      if (audio.currentTime && audio.duration) {
-        setProgress([audio.currentTime]);
-      }
+      setProgress([audio.currentTime]);
     };
 
     const handleEnded = () => {
       if (repeatMode === "one") {
         audio.currentTime = 0;
         audio.play();
-      } else if (repeatMode === "off" || isShuffled) {
+      } else if (repeatMode === "all" || isShuffled) {
         skipForward();
       } else {
         setIsPlaying(false);
@@ -94,7 +112,7 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("volumechange", handleVolumeChange);
     };
-  }, [repeatMode, isShuffled]);
+  }, [repeatMode, isShuffled, skipForward, setVolume]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -102,16 +120,14 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [volume]);
 
-  const playSong = async (song: Song) => {
+  const playSong = useCallback(async (song: Song) => {
     try {
       setAudioError(null);
       setCurrentSong(song);
       setIsLoading(true);
       setProgress([0]);
-
       setCurrentPlayerScreen("nowPlaying");
 
-      // Get stream URL
       const response = await fetch(`/api/music-player/stream?id=${song.id}`);
       const data = await response.json();
 
@@ -120,69 +136,34 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
         audioRef.current.load();
 
         audioRef.current.onloadedmetadata = () => {
-          if (audioRef.current) {
-            setIsPlaying(true);
-            audioRef.current.play().catch((error) => {
-              console.error("Error playing audio:", error);
-              setIsLoading(false);
-              setAudioError("Failed to play audio");
-            });
-          }
+          audioRef.current?.play().catch(() => {
+            setAudioError("Failed to play audio");
+          });
+          setIsPlaying(true);
         };
 
         audioRef.current.onerror = () => {
           setAudioError("Failed to load audio");
           setIsPlaying(false);
-          setIsLoading(false);
         };
       }
-    } catch (error) {
-      console.error("Error playing song:", error);
+    } catch {
       setAudioError("Failed to load song");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const playPause = () => {
+  const playPause = useCallback(() => {
     if (!audioRef.current || !currentSong) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
-        setAudioError("Failed to play audio");
-      });
-    }
+    if (isPlaying) audioRef.current.pause();
+    else audioRef.current.play().catch(() => setAudioError("Failed to play audio"));
     setIsPlaying(!isPlaying);
-  };
+  }, [isPlaying, currentSong]);
 
-  const skipForward = () => {
-    if (!currentSong) return;
-
-    const currentIndex = queue.findIndex((song) => song.id === currentSong.id);
-    if (currentIndex === -1) return;
-    const nextIndex = (currentIndex + 1) % queue.length;
-    playSong(queue[nextIndex]);
-  };
-
-  const skipBackward = () => {
-    if (!currentSong) return;
-
-    const currentIndex = queue.findIndex((song) => song.id === currentSong.id);
-    if (currentIndex === -1) return;
-
-    const prevIndex = currentIndex === 0 ? queue.length - 1 : currentIndex - 1;
-    playSong(queue[prevIndex]);
-  };
-
-  const toggleRepeat = () => {
-    const modes: Array<"off" | "all" | "one"> = ["off", "all", "one"];
-    const currentIndex = modes.indexOf(repeatMode);
-    const nextIndex = (currentIndex + 1) % modes.length;
-    setRepeatMode(modes[nextIndex]);
-  };
+  const toggleRepeat = useCallback(() => {
+    setRepeatMode((prev) => (prev === "off" ? "all" : prev === "all" ? "one" : "off"));
+  }, []);
 
   return (
     <MusicContext.Provider
@@ -219,11 +200,9 @@ const MusicProvider = ({ children }: { children: ReactNode }) => {
 
 const useMusic = () => {
   const context = useContext(MusicContext);
-
   if (context === undefined) {
     throw new Error("useMusic must be used within a Phone Provider");
   }
-
   return context;
 };
 

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import {Button} from "@/components/ui/button";
-import {LuChevronDown, LuLoader, LuMusic, LuSearch} from "react-icons/lu";
-import {useMusic} from "@/context/MusicContext";
-import {Song} from "@/types";
+import React, { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button";
+import { LuChevronDown, LuLoader, LuMusic, LuSearch } from "react-icons/lu";
+import { useMusic } from "@/context/MusicContext";
+import { Song } from "@/types";
 
 const Search = () => {
-    const {currentPlayerScreen, setCurrentPlayerScreen, playSong, setQueue} = useMusic()
+    const { currentPlayerScreen, setCurrentPlayerScreen, playSong, setQueue } = useMusic()
     const [searchQuery, setSearchQuery] = useState("")
     const [searchResults, setSearchResults] = useState<Song[]>([])
     const [isSearching, setIsSearching] = useState(false)
@@ -46,7 +46,7 @@ const Search = () => {
         return () => clearTimeout(timeoutId)
     }, [searchQuery, currentPlayerScreen])
 
-    const handlePlaySong = async(song: Song) => {
+    const handlePlaySong = async (song: Song) => {
         const trackIndex = searchResults.findIndex((track) => track.id === song.id)
         const newQueue = searchResults.slice(trackIndex)
 
@@ -62,10 +62,10 @@ const Search = () => {
     }
 
     return (
-        <div className="relative flex-1 flex flex-col px-3">
+        <div className="relative flex-1 flex flex-col px-3 overflow-y-scroll h-full w-full pt-12">
             {/* Search Header */}
             <div className="sticky top-0 bg-black">
-                <div className="flex items-center gap-3 mb-4 text-neutral-300 mt-4">
+                <div className="flex items-center gap-3 mb-4 text-neutral-300">
                     <Button variant="ghost" size="sm" onClick={() => setCurrentPlayerScreen("library")} className="p-2">
                         <LuChevronDown className="w-5 h-5 rotate-90" />
                     </Button>

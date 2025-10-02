@@ -17,7 +17,8 @@ const eslintConfig = [
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "prefer-const": "off",
-      "react-hooks/exhaustive-deps": "off"
+      "react-hooks/exhaustive-deps": "off",
+      "@next/next/no-img-element": "off",
     },
   },
 ];

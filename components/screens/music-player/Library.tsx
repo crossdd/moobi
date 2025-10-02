@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react'
-import {Button} from "@/components/ui/button";
-import {LuAlbum, LuMusic, LuSearch} from "react-icons/lu";
-import {FiMoreHorizontal} from "react-icons/fi";
+import React, { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button";
+import { LuAlbum, LuMusic, LuSearch } from "react-icons/lu";
+import { FiMoreHorizontal } from "react-icons/fi";
 import Loader from "@/components/Loader";
-import {useMusic} from "@/context/MusicContext";
-import {Song} from "@/types";
+import { useMusic } from "@/context/MusicContext";
+import { Song } from "@/types";
 
 const Library = () => {
-    const {setCurrentPlayerScreen, playSong, setQueue} = useMusic()
+    const { setCurrentPlayerScreen, playSong, setQueue } = useMusic()
     const [tracks, setTracks] = useState<Song[]>([])
 
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if(tracks.length === 0) {
+        if (tracks.length === 0) {
             fetchTrendingTracks()
         }
     }, [])
@@ -36,7 +36,7 @@ const Library = () => {
         }
     }
 
-    const handlePlaySong = async(song: Song) => {
+    const handlePlaySong = async (song: Song) => {
         const trackIndex = tracks.findIndex((track) => track.id === song.id)
         const newQueue = tracks.slice(trackIndex)
 
@@ -52,7 +52,7 @@ const Library = () => {
     }
 
     return (
-        <div className="flex-1 flex flex-col px-3">
+        <div className="flex-1 flex flex-col px-3 pt-8">
             {/* Header */}
             <div className="mt-6 px-1">
                 <div className="flex items-center justify-between mb-4 text-neutral-300">
@@ -78,12 +78,12 @@ const Library = () => {
             {/* Song List */}
             <div className="flex-1">
                 {isLoading ? (
-                        <Loader />
+                    <Loader />
                 ) : (
                     <div className="mt-2">
                         <h2 className="text-lg font-semibold text-gray-300 mb-3">Recommended for today</h2>
                         <div className="flex w-full gap-3 overflow-x-scroll no-visible-scrollbar">
-                            {tracks.slice(0,6).map((song) => (
+                            {tracks.slice(0, 6).map((song) => (
                                 <div
                                     key={song.id}
                                     className="w-44 flex flex-col gap-3 p-3 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 rounded-lg group border !border-neutral-900"
