@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { usePhone } from "@/context";
+import { usePhoneStore } from "@/stores/usePhoneStore";
 import { cn } from "@/lib/utils";
 import { ReactNode, useState } from "react";
 import {
@@ -18,7 +18,7 @@ import {
 } from "react-icons/lu";
 import { MdBattery3Bar } from "react-icons/md";
 import CustomSlider from "./CustomSlider";
-import MusicPlayerWidget from "../music-player/MusicPlayerWidget";
+import MusicPlayerWidget from "./music-player/MusicPlayerWidget";
 import { useTheme } from "next-themes";
 import { ScreenOptions } from "@/types";
 import { useSwipeable } from "react-swipeable";
@@ -33,13 +33,13 @@ interface ControlItem {
 const ControlCenter = () => {
   const {
     showControlCenter,
-    setShowControlCenter,
+    toggleControlCenter,
     brightness,
     setBrightness,
     volume,
     setVolume,
     setCurrentScreen,
-  } = usePhone();
+  } = usePhoneStore();
   const { theme, setTheme } = useTheme();
 
   const [connectivityControls, setConnectivityControls] = useState<
@@ -108,14 +108,14 @@ const ControlCenter = () => {
         setTheme("dark");
       }
     } else {
-      setShowControlCenter(false);
+      toggleControlCenter();
       setCurrentScreen(id as ScreenOptions);
     }
   };
 
   const swipeHandlers = useSwipeable({
     onSwipedUp: () => {
-      setShowControlCenter(false);
+      toggleControlCenter();
     },
     preventScrollOnSwipe: true,
     trackMouse: true,
@@ -125,7 +125,7 @@ const ControlCenter = () => {
   return (
     <div
       className={cn(
-        "no-visible-scrollbar absolute inset-0 z-40 overflow-y-scroll bg-white/20 backdrop-blur-lg transition-all duration-500 ease-out dark:bg-black/60",
+        "no-visible-scrollbar absolute inset-0 z-[999] overflow-y-scroll bg-white/20 backdrop-blur-lg transition-all duration-500 ease-out dark:bg-black/60",
         showControlCenter
           ? "translate-y-0 opacity-100"
           : "translate-y-full opacity-0",

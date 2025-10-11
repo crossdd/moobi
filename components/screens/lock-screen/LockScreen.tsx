@@ -3,19 +3,19 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-import lockscreen from "@/public/images/lockscreen.jpg";
+import lockscreen from "@/public/images/lockscreen.webp";
 import { LuCamera, LuFlashlight } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { usePhone } from "@/context/PhoneContext";
 import { BsSnapchat, BsWhatsapp } from "react-icons/bs";
 import { motion } from "framer-motion";
+import { usePhoneStore } from "@/stores/usePhoneStore";
 
 const LockScreen = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isUnlocking, setIsUnlocking] = useState(false);
 
-  const { setCurrentScreen, lastScreen } = usePhone();
+  const { setCurrentScreen, lastScreen } = usePhoneStore();
 
   useEffect(() => {
     const timer = setInterval(() => {

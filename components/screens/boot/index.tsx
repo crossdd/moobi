@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { usePhone } from "@/context/PhoneContext";
+import { usePhoneStore } from "@/stores/usePhoneStore";
 
 const BootScreen = () => {
-  const { currentScreen, setCurrentScreen } = usePhone();
+  const { currentScreen, setCurrentScreen } = usePhoneStore();
   const [bootStage, setBootStage] = useState<
     "initial" | "logo" | "progress" | "complete"
   >("initial");

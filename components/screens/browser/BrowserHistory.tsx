@@ -1,11 +1,9 @@
-"use client";
-
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LuArrowLeft, LuClock, LuTrash2 } from "react-icons/lu";
 import { CgMoreVertical } from "react-icons/cg";
 import { BiLoader } from "react-icons/bi";
-import { useBrowser } from "@/context/BrowserContext";
+import { useBrowserStore } from "@/stores";
 import SearchInput from "@/components/SearchInput";
 
 interface BrowserHistoryProps {
@@ -15,20 +13,16 @@ interface BrowserHistoryProps {
 const BrowserHistory = ({ setSearchQuery }: BrowserHistoryProps) => {
   const {
     handleSearch,
-    setHistory,
     history,
     isSearching,
-    setCurrentBrowserScreen,
-  } = useBrowser();
+    changeBrowserScreen,
+    clearHistory,
+  } = useBrowserStore();
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredHistory = history.filter((item) =>
     item.query.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
-  const clearAllHistory = () => {
-    setHistory([]);
-  };
 
   const handleHistoryClick = async (query: string) => {
     setSearchQuery(query);
@@ -47,14 +41,14 @@ const BrowserHistory = ({ setSearchQuery }: BrowserHistoryProps) => {
             variant="ghost"
             size="sm"
             className="p-2"
-            onClick={() => setCurrentBrowserScreen("browser-home")}
+            onClick={() => changeBrowserScreen("browser-home")}
           >
             <LuArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="text-lg font-medium">History</h1>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={clearAllHistory}>
+          <button onClick={clearHistory}>
             <LuTrash2 className="h-4 w-4 text-red-500" />
           </button>
           <CgMoreVertical className="h-5 w-5" />

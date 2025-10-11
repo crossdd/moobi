@@ -1,5 +1,5 @@
 import { CalendarEvent, CalendarScreen } from "@/types";
-import { CATEGORY_COLORS } from "./CalendarApp";
+import { CATEGORY_COLORS } from "./index";
 import { LuClock } from "react-icons/lu";
 import { Dispatch, SetStateAction } from "react";
 

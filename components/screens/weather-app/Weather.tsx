@@ -1,25 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  LuMapPin,
-  LuWind,
+  LuCloudRain,
   LuDroplets,
   LuEye,
-  LuThermometer,
-  LuCloudRain,
   LuLoader,
+  LuMapPin,
   LuRefreshCw,
   LuSearch,
+  LuThermometer,
+  LuWind,
 } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import { useWeather } from "@/context/WeatherContext";
+import { useWeatherStore, usePhoneStore } from "@/stores";
 import { getTemperature, getWeatherBackground } from "@/lib/utils";
-import { usePhone } from "@/context";
 
 const Weather = () => {
-  const { fetchWeather, error, isLoading, weatherData } = useWeather();
-  const { setCurrentScreen } = usePhone();
+  const { fetchWeather, error, isLoading, weatherData } = useWeatherStore();
+  const { setCurrentScreen } = usePhoneStore();
 
   const [searchLocation, setSearchLocation] = useState("");
   const [isSearching, setIsSearching] = useState(false);

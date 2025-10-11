@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LuChevronDown,
   LuHeart,
@@ -16,12 +16,12 @@ import {
 import { FiMoreHorizontal } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { useMusic } from "@/context/MusicContext";
 import { AiFillExclamationCircle } from "react-icons/ai";
-import { usePhone } from "@/context";
+import { usePhoneStore } from "@/stores/usePhoneStore";
+import { useMusicPlayer } from "@/hooks/useMusicPlayer";
 
 const NowPlaying = () => {
-  const { volume, setVolume } = usePhone();
+  const { volume, setVolume } = usePhoneStore();
 
   const {
     audioRef,
@@ -40,7 +40,7 @@ const NowPlaying = () => {
     repeatMode,
     isLoading,
     lastPlayerScreen,
-  } = useMusic();
+  } = useMusicPlayer();
 
   const [isLiked, setIsLiked] = useState(false);
   const [showError, setShowError] = useState(true);
@@ -87,7 +87,7 @@ const NowPlaying = () => {
           <LuChevronDown className="h-5 w-5" />
         </Button>
 
-        <Button variant="ghost" size="sm" className="p-2 cursor-default">
+        <Button variant="ghost" size="sm" className="cursor-default p-2">
           <FiMoreHorizontal className="h-5 w-5" />
         </Button>
       </div>
@@ -214,8 +214,8 @@ const NowPlaying = () => {
           <div className="mx-4 flex max-w-32 flex-1 items-center gap-2">
             <LuVolume2 className="h-4 w-4 text-gray-600" />
             <Slider
-              value={volume}
-              onValueChange={setVolume}
+              value={[volume]}
+              onValueChange={(value) => setVolume(value[0])}
               max={100}
               step={1}
               className="flex-1"

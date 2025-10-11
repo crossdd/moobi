@@ -1,84 +1,63 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React from "react";
 import { LuAlarmClock, LuGlobe, LuHourglass, LuTimer } from "react-icons/lu";
-import { Button } from "@/components/ui/button";
 import { useClock } from "@/context/ClockContext";
-import { type ClockScreen } from "@/types";
 import {
   ClockAlarm,
-  WorldClock,
-  Timer,
   Stopwatch,
+  Timer,
+  WorldClock,
 } from "@/components/screens/clock";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { type ClockScreen } from "@/types";
 
 const Clock = () => {
   const { currentClockScreen: tab, setCurrentClockScreen: setTab } = useClock();
 
+  const tabTriggerStyle =
+    "flex flex-col items-center gap-1 border-0 bg-transparent text-sm font-medium hover:bg-transparent hover:text-white/80";
+
   return (
     <div className="relative mt-10 h-full w-full">
-      <div className="flex-1 overflow-y-auto pb-6">
-        {tab === "alarm" && <ClockAlarm />}
+      <Tabs
+        defaultValue={tab}
+        onValueChange={(value) => setTab(value as ClockScreen)}
+      >
+        <TabsList className="absolute bottom-12 left-0 flex h-14 w-full items-center justify-between rounded-t-2xl border-t border-white/10 bg-black py-3">
+          <TabsTrigger className={tabTriggerStyle} value="alarm">
+            <LuAlarmClock />
+            <span className="text-xs">Alarm</span>
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="world">
+            <LuGlobe />
+            <span className="text-xs">World Clock</span>
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="timer">
+            <LuHourglass />
+            <span className="text-xs">Timer</span>
+          </TabsTrigger>
+          <TabsTrigger className={tabTriggerStyle} value="stopwatch">
+            <LuTimer />
+            <span className="text-xs">Stopwatch</span>
+          </TabsTrigger>
+        </TabsList>
 
-        {tab === "world" && <WorldClock />}
-
-        {tab === "timer" && <Timer />}
-
-        {tab === "stopwatch" && <Stopwatch />}
-      </div>
-
-      <div className="absolute bottom-12 left-0 flex w-full items-center justify-between rounded-t-2xl border-t border-white/10 bg-black py-3">
-        <TabTrigger
-          tab={tab}
-          setTab={setTab}
-          icon={<LuAlarmClock />}
-          title="Alarm"
-        />
-        <TabTrigger
-          tab={tab}
-          setTab={setTab}
-          icon={<LuGlobe />}
-          title="World"
-        />
-        <TabTrigger
-          tab={tab}
-          setTab={setTab}
-          icon={<LuHourglass />}
-          title="StopWatch"
-        />
-        <TabTrigger
-          tab={tab}
-          setTab={setTab}
-          icon={<LuTimer />}
-          title="Timer"
-        />
-      </div>
+        <TabsContent value="alarm">
+          <ClockAlarm />
+        </TabsContent>
+        <TabsContent value="world">
+          <WorldClock />
+        </TabsContent>
+        <TabsContent value="timer">
+          <Timer />
+        </TabsContent>
+        <TabsContent value="stopwatch">
+          <Stopwatch />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
 
 export default Clock;
-
-const TabTrigger = ({
-  icon,
-  title,
-  setTab,
-  tab,
-}: {
-  tab: ClockScreen;
-  setTab: React.Dispatch<React.SetStateAction<ClockScreen>>;
-  icon: ReactNode;
-  title: string;
-}) => {
-  return (
-    <Button
-      onClick={() => setTab(title.toLowerCase() as ClockScreen)}
-      className={`flex flex-col items-center gap-1 border-0 bg-transparent text-sm font-medium hover:bg-transparent hover:text-white/80 ${
-        tab === title.toLowerCase() ? "text-white" : "text-white/60"
-      }`}
-    >
-      {icon}
-      <span className="text-xs">{title}</span>
-    </Button>
-  );
-};

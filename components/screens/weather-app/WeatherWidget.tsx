@@ -1,8 +1,9 @@
 "use client";
 
 import { LuDroplets, LuLoader, LuMapPin, LuWind } from "react-icons/lu";
-import { usePhone, useWeather } from "@/context";
 import { getTemperature, getWeatherBackground } from "@/lib/utils";
+import { usePhoneStore } from "@/stores/usePhoneStore";
+import { useWeatherStore } from "@/stores/useWeatherStore";
 
 interface WeatherWidgetProps {
   size?: "small" | "medium" | "large";
@@ -13,8 +14,8 @@ export default function WeatherWidget({
   size = "small",
   isCelsius = true,
 }: WeatherWidgetProps) {
-  const { isLoading, weatherData, error } = useWeather();
-  const { setCurrentScreen } = usePhone();
+  const { isLoading, weatherData, error } = useWeatherStore();
+  const { setCurrentScreen } = usePhoneStore();
 
   const formatTime = () => {
     return new Date().toLocaleTimeString("en-US", {

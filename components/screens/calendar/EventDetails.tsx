@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { LuTrash2, LuX } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { CalendarEvent, CalendarScreen } from "@/types";
 import { cn } from "@/lib/utils";
-import { CATEGORY_COLORS } from "@/components/screens/calendar/CalendarApp";
+import { CATEGORY_COLORS } from "@/components/screens/calendar/index";
 import { RiEdit2Line } from "react-icons/ri";
 import { FaBirthdayCake } from "react-icons/fa";
 
@@ -220,6 +220,8 @@ const AnniversaryCard = ({ event }: { event: CalendarEvent }) => {
     return Math.abs(diffDays);
   };
 
+  const dayDifference = daysDiff(new Date(event.date))
+
   return (
     <div
       className={cn(
@@ -251,10 +253,10 @@ const AnniversaryCard = ({ event }: { event: CalendarEvent }) => {
 
       <div className="flex flex-col items-start">
         <p className="text-5xl font-semibold text-white">
-          {daysDiff(new Date(event.date))}
-          <span className="ml-2 text-2xl font-medium">days</span>
+          {dayDifference}
+          <span className="ml-2 text-2xl font-medium">days {dayDifference >= 0 ? "to" : "since"}</span>
         </p>
-        <h3 className="text-lg font-extralight text-gray-300">{event.title}</h3>
+        <h3 className="text-base font-extralight text-gray-600">{event.title}&apos;s Anniversary</h3>
       </div>
     </div>
   );

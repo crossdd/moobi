@@ -1,12 +1,12 @@
 import { FormEvent, useState } from "react";
-import { useBrowser } from "@/context/BrowserContext";
+import { useBrowserStore } from "@/stores";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BiMicrophone } from "react-icons/bi";
 import { AiTwotoneCamera } from "react-icons/ai";
 
 const BrowserWidget = () => {
-  const { handleSearch } = useBrowser();
+  const { handleSearch } = useBrowserStore();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

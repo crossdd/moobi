@@ -1,6 +1,5 @@
-import wallpaper from "@/public/images/wallpaper.jpg";
+import wallpaper from "@/public/images/wallpaper.webp";
 import Image from "next/image";
-import { usePhone } from "@/context/PhoneContext";
 import Link from "next/link";
 import { mobileApps, socialMediaPlatforms } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -9,9 +8,9 @@ import MusicPlayerWidget from "@/components/screens/music-player/MusicPlayerWidg
 import { useSwipeable } from "react-swipeable";
 import { FaPhone } from "react-icons/fa6";
 import { TfiEmail, TfiGallery } from "react-icons/tfi";
-import React, { useState } from "react";
 import BrowserWidget from "@/components/screens/browser/BrowserWidget";
 import WeatherWidget from "@/components/screens/weather-app/WeatherWidget";
+import { usePhoneStore } from "@/stores/usePhoneStore";
 
 const dockApps = [
   { name: "Phone", slur: "phone-dialer", icon: FaPhone, color: "bg-green-600" },
@@ -25,18 +24,11 @@ const dockApps = [
 ];
 
 const HomeScreen = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const { setCurrentScreen } = usePhone();
+  const { setCurrentScreen, fetchPhonePage, phonePage } = usePhoneStore();
 
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (currentPage < mobileApps.length - 1)
-        setCurrentPage((prev) => prev + 1);
-    },
-    onSwipedRight: () => {
-      if (currentPage > 0) setCurrentPage((prev) => prev - 1);
-    },
+    onSwipedLeft: () => fetchPhonePage("left"),
+    onSwipedRight: () => fetchPhonePage("right"),
     preventScrollOnSwipe: true,
     trackMouse: true,
     delta: 10,
@@ -56,7 +48,7 @@ const HomeScreen = () => {
 
       <div
         className="flex transition-transform duration-300 ease-in-out"
-        style={{ transform: `translateX(-${currentPage * 100}%)` }}
+        style={{ transform: `translateX(-${phonePage * 100}%)` }}
       >
         {mobileApps.map((apps, index) => (
           <div

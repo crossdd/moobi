@@ -21,7 +21,8 @@ type ScreenOptions =
   | "app-store"
   | "calendar"
   | "camera"
-  | "chess";
+  | "chess"
+  | "live-dev";
 
 // CameraGallery
 type GalleryScreen = "album" | "image-view" | "video-player" | "library";
@@ -84,11 +85,11 @@ declare interface Song {
 interface CustomSearchResultData {
   title: string;
   link: string;
-  displayLink: string;
-  snippet: string;
-  formattedUrl: string;
-  htmlSnippet: string;
-  pagemap: string;
+  displayLink?: string;
+  snippet?: string;
+  formattedUrl?: string;
+  htmlSnippet?: string;
+  pagemap?: string;
 }
 
 interface CustomSearchResult {
@@ -324,4 +325,18 @@ interface App {
   ageRating: string;
   languages: string[];
   inAppPurchases?: boolean;
+}
+
+declare interface NewsArticle {
+  id: string;
+  content: string;
+  title: string;
+  description: string;
+  url: string;
+  publishedAt: string;
+  source: {
+    name: string;
+    url: string;
+  };
+  image: string;
 }

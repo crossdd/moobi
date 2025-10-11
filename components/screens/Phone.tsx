@@ -1,134 +1,64 @@
 "use client";
 
 import Loader from "@/components/Loader";
-import BootScreen from "@/components/screens/BootScreen";
+import Index from "@/components/screens/boot";
 import Frame from "@/components/screens/Frame";
-import LockScreen from "@/components/screens/LockScreen";
-import { usePhone } from "@/context/PhoneContext";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
+import { ScreenOptions } from "@/types";
+import { usePhoneStore } from "@/stores/usePhoneStore";
 
-const HomeScreen = dynamic(() => import("@/components/screens/HomeScreen"), {
-  loading: () => <Loader />,
-});
-const PhoneDialer = dynamic(() => import("@/components/screens/PhoneDialer"), {
-  loading: () => <Loader />,
-});
-const MailCompose = dynamic(() => import("@/components/screens/MailCompose"), {
-  loading: () => <Loader />,
-});
-const Gallery = dynamic(() => import("@/components/screens/gallery/Gallery"), {
-  loading: () => <Loader />,
-});
-const About = dynamic(() => import("@/components/screens/InfoScreen"), {
-  loading: () => <Loader />,
-});
-const Browser = dynamic(() => import("@/components/screens/browser/Browser"), {
-  loading: () => <Loader />,
-});
-const SnakeGame = dynamic(() => import("@/components/screens/SnakeGame"), {
-  loading: () => <Loader />,
-});
-const GuessGame = dynamic(() => import("@/components/screens/GuessGame"), {
-  loading: () => <Loader />,
-});
-const MusicPlayer = dynamic(
-  () => import("@/components/screens/music-player/iTunes"),
-  {
-    loading: () => <Loader />,
+const screens: Record<ScreenOptions, () => Promise<any>> = {
+  "screen-boot": () => import("@/components/screens/boot"),
+  "screen-shutdown": () => import("@/components/screens/boot"),
+  "screen-lock": () => import("@/components/screens/lock-screen/LockScreen"),
+  home: () => import("@/components/screens/home/HomeScreen"),
+  "phone-dialer": () => import("@/components/screens/phone-dialer/PhoneDialer"),
+  "mail-composer": () => import("@/components/screens/mail/MailCompose"),
+  info: () => import("@/components/screens/info/InfoScreen"),
+  gallery: () => import("@/components/screens/gallery/Gallery"),
+  "chrome-browser": () => import("@/components/screens/browser"),
+  snake: () => import("@/components/screens/snake/SnakeGame"),
+  guess: () => import("@/components/screens/guess/GuessGame"),
+  "music-player": () => import("@/components/screens/music-player/iTunes"),
+  weather: () => import("@/components/screens/weather-app/Weather"),
+  calculator: () => import("@/components/screens/calculator"),
+  clock: () => import("@/components/screens/clock/Clock"),
+  calendar: () => import("@/components/screens/calendar"),
+  notes: () => import("@/components/screens/notes/NotesApp"),
+  "app-store": () => import("@/components/screens/app-store/MiStore"),
+  chess: () => import("@/components/screens/chess/Home"),
+  "live-dev": () => import("@/components/screens/live-dev/DevHome"),
+  "file-manager": () => import("@/components/screens/home/HomeScreen"),
+  camera: () => import("@/components/screens/home/HomeScreen"),
+};
+
+const dynamicScreens = Object.entries(screens).reduce(
+  (acc, [key, importer]) => {
+    acc[key as ScreenOptions] = dynamic(importer, {
+      loading: () => <Loader />,
+      ssr: false,
+    });
+    return acc;
   },
+  {} as Record<ScreenOptions, React.ComponentType>,
 );
-const WeatherApp = dynamic(
-  () => import("@/components/screens/weather-app/Weather"),
-  {
-    loading: () => <Loader />,
-  },
-);
-const Calculator = dynamic(
-  () => import("@/components/screens/calculator/Calculator"),
-  {
-    loading: () => <Loader />,
-  },
-);
-const Clock = dynamic(() => import("@/components/screens/clock/Clock"), {
-  loading: () => <Loader />,
-});
-const Calendar = dynamic(
-  () => import("@/components/screens/calendar/CalendarApp"),
-  {
-    loading: () => <Loader />,
-  },
-);
-const Notes = dynamic(() => import("@/components/screens/notes/NotesApp"), {
-  loading: () => <Loader />,
-});
-const AppStore = dynamic(
-  () => import("@/components/screens/app-store/MiStore"),
-  {
-    loading: () => <Loader />,
-  },
-);
-const Chess = dynamic(() => import("@/components/screens/chess/Home"), {
-  loading: () => <Loader />,
-});
 
 const Phone = () => {
-  const { currentScreen } = usePhone();
+  const currentScreen = usePhoneStore((state) => state.currentScreen);
 
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case "gallery": return <Gallery />;
-      case "phone-dialer": return <PhoneDialer />;
-      case "mail-composer": return <MailCompose />;
-      case "info": return <About />;
-      case "home": return <HomeScreen />;
-      case "snake": return <SnakeGame />;
-      case "guess": return <GuessGame />;
-      case "screen-boot":
-      case "screen-shutdown":
-        return <BootScreen />;
-      case "screen-lock": return <LockScreen />;
-      case "chrome-browser": return <Browser />;
-      case "music-player": return <MusicPlayer />;
-      case "weather": return <WeatherApp />;
-      case "calculator": return <Calculator />;
-      case "clock": return <Clock />;
-      case "calendar": return <Calendar />;
-      case "notes": return <Notes />;
-      case "app-store": return <AppStore />;
-      case "camera": return <HomeScreen />;
-      case "chess": return <Chess />
-      case "chess": return <Chess />;
-    }
-  }
+  const Screen = useMemo(() => dynamicScreens[currentScreen], [currentScreen]);
+  const bootScreens = ["screen-boot", "screen-shutdown"];
 
-  // const screen: { [key: string]: React.JSX.Element } = {
-  //   gallery: <Gallery />,
-  //   "phone-dialer": <PhoneDialer />,
-  //   "mail-composer": <MailCompose />,
-  //   info: <About />,
-  //   home: <HomeScreen />,
-  //   snake: <SnakeGame />,
-  //   guess: <GuessGame />,
-  //   "screen-boot": <BootScreen />,
-  //   "screen-shutdown": <BootScreen />,
-  //   "screen-lock": <LockScreen />,
-  //   "chrome-browser": <Browser />,
-  //   "music-player": <MusicPlayer />,
-  //   weather: <WeatherApp />,
-  //   calculator: <Calculator />,
-  //   clock: <Clock />,
-  //   calendar: <Calendar />,
-  //   notes: <Notes />,
-  //   "app-store": <AppStore />,
-  //   camera: <HomeScreen />,
-  //   // camera: <Camera />,
-  //   chess: <Chess />
-  // };
+  useEffect(() => {
+    screens.home?.();
+  }, []);
 
   return (
     <div className="flex-center h-full flex-1 py-2">
-      <Frame>{renderScreen()}</Frame>
+      <Frame>
+        {bootScreens.includes(currentScreen) ? <Index /> : <Screen />}
+      </Frame>
     </div>
   );
 };

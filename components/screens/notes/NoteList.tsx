@@ -251,7 +251,6 @@ const NoteList = ({
           <LuList className="mr-2 h-4 w-4" />
           New Todo
         </Button>
-        Lu
       </div>
 
       {/* Notes List */}

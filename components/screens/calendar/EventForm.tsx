@@ -16,7 +16,7 @@ interface CalendarEventModalProps {
   selectedDate: string | null;
 }
 
-const CalendarEventForm = ({
+const EventForm = ({
   eventToEdit,
   setAllEvents,
   selectedDate,
@@ -174,4 +174,4 @@ const CalendarEventForm = ({
     </>
   );
 };
-export default CalendarEventForm;
+export default EventForm;

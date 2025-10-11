@@ -4,9 +4,9 @@ import type React from "react";
 import { useState } from "react";
 import { CalendarEvent, CalendarEventCategory, CalendarScreen } from "@/types";
 import { globalEvents } from "@/constants";
-import CalendarEventForm from "@/components/screens/calendar/CalendarEventForm";
-import CalendarHome from "@/components/screens/calendar/CalendarHome";
-import EventDetails from "@/components/screens/calendar/EventDetails";
+import EventForm from "./EventForm";
+import CalendarHome from "./CalendarHome";
+import EventDetails from "./EventDetails";
 
 export const CATEGORY_COLORS: Record<CalendarEventCategory, string> = {
   event: "bg-blue-500",
@@ -40,7 +40,7 @@ const CalendarApp = () => {
       )}
 
       {screen === "add-edit" && (
-        <CalendarEventForm
+        <EventForm
           eventToEdit={eventToEdit}
           setEventToEdit={setEventToEdit}
           setAllEvents={setAllEvents}

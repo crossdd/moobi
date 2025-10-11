@@ -13,12 +13,12 @@ import {
 } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { useMusic } from "@/context/MusicContext";
 import { cn } from "@/lib/utils";
-import { usePhone } from "@/context";
+import { usePhoneStore } from "@/stores";
+import { useMusicPlayer } from "@/hooks/useMusicPlayer";
 
 const MusicPlayerWidget = ({ className }: { className?: string }) => {
-  const { volume, setVolume, setCurrentScreen } = usePhone();
+  const { volume, setVolume, setCurrentScreen } = usePhoneStore();
   const {
     isPlaying,
     currentSong,
@@ -28,8 +28,8 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
     skipForward,
     skipBackward,
     isLoading,
-    setCurrentPlayerScreen
-  } = useMusic();
+    setCurrentPlayerScreen,
+  } = useMusicPlayer();
 
   const [isLiked, setIsLiked] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -48,8 +48,9 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
   return (
     <div className={cn("px-3 py-5", className)}>
       <div
-        className={`rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 ${isExpanded ? "p-6" : "p-4"
-          }`}
+        className={`rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 ${
+          isExpanded ? "p-6" : "p-4"
+        }`}
         onClick={toggleExpanded}
       >
         {/* Compact View */}
@@ -120,13 +121,16 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
           <div className="space-y-4">
             {/* Header */}
             <div className="flex items-center gap-4">
-              <div className="from-purple-400 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br to-pink-400 shadow-lg" onClick={(e) => {
-                e.stopPropagation()
-                if (!currentSong) return;
+              <div
+                className="from-purple-400 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br to-pink-400 shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!currentSong) return;
 
-                setCurrentScreen("music-player")
-                setCurrentPlayerScreen("nowPlaying")
-              }}>
+                  setCurrentScreen("music-player");
+                  setCurrentPlayerScreen("nowPlaying");
+                }}
+              >
                 {currentSong?.albumArt ? (
                   <img
                     src={currentSong.albumArt}
@@ -150,10 +154,11 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
                   e.stopPropagation();
                   setIsLiked(!isLiked);
                 }}
-                className={`h-10 w-10 rounded-full border-0 p-0 ${isLiked
-                  ? "bg-red-500/20 text-red-400"
-                  : "bg-white/10 text-white/70"
-                  }`}
+                className={`h-10 w-10 rounded-full border-0 p-0 ${
+                  isLiked
+                    ? "bg-red-500/20 text-red-400"
+                    : "bg-white/10 text-white/70"
+                }`}
               >
                 <LuHeart
                   className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`}
@@ -222,14 +227,14 @@ const MusicPlayerWidget = ({ className }: { className?: string }) => {
             <div className="flex items-center gap-3">
               <LuVolume2 className="h-4 w-4 text-white/70" />
               <Slider
-                value={volume}
-                onValueChange={setVolume}
+                value={[volume]}
+                onValueChange={(value) => setVolume(value[0])}
                 max={100}
                 step={1}
                 className="flex-1"
               />
               <span className="w-8 text-right text-xs text-white/60">
-                {volume[0]}%
+                {volume}%
               </span>
             </div>
           </div>

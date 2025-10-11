@@ -1,111 +1,24 @@
 "use client";
 
 import StatusBar from "@/components/screens/StatusBar";
-import { LuPower, LuPowerOff } from "react-icons/lu";
-import { TbSmartHome, TbTriangle } from "react-icons/tb";
 import React, { useState } from "react";
-import { usePhone } from "@/context/PhoneContext";
-import { useBrowser } from "@/context/BrowserContext";
-import { useMusic } from "@/context/MusicContext";
-import { MusicPlayerScreen } from "@/types";
-import ControlCenter from "@/components/screens/control-center/ControlCenter";
+import { usePhoneStore } from "@/stores";
+import ControlCenter from "@/components/screens/ControlCenter";
 import { useClock } from "@/context/ClockContext";
 import AlarmRingOverlay from "@/components/screens/clock/AlarmRingOverlay";
 import HomeIndicator from "@/components/screens/HomeIndicator";
+import AppSwitcher from "@/components/screens/AppSwitcher";
+import ActionButtons from "@/components/ActionButtons";
 
 const Frame = ({ children }: { children: React.ReactNode }) => {
   const [isOn, setIsOn] = useState(true);
-  const {
-    currentScreen,
-    setCurrentScreen,
-    lastScreen,
-    setLastScreen,
-    showControlCenter,
-    brightness,
-    setShowControlCenter,
-  } = usePhone();
-  const { currentBrowserScreen, setCurrentBrowserScreen } = useBrowser();
-  const { currentPlayerScreen, setCurrentPlayerScreen } = useMusic();
+  const { currentScreen, showControlCenter, brightness, showAppSwitcher } =
+    usePhoneStore();
   const { ringingAlarmId } = useClock();
 
-  let pressTimer: NodeJS.Timeout;
+  const brightnessValue = 0.3 + (brightness / 100) * 0.9;
 
-  const handlePressStart = () => {
-    pressTimer = setTimeout(() => {
-      togglePhoneState();
-    }, 1000);
-  };
-
-  const handlePressEnd = () => {
-    clearTimeout(pressTimer);
-  };
-
-  const handleClick = () => {
-    clearTimeout(pressTimer);
-
-    if (currentScreen === "screen-shutdown" || currentScreen === "screen-boot")
-      return;
-
-    toggleScreenOnOff();
-  };
-
-  const toggleScreenOnOff = () => {
-    if (isOn) {
-      if (currentScreen !== "screen-lock") {
-        setLastScreen(currentScreen);
-      }
-
-      if (showControlCenter) {
-        setShowControlCenter(false);
-      }
-
-      setIsOn(false);
-    } else {
-      setIsOn(true);
-      setCurrentScreen("screen-lock");
-    }
-  };
-
-  const togglePhoneState = () => {
-    if (currentScreen !== "screen-shutdown") {
-      setLastScreen("home");
-      setCurrentScreen("screen-shutdown");
-    } else {
-      setCurrentScreen("screen-boot");
-    }
-  };
-
-  const isCurrentlyOn = currentScreen !== "screen-shutdown" && isOn;
-
-  const brightnessValue = 0.3 + (brightness[0] / 100) * 0.9;
-
-  const backAction = () => {
-    switch (currentScreen) {
-      case "home":
-        break;
-      case "chrome-browser":
-        if (currentBrowserScreen === "browser-frame") {
-          setCurrentBrowserScreen("browser-search-results");
-        } else if (currentBrowserScreen !== "browser-home") {
-          setCurrentBrowserScreen("browser-home");
-        } else {
-          setCurrentScreen("home");
-        }
-        break;
-      case "music-player":
-        if (currentPlayerScreen === "nowPlaying") {
-          setCurrentPlayerScreen(lastScreen as MusicPlayerScreen);
-        } else {
-          setCurrentScreen("home");
-        }
-        break;
-      default:
-        setCurrentScreen("home");
-        break;
-    }
-  };
-
-  const indicatorInvisible = ["screen-lock", "screen-shutdown", "screen-boot"]
+  const indicatorInvisible = ["screen-lock", "screen-shutdown", "screen-boot"];
 
   return (
     <div className="flex-center relative h-full gap-4">
@@ -118,12 +31,12 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
         <div className="absolute -left-1 top-20 h-8 w-1 rounded-r-sm bg-gray-700"></div>
         <div className="absolute -left-1 top-32 h-12 w-1 rounded-r-sm bg-gray-700"></div>
 
-        {/* Action Button (new in iPhone 15/16) */}
+        {/* Action Button */}
         <div className="absolute -left-1 top-48 h-6 w-1 rounded-r-sm bg-orange-500"></div>
 
         {/* Screen */}
         <div
-          className={`relative h-full w-full overflow-hidden rounded-[2.5rem] bg-walnut-50 transition-all duration-300 dark:bg-black`}
+          className={`relative h-full w-full overflow-hidden rounded-[2.5rem] bg-black transition-all duration-300`}
           style={{
             transition: "filter 0.3s ease",
             filter: `brightness(${brightnessValue})`,
@@ -146,8 +59,12 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
 
           {/* Screen Content */}
           {isOn && (
-            <div id="phone-frame" className="relative h-full w-full overflow-hidden">
+            <div
+              id="phone-frame"
+              className="relative h-full w-full overflow-hidden"
+            >
               {showControlCenter && <ControlCenter />}
+              {showAppSwitcher && <AppSwitcher />}
               {children}
 
               {ringingAlarmId && <AlarmRingOverlay />}
@@ -160,44 +77,8 @@ const Frame = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
-      {/* Power Button Toggle */}
-      <div className="flex flex-col gap-5 rounded-md bg-gradient-to-b from-gray-600 via-gray-800 to-gray-900">
-        <button
-          onMouseDown={handlePressStart}
-          onTouchStart={handlePressStart}
-          onMouseUp={handlePressEnd}
-          onMouseLeave={handlePressEnd}
-          onTouchEnd={handlePressEnd}
-          onClick={handleClick}
-          className="rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700"
-        >
-          {isCurrentlyOn ? <LuPowerOff size={19} /> : <LuPower size={19} />}
-        </button>
-
-        <button
-          onClick={() => setCurrentScreen("home")}
-          disabled={
-            !isOn || currentScreen === "home" || currentScreen === "screen-lock"
-          }
-          className="rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700 disabled:text-gray-400 disabled:hover:bg-transparent"
-        >
-          <TbSmartHome size={19} />
-        </button>
-
-        <button
-          disabled={
-            !isOn ||
-            currentScreen === "home" ||
-            currentScreen === "screen-lock" ||
-            currentScreen === "screen-shutdown" ||
-            currentScreen === "screen-boot"
-          }
-          onClick={backAction}
-          className="-rotate-90 rounded-lg p-2 text-sm text-white transition-colors hover:bg-gray-700 disabled:text-gray-400 disabled:hover:bg-transparent"
-        >
-          <TbTriangle size={19} />
-        </button>
-      </div>
+      {/* Action Buttons */}
+      <ActionButtons isOn={isOn} setIsOn={setIsOn} />
     </div>
   );
 };

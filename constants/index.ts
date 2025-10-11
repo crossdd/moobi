@@ -1,5 +1,5 @@
 import { type App, type CalendarEvent, type HistoryType } from "@/types";
-import { BiCalculator } from "react-icons/bi";
+import { BiCalculator, BiTerminal } from "react-icons/bi";
 import {
   BsBrowserChrome,
   BsCalendar3,
@@ -68,7 +68,7 @@ export const gallery = [
         id: "may-5",
         type: "photo",
         title: "",
-        thumbnail: "/images/profile.jpg",
+        thumbnail: "/images/profile.webp",
         date: new Date(),
         isFavorite: true,
       },
@@ -76,7 +76,7 @@ export const gallery = [
         id: "may-6",
         type: "photo",
         title: "",
-        thumbnail: "/images/profile-animated.png",
+        thumbnail: "/images/profile-animated.webp",
         date: new Date(),
         isFavorite: true,
       },
@@ -761,10 +761,10 @@ export const mobileApps = [
   ],
   [
     {
-      name: "Gallery",
-      slur: "gallery",
-      icon: TfiGallery,
-      color: "bg-blue-300",
+      name: "Live Dev",
+      slur: "live-dev",
+      icon: BiTerminal,
+      color: "text-white",
     },
     {
       name: "Calendar",
@@ -830,5 +830,13 @@ export const mobileApps = [
       color: "bg-yellow-200",
     },
     // Intentionally left empty for the music player widget. Add your apps in another array
+  ],
+  [
+    {
+      name: "Gallery",
+      slur: "gallery",
+      icon: TfiGallery,
+      color: "bg-blue-300",
+    },
   ],
 ];

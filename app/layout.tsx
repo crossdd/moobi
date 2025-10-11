@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import React from "react";
-import ProvidersWrapper from "@/components/ProvidersWrapper";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ReactNode } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ClockProvider } from "@/context/ClockContext";
+import { ChessGameProvider } from "@/components/screens/chess/GameContext";
 
 export const metadata: Metadata = {
   title: "Moobi",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "digital phone interface",
   ],
   icons: {
-    icon: "/images/logo.png",
+    icon: "/images/logo.webp",
   },
   openGraph: {
     title: "Moobi",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Moobi",
     images: [
       {
-        url: "https://moobi.vercel.app/images/logo.png",
+        url: "https://moobi.vercel.app/images/logo.webp",
         width: 650,
         height: 300,
         alt: "Moobi",
@@ -43,16 +43,25 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-black antialiased">
-        <ProvidersWrapper>
-          <Analytics />
-          <SpeedInsights />
-          {children}
-        </ProvidersWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClockProvider>
+            <ChessGameProvider>
+              {/*<Analytics />*/}
+              {/*<SpeedInsights />*/}
+              {children}
+            </ChessGameProvider>
+          </ClockProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
