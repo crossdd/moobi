@@ -1,37 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moobi
 
-## Getting Started
+**A web-based smartphone OS emulator built with Next.js. Experience a fully interactive mobile phone inside your browser. Browse, call, text, and launch apps — all in one virtual interface.**
 
-First, run the development server:
+Live: [moobi.vercel.app](https://moobi.vercel.app)
+
+---
+
+## 💡 Overview
+
+Moobi aims to simulate a mobile OS experience entirely within the browser. You can install and run apps, browse locally hosted development, use music, a clock, and more. It’s also a showcase of front-end craftsmanship — blending UI/UX, dynamic imports, state orchestration, and embedded previews.
+
+Think of it as **virtual phone meets portfolio**.
+
+---
+
+## ⚙️ Features
+
+Here’s what Moobi can (or will) do:
+
+- 📱 Multi-app environment under one persistent “frame”
+- 🚀 Live dev preview: load your local `http://localhost:…` in a mobile shell
+- 🧠 Dynamic screen loading (code splitting) for performance
+- 🎶 Built-in music player (stream or local files)
+- ⏰ Clock app (alarm, timer, stopwatch, world clock)
+- 🔁 App switching / recent apps UI
+- 🌗 System overlays (control center, brightness/volume)
+- 🔧 Modular architecture for easy addition of new mini-apps
+- 🪄 Smooth transitions, gestures (swipes), and animations
+
+---
+
+## 🧱 Tech Stack
+
+- **Next.js** (Pages or App Router)
+- **TypeScript**
+- **React + Suspense / dynamic imports**
+- **Zustand** for global state
+- **Tailwind CSS** for styling
+- **react-swipeable** (or equivalent) for gestures
+- **Official / external APIs** (e.g. music, news)
+- Integration of `<iframe>` and proxy for dev preview
+- **Vercel** for deployment
+
+---
+
+## 
+Each mini-app (e.g. `components/screens/clock`) can hold its own UI and possibly its own state logic (or use shared stores). The `Frame` component wraps them in the mobile phone shell.
+
+---
+
+## 🛠 Installation & Setup
+
+These instructions assume you have **Node.js** and **npm** installed.
 
 ```bash
+# 1. Clone this repo
+git clone https://github.com/crossdd/moobi.git
+cd moobi
+
+# 2. Install dependencies
+npm install
+
+# 3. Set environment variables
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+
+GOOGLE_SEARCH_ENGINE_ID=
+GOOGLE_SEARCH_API_KEY=
+
+WEATHER_API_SECRET_KEY=
+GNEWS_API_KEY=
+
+# 4. Run in development mode
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+## 🧠 How Moobi Works (Architecture Notes)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Here’s a quick dive into how the magic is wired:
 
-You can start editing the page by modifying `app/Camera.tsx`. The page auto-updates as you edit the file.
+### ✅ Frame & Root Shell
+- The `Frame` component is always mounted.
+- Inside it, the active screen (home, browser, clock, etc.) is swapped using **Zustand** + **dynamic imports**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✅ State Management via Zustand
+- `usePhoneStore` handles core state like:
+    - `currentScreen`
+    - `history`
+    - control center visibility
+    - volume & brightness
+- App-specific stores (e.g., music, notes) manage only their internal states.
 
-## Learn More
+### ✅ Dynamic Imports & Memoization
+- Each screen UI is **lazily loaded** to keep bundles lightweight.
+- Once a screen is loaded, it’s memoized, so re-opening it won’t trigger the loader again.
 
-To learn more about Next.js, take a look at the following resources:
+### ✅ Live Dev Preview / Browser Mode
+- URLs (e.g., `http://localhost:3000`) are embedded using an `<iframe>`.
+- Proxy/headers may be used to bypass embed restrictions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ✅ Gesture Handling & UI Transitions
+- Swipes (e.g., swipe-up to Home or AppSwitcher) handled with `react-swipeable` + custom logic.
+- Transitions and animations rely on **CSS, Framer motion, and Motion**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ✅ App Registry & Metadata
+- The `mobileApps` config defines:
+    - App slugs → icons
+    - App names
+    - App colors
+- Used to populate both the home screen grid and the AppSwitcher.
 
-## Deploy on Vercel
+## 👥 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Moobi is MIT-licensed and open to collaboration.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# portfolio
+### ✅ How to Contribute
+
+1. **Fork the repository**
+
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feat/your-feature
+   ```
+3. **Run lint/tests and verify functionality**
+4. Submit a pull request
+   Include a clear, concise description of your changes
+
+   `Please use ESLint + Prettier for consistent formatting`
